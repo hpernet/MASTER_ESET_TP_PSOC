@@ -1,0 +1,9 @@
+--------------- Build Started: 02/15/2022 08:33:05 Project: TP1_MESURE_DE_FREQUENCE, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+cydsfit.exe -.appdatapath "C:\Users\user\AppData\Local\Cypress Semiconductor\PSoC Creator\3.3" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p "D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\TP1_MESURE_DE_FREQUENCE.cyprj" -d CY8C5888LTI-LP097 -s "D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\Generated_Source\PSoC5" -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE
+Elaborating Design...
+ADD: pft.M0025: error: Clock Error: (The ILO must be set to 100 kHz for USB bus reset interrupts to function correctly.).
+ * D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\TP1_MESURE_DE_FREQUENCE.cydwr (ILO)
+ADD: pft.M0025: error: Clock Error: (The USB clock is disabled. The USB clock needs to be enabled in order to use USB.).
+ * D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\TP1_MESURE_DE_FREQUENCE.cydwr (USB_CLK)
+Error: cdf.M0005: CyDsFit aborted due to errors, please address all errors and rerun CyDsFit. (App=cydsfit)
+--------------- Build Failed: 02/15/2022 08:33:08 ---------------

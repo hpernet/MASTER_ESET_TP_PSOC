@@ -1,0 +1,13 @@
+Loading plugins phase: Elapsed time ==> 0s.187ms
+Initializing data phase: Elapsed time ==> 0s.000ms
+<CYPRESSTAG name="CyDsfit arguments...">
+cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\TP1_MESURE_DE_FREQUENCE.cyprj -d CY8C5888LTI-LP097 -s D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\Generated_Source\PSoC5 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE</CYPRESSTAG>
+<CYPRESSTAG name="Design elaboration results...">
+ADD: pft.M0025: error: Clock Error: (The ILO must be set to 100 kHz for USB bus reset interrupts to function correctly.).
+ * D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\TP1_MESURE_DE_FREQUENCE.cydwr (ILO)
+
+ADD: pft.M0025: error: Clock Error: (The USB clock is disabled. The USB clock needs to be enabled in order to use USB.).
+ * D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\TP1_MESURE_DE_FREQUENCE.cydwr (USB_CLK)
+
+</CYPRESSTAG>
+Elaboration phase: Elapsed time ==> 1s.294ms

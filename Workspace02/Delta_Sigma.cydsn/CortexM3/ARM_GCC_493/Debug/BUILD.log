@@ -1,0 +1,15 @@
+--------------- Build Started: 02/07/2022 14:38:29 Project: Delta_Sigma, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+The code generation step is up to date.
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -Wno-main -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_493\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c .\main.c -o .\CortexM3\ARM_GCC_493\Debug\main.o
+.\main.c: In function 'main':
+.\main.c:51:5: warning: implicit declaration of function 'DMA_1_DmaInitialize' [-Wimplicit-function-declaration]
+     DMA_1_Chan = DMA_1_DmaInitialize(DMA_1_BYTES_PER_BURST, DMA_1_REQUEST_PER_BURST, 
+     ^
+arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_493\Debug\Delta_Sigma.a .\CortexM3\ARM_GCC_493\Debug\cyfitter_cfg.o .\CortexM3\ARM_GCC_493\Debug\ADC_DelSig_1.o .\CortexM3\ARM_GCC_493\Debug\ADC_DelSig_1_PM.o .\CortexM3\ARM_GCC_493\Debug\ADC_DelSig_1_INT.o .\CortexM3\ARM_GCC_493\Debug\Pin_1.o .\CortexM3\ARM_GCC_493\Debug\Pin_2.o .\CortexM3\ARM_GCC_493\Debug\ADC_DelSig_1_AMux.o .\CortexM3\ARM_GCC_493\Debug\ADC_DelSig_1_Ext_CP_Clk.o .\CortexM3\ARM_GCC_493\Debug\ADC_DelSig_1_IRQ.o .\CortexM3\ARM_GCC_493\Debug\ADC_DelSig_1_theACLK.o .\CortexM3\ARM_GCC_493\Debug\CyBootAsmGnu.o .\CortexM3\ARM_GCC_493\Debug\CyDmac.o .\CortexM3\ARM_GCC_493\Debug\CyFlash.o .\CortexM3\ARM_GCC_493\Debug\CyLib.o .\CortexM3\ARM_GCC_493\Debug\cyPm.o .\CortexM3\ARM_GCC_493\Debug\CySpc.o .\CortexM3\ARM_GCC_493\Debug\cyutils.o .\CortexM3\ARM_GCC_493\Debug\VDAC8_1.o .\CortexM3\ARM_GCC_493\Debug\VDAC8_1_PM.o .\CortexM3\ARM_GCC_493\Debug\Pin_3.o
+arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_493\Debug\Delta_Sigma.a
+arm-none-eabi-gcc.exe -Wl,--start-group -o .\CortexM3\ARM_GCC_493\Debug\Delta_Sigma.elf .\CortexM3\ARM_GCC_493\Debug\main.o .\CortexM3\ARM_GCC_493\Debug\cymetadata.o .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o .\CortexM3\ARM_GCC_493\Debug\Delta_Sigma.a "C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_493\Debug\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -g -ffunction-sections -Og -L Generated_Source\PSoC5 -Wl,-Map,.\CortexM3\ARM_GCC_493\Debug/Delta_Sigma.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -Wl,--end-group
+.\CortexM3\ARM_GCC_493\Debug\main.o: In function `main':
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Delta_Sigma.cydsn/.\main.c:51: undefined reference to `DMA_1_DmaInitialize'
+collect2.exe: error: ld returned 1 exit status
+The command 'arm-none-eabi-gcc.exe' failed with exit code '1'.
+--------------- Build Failed: 02/07/2022 14:38:30 ---------------

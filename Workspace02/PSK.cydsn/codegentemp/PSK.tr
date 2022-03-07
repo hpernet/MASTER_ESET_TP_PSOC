@@ -1,0 +1,459 @@
+##################################################################### 
+                    Table of Contents
+===================================================================== 
+	1::Clock Frequency Summary
+	2::Clock Relationship Summary
+	3::Datasheet Report
+		3.1::Setup to Clock
+		3.2::Clock to Out
+		3.3::Pad to Pad
+	4::Path Details for Clock Frequency Summary
+		4.1::Critical Path Report for CyMASTER_CLK
+		4.2::Critical Path Report for WaveDAC8_1_DacClk
+		4.3::Critical Path Report for \WaveDAC8_1:Wave1_DMA\/termout
+		4.4::Critical Path Report for \WaveDAC8_1:Wave2_DMA\/termout
+	5::Path Details for Clock Relationship Summary
+		5.1::Critical Path Report for (\WaveDAC8_1:Wave1_DMA\/termout:R vs. WaveDAC8_1_DacClk:R)
+		5.2::Critical Path Report for (\WaveDAC8_1:Wave2_DMA\/termout:R vs. WaveDAC8_1_DacClk:R)
+===================================================================== 
+                    End of Table of Contents
+##################################################################### 
+
+##################################################################### 
+                    1::Clock Frequency Summary
+===================================================================== 
+Number of clocks: 9
+Clock: CyBUS_CLK                       | N/A                   | Target: 24.00 MHz  | 
+Clock: CyILO                           | N/A                   | Target: 0.00 MHz   | 
+Clock: CyIMO                           | N/A                   | Target: 3.00 MHz   | 
+Clock: CyMASTER_CLK                    | Frequency: 35.79 MHz  | Target: 24.00 MHz  | 
+Clock: CyPLL_OUT                       | N/A                   | Target: 24.00 MHz  | 
+Clock: WaveDAC8_1_DacClk               | Frequency: 35.79 MHz  | Target: 0.20 MHz   | 
+Clock: WaveDAC8_1_DacClk(routed)       | N/A                   | Target: 0.20 MHz   | 
+Clock: \WaveDAC8_1:Wave1_DMA\/termout  | Frequency: 35.79 MHz  | Target: 12.00 MHz  | 
+Clock: \WaveDAC8_1:Wave2_DMA\/termout  | Frequency: 37.02 MHz  | Target: 12.00 MHz  | 
+
+ =====================================================================
+                    End of Clock Frequency Summary
+ #####################################################################
+
+
+ #####################################################################
+                    2::Clock Relationship Summary
+ =====================================================================
+
+Launch Clock                    Capture Clock      Constraint(R-R)  Slack(R-R)  Constraint(R-F)  Slack(R-F)  Constraint(F-F)  Slack(F-F)  Constraint(F-R)  Slack(F-R)  
+------------------------------  -----------------  ---------------  ----------  ---------------  ----------  ---------------  ----------  ---------------  ----------  
+\WaveDAC8_1:Wave1_DMA\/termout  WaveDAC8_1_DacClk  41666.7          13729       N/A              N/A         N/A              N/A         N/A              N/A         
+\WaveDAC8_1:Wave2_DMA\/termout  WaveDAC8_1_DacClk  41666.7          14653       N/A              N/A         N/A              N/A         N/A              N/A         
+
+ =====================================================================
+                    End of Clock Relationship Summary
+ #####################################################################
+
+
+ #####################################################################
+                    3::Datasheet Report
+
+All values are in Picoseconds
+ =====================================================================
+
+3.1::Setup to Clock                     
+-------------------                     
+
+Port Name     Setup to Clk  Clock Name:Phase                  
+------------  ------------  --------------------------------  
+Pin_1(0)_PAD  -2932         \WaveDAC8_1:Wave2_DMA\/termout:R  
+Pin_1(0)_PAD  -3856         \WaveDAC8_1:Wave1_DMA\/termout:R  
+
+
+                       3.2::Clock to Out
+                       -----------------
+
+Port Name  Clock to Out  Clock Name:Phase  
+---------  ------------  ----------------  
+
+
+-------------------------3.3::Pad to Pad
+----------------------------------------
+
+Port Name (Source)  Port Name (Destination)  Delay  
+------------------  -----------------------  -----  
+
+===================================================================== 
+                    End of Datasheet Report
+##################################################################### 
+##################################################################### 
+                    4::Path Details for Clock Frequency Summary
+===================================================================== 
+4.1::Critical Path Report for CyMASTER_CLK
+******************************************
+Clock: CyMASTER_CLK
+Frequency: 35.79 MHz | Target: 24.00 MHz
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_17/q
+Path End       : \WaveDAC8_1:Net_134\/main_0
+Capture Clock  : \WaveDAC8_1:Net_134\/clock_0
+Path slack     : 13729p
+
+Capture Clock Arrival Time                                                                                      0
++ Clock path delay                                                                                              0
++ Cycle adjust (period of common ancestor clock between \WaveDAC8_1:Wave1_DMA\/termout WaveDAC8_1_DacClk)   41667
+- Setup time                                                                                                -3510
+---------------------------------------------------------------------------------------------------------   ----- 
+End-of-path required time (ps)                                                                              38157
+
+Launch Clock Arrival Time                       0
++ Clock path delay                      20893
++ Data path delay                        3534
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           24427
+ 
+Launch Clock Path
+pin name                                                            model name      delay     AT  edge  Fanout
+------------------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/clk_bus_glb                                              clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/clock                                        drqcell1            0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/termout                                      drqcell1         9000   9000  
+\WaveDAC8_1:Wave1_DMA\/termout (TOTAL_ADJUSTMENTS)                  drqcell1            0   9000  RISE       1
+--\WaveDAC8_1:Wave1_DMA\/termout (Clock Phase Adjustment Delay)     drqcell1            0    N/A  
+Net_23/main_0                                                       macrocell3       6235  15235  RISE       1
+Net_23/q                                                            macrocell3       3350  18585  RISE       1
+Net_17/clock_0                                                      macrocell5       2308  20893  RISE       1
+
+Data path
+pin name                     model name   delay     AT  slack  edge  Fanout
+---------------------------  -----------  -----  -----  -----  ----  ------
+Net_17/q                     macrocell5    1250  22143  13729  RISE       1
+\WaveDAC8_1:Net_134\/main_0  macrocell4    2284  24427  13729  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Net_134\/clock_0                               macrocell4          0      0  RISE       1
+
+
+===================================================================== 
+4.2::Critical Path Report for WaveDAC8_1_DacClk
+***********************************************
+Clock: WaveDAC8_1_DacClk
+Frequency: 35.79 MHz | Target: 0.20 MHz
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_17/q
+Path End       : \WaveDAC8_1:Net_134\/main_0
+Capture Clock  : \WaveDAC8_1:Net_134\/clock_0
+Path slack     : 13729p
+
+Capture Clock Arrival Time                                                                                      0
++ Clock path delay                                                                                              0
++ Cycle adjust (period of common ancestor clock between \WaveDAC8_1:Wave1_DMA\/termout WaveDAC8_1_DacClk)   41667
+- Setup time                                                                                                -3510
+---------------------------------------------------------------------------------------------------------   ----- 
+End-of-path required time (ps)                                                                              38157
+
+Launch Clock Arrival Time                       0
++ Clock path delay                      20893
++ Data path delay                        3534
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           24427
+ 
+Launch Clock Path
+pin name                                                            model name      delay     AT  edge  Fanout
+------------------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/clk_bus_glb                                              clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/clock                                        drqcell1            0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/termout                                      drqcell1         9000   9000  
+\WaveDAC8_1:Wave1_DMA\/termout (TOTAL_ADJUSTMENTS)                  drqcell1            0   9000  RISE       1
+--\WaveDAC8_1:Wave1_DMA\/termout (Clock Phase Adjustment Delay)     drqcell1            0    N/A  
+Net_23/main_0                                                       macrocell3       6235  15235  RISE       1
+Net_23/q                                                            macrocell3       3350  18585  RISE       1
+Net_17/clock_0                                                      macrocell5       2308  20893  RISE       1
+
+Data path
+pin name                     model name   delay     AT  slack  edge  Fanout
+---------------------------  -----------  -----  -----  -----  ----  ------
+Net_17/q                     macrocell5    1250  22143  13729  RISE       1
+\WaveDAC8_1:Net_134\/main_0  macrocell4    2284  24427  13729  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Net_134\/clock_0                               macrocell4          0      0  RISE       1
+
+
+===================================================================== 
+4.3::Critical Path Report for \WaveDAC8_1:Wave1_DMA\/termout
+************************************************************
+Clock: \WaveDAC8_1:Wave1_DMA\/termout
+Frequency: 35.79 MHz | Target: 12.00 MHz
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_17/q
+Path End       : \WaveDAC8_1:Net_134\/main_0
+Capture Clock  : \WaveDAC8_1:Net_134\/clock_0
+Path slack     : 13729p
+
+Capture Clock Arrival Time                                                                                      0
++ Clock path delay                                                                                              0
++ Cycle adjust (period of common ancestor clock between \WaveDAC8_1:Wave1_DMA\/termout WaveDAC8_1_DacClk)   41667
+- Setup time                                                                                                -3510
+---------------------------------------------------------------------------------------------------------   ----- 
+End-of-path required time (ps)                                                                              38157
+
+Launch Clock Arrival Time                       0
++ Clock path delay                      20893
++ Data path delay                        3534
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           24427
+ 
+Launch Clock Path
+pin name                                                            model name      delay     AT  edge  Fanout
+------------------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/clk_bus_glb                                              clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/clock                                        drqcell1            0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/termout                                      drqcell1         9000   9000  
+\WaveDAC8_1:Wave1_DMA\/termout (TOTAL_ADJUSTMENTS)                  drqcell1            0   9000  RISE       1
+--\WaveDAC8_1:Wave1_DMA\/termout (Clock Phase Adjustment Delay)     drqcell1            0    N/A  
+Net_23/main_0                                                       macrocell3       6235  15235  RISE       1
+Net_23/q                                                            macrocell3       3350  18585  RISE       1
+Net_17/clock_0                                                      macrocell5       2308  20893  RISE       1
+
+Data path
+pin name                     model name   delay     AT  slack  edge  Fanout
+---------------------------  -----------  -----  -----  -----  ----  ------
+Net_17/q                     macrocell5    1250  22143  13729  RISE       1
+\WaveDAC8_1:Net_134\/main_0  macrocell4    2284  24427  13729  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Net_134\/clock_0                               macrocell4          0      0  RISE       1
+
+
+===================================================================== 
+4.4::Critical Path Report for \WaveDAC8_1:Wave2_DMA\/termout
+************************************************************
+Clock: \WaveDAC8_1:Wave2_DMA\/termout
+Frequency: 37.02 MHz | Target: 12.00 MHz
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_17/q
+Path End       : \WaveDAC8_1:Net_134\/main_0
+Capture Clock  : \WaveDAC8_1:Net_134\/clock_0
+Path slack     : 14653p
+
+Capture Clock Arrival Time                                                                                      0
++ Clock path delay                                                                                              0
++ Cycle adjust (period of common ancestor clock between \WaveDAC8_1:Wave2_DMA\/termout WaveDAC8_1_DacClk)   41667
+- Setup time                                                                                                -3510
+---------------------------------------------------------------------------------------------------------   ----- 
+End-of-path required time (ps)                                                                              38157
+
+Launch Clock Arrival Time                       0
++ Clock path delay                      19970
++ Data path delay                        3534
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           23504
+ 
+Launch Clock Path
+pin name                                                            model name      delay     AT  edge  Fanout
+------------------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/clk_bus_glb                                              clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Wave2_DMA\/clock                                        drqcell2            0      0  RISE       1
+\WaveDAC8_1:Wave2_DMA\/termout                                      drqcell2         9000   9000  
+\WaveDAC8_1:Wave2_DMA\/termout (TOTAL_ADJUSTMENTS)                  drqcell2            0   9000  RISE       1
+--\WaveDAC8_1:Wave2_DMA\/termout (Clock Phase Adjustment Delay)     drqcell2            0    N/A  
+Net_23/main_1                                                       macrocell3       5312  14312  RISE       1
+Net_23/q                                                            macrocell3       3350  17662  RISE       1
+Net_17/clock_0                                                      macrocell5       2308  19970  RISE       1
+
+Data path
+pin name                     model name   delay     AT  slack  edge  Fanout
+---------------------------  -----------  -----  -----  -----  ----  ------
+Net_17/q                     macrocell5    1250  21220  14653  RISE       1
+\WaveDAC8_1:Net_134\/main_0  macrocell4    2284  23504  14653  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Net_134\/clock_0                               macrocell4          0      0  RISE       1
+
+
+
+===================================================================== 
+                    End of Path Details for Clock Frequency Summary
+##################################################################### 
+
+
+##################################################################### 
+                    5::Path Details for Clock Relationship Summary
+===================================================================== 
+
+5.1::Critical Path Report for (\WaveDAC8_1:Wave1_DMA\/termout:R vs. WaveDAC8_1_DacClk:R)
+****************************************************************************************
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_17/q
+Path End       : \WaveDAC8_1:Net_134\/main_0
+Capture Clock  : \WaveDAC8_1:Net_134\/clock_0
+Path slack     : 13729p
+
+Capture Clock Arrival Time                                                                                      0
++ Clock path delay                                                                                              0
++ Cycle adjust (period of common ancestor clock between \WaveDAC8_1:Wave1_DMA\/termout WaveDAC8_1_DacClk)   41667
+- Setup time                                                                                                -3510
+---------------------------------------------------------------------------------------------------------   ----- 
+End-of-path required time (ps)                                                                              38157
+
+Launch Clock Arrival Time                       0
++ Clock path delay                      20893
++ Data path delay                        3534
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           24427
+ 
+Launch Clock Path
+pin name                                                            model name      delay     AT  edge  Fanout
+------------------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/clk_bus_glb                                              clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/clock                                        drqcell1            0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/termout                                      drqcell1         9000   9000  
+\WaveDAC8_1:Wave1_DMA\/termout (TOTAL_ADJUSTMENTS)                  drqcell1            0   9000  RISE       1
+--\WaveDAC8_1:Wave1_DMA\/termout (Clock Phase Adjustment Delay)     drqcell1            0    N/A  
+Net_23/main_0                                                       macrocell3       6235  15235  RISE       1
+Net_23/q                                                            macrocell3       3350  18585  RISE       1
+Net_17/clock_0                                                      macrocell5       2308  20893  RISE       1
+
+Data path
+pin name                     model name   delay     AT  slack  edge  Fanout
+---------------------------  -----------  -----  -----  -----  ----  ------
+Net_17/q                     macrocell5    1250  22143  13729  RISE       1
+\WaveDAC8_1:Net_134\/main_0  macrocell4    2284  24427  13729  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Net_134\/clock_0                               macrocell4          0      0  RISE       1
+
+
+5.2::Critical Path Report for (\WaveDAC8_1:Wave2_DMA\/termout:R vs. WaveDAC8_1_DacClk:R)
+****************************************************************************************
+
+++++ Path 2 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_17/q
+Path End       : \WaveDAC8_1:Net_134\/main_0
+Capture Clock  : \WaveDAC8_1:Net_134\/clock_0
+Path slack     : 14653p
+
+Capture Clock Arrival Time                                                                                      0
++ Clock path delay                                                                                              0
++ Cycle adjust (period of common ancestor clock between \WaveDAC8_1:Wave2_DMA\/termout WaveDAC8_1_DacClk)   41667
+- Setup time                                                                                                -3510
+---------------------------------------------------------------------------------------------------------   ----- 
+End-of-path required time (ps)                                                                              38157
+
+Launch Clock Arrival Time                       0
++ Clock path delay                      19970
++ Data path delay                        3534
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           23504
+ 
+Launch Clock Path
+pin name                                                            model name      delay     AT  edge  Fanout
+------------------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/clk_bus_glb                                              clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Wave2_DMA\/clock                                        drqcell2            0      0  RISE       1
+\WaveDAC8_1:Wave2_DMA\/termout                                      drqcell2         9000   9000  
+\WaveDAC8_1:Wave2_DMA\/termout (TOTAL_ADJUSTMENTS)                  drqcell2            0   9000  RISE       1
+--\WaveDAC8_1:Wave2_DMA\/termout (Clock Phase Adjustment Delay)     drqcell2            0    N/A  
+Net_23/main_1                                                       macrocell3       5312  14312  RISE       1
+Net_23/q                                                            macrocell3       3350  17662  RISE       1
+Net_17/clock_0                                                      macrocell5       2308  19970  RISE       1
+
+Data path
+pin name                     model name   delay     AT  slack  edge  Fanout
+---------------------------  -----------  -----  -----  -----  ----  ------
+Net_17/q                     macrocell5    1250  21220  14653  RISE       1
+\WaveDAC8_1:Net_134\/main_0  macrocell4    2284  23504  14653  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Net_134\/clock_0                               macrocell4          0      0  RISE       1
+
+
+
+===================================================================== 
+                    End of Path Details for Clock Relationship Summary
+##################################################################### 
+
+##################################################################### 
+                    Detailed Report for all timing paths 
+===================================================================== 
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_17/q
+Path End       : \WaveDAC8_1:Net_134\/main_0
+Capture Clock  : \WaveDAC8_1:Net_134\/clock_0
+Path slack     : 13729p
+
+Capture Clock Arrival Time                                                                                      0
++ Clock path delay                                                                                              0
++ Cycle adjust (period of common ancestor clock between \WaveDAC8_1:Wave1_DMA\/termout WaveDAC8_1_DacClk)   41667
+- Setup time                                                                                                -3510
+---------------------------------------------------------------------------------------------------------   ----- 
+End-of-path required time (ps)                                                                              38157
+
+Launch Clock Arrival Time                       0
++ Clock path delay                      20893
++ Data path delay                        3534
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           24427
+ 
+Launch Clock Path
+pin name                                                            model name      delay     AT  edge  Fanout
+------------------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/clk_bus_glb                                              clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/clock                                        drqcell1            0      0  RISE       1
+\WaveDAC8_1:Wave1_DMA\/termout                                      drqcell1         9000   9000  
+\WaveDAC8_1:Wave1_DMA\/termout (TOTAL_ADJUSTMENTS)                  drqcell1            0   9000  RISE       1
+--\WaveDAC8_1:Wave1_DMA\/termout (Clock Phase Adjustment Delay)     drqcell1            0    N/A  
+Net_23/main_0                                                       macrocell3       6235  15235  RISE       1
+Net_23/q                                                            macrocell3       3350  18585  RISE       1
+Net_17/clock_0                                                      macrocell5       2308  20893  RISE       1
+
+Data path
+pin name                     model name   delay     AT  slack  edge  Fanout
+---------------------------  -----------  -----  -----  -----  ----  ------
+Net_17/q                     macrocell5    1250  22143  13729  RISE       1
+\WaveDAC8_1:Net_134\/main_0  macrocell4    2284  24427  13729  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\WaveDAC8_1:Net_134\/clock_0                               macrocell4          0      0  RISE       1
+
+
+===================================================================== 
+                    End of Detailed Report for all timing paths 
+##################################################################### 
+
+##################################################################### 
+                    End of Timing Report 
+##################################################################### 
+

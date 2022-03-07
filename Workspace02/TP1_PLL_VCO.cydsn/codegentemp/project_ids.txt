@@ -1,0 +1,9 @@
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\FM.cydsn\FM.cyprj|229a2ad3-6372-4523-88a1-95c4d53278ce
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|57466e68-3e2c-4c88-ad1d-4874861be5a4
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|b44fbc13-2da7-4e94-92aa-0fe061c9a769
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|d7a718c9-7ecf-4226-b9ff-6dedb6546588
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|e8640577-936d-4b40-a866-f3f3c1f84b77
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\PSK.cydsn\PSK.cyprj|30f8ff14-0072-4d5d-9dbd-71df395967ba
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\FSK.cydsn\FSK.cyprj|2c3254fb-a23b-482c-95f7-0fac7dc2d3a2
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\ASK.cydsn\ASK.cyprj|285e6953-034d-4d26-a944-19ab2ac991d9
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_PLL_VCO.cydsn\TP1_PLL_VCO.cyprj|363547e8-badf-46ee-a787-de57b384696d

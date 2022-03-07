@@ -1,0 +1,17 @@
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Generation_signal_analogique.cydsn\Generation_signal_analogique.cyprj|1ae2ac5b-20af-403f-9580-ead410b66827
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|35531109-6e3c-412d-99ef-94da10807e5f
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|25daa755-2922-453f-a3c5-3c2d2cddbef4
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|5dd0f58c-7066-4394-b7b4-1594d6af270c
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|b5460dbe-4691-4938-b39a-3f0e435f22a7
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\GPIO.cydsn\GPIO.cyprj|fac3fc31-3402-4678-953c-468b89658c92
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\PGA.cydsn\PGA.cyprj|29390f16-4f1a-4624-b6d0-363a23904ac2
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\USB_UART.cydsn\USB_UART.cyprj|f66e9b90-74d1-45ac-bf68-f6a76a64d5b7
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\USB_UART_INT.cydsn\USB_UART_INT.cyprj|4de4ceac-a739-433e-9b8f-3b5784176965
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Delta_Sigma.cydsn\Delta_Sigma.cyprj|b145c794-d977-47bf-aad1-cdf36daf42b2
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Delta_Sigma_DMA.cydsn\Delta_Sigma_DMA.cyprj|3a12d096-6729-485d-a54c-d0f6c1fadd69
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Delta_Sigma_DMA_Filter_FIR.cydsn\Delta_Sigma_DMA_Filter_FIR.cyprj|925b28ce-5dab-4cbf-9454-355682790cf3
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Delta_Sigma_DMA_Filter_IIR.cydsn\Delta_Sigma_DMA_Filter_IIR.cyprj|fbed069e-f1b8-4a13-a217-e66b225cb361
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\USB_UART_EEPROM.cydsn\USB_UART_EEPROM.cyprj|29bdefb7-9f93-4e6b-9f10-dac0cf376ca9
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\USB_UART_INT_Timer.cydsn\USB_UART_INT_Timer.cyprj|55197d77-54da-4dd8-b64c-5452b6527c0f
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Capsense.cydsn\Capsense.cyprj|7e699673-70ca-41b0-be99-dbbb19b86566
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|5461b2f5-23a1-4799-b999-163fa7934e46

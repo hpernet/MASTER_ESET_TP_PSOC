@@ -1,0 +1,15 @@
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\GPIO.cydsn\GPIO.cyprj|a6293315-13b4-4b7b-93ec-9862cdd5acee
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|a77aa14b-e630-4c27-9306-a6be4eefc82b
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|2c791dc9-495b-4b05-882e-d0c62125e541
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|8ffccfab-2ee2-48e5-81f8-85112900f4d0
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|14b081ca-7527-405a-8caf-b35b583d279d
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\PGA.cydsn\PGA.cyprj|9f8e44b0-3628-4c14-8255-f42621bde394
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\USB_UART_INT.cydsn\USB_UART_INT.cyprj|278837f3-4a35-414f-8d84-b50ffed15514
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Delta_Sigma.cydsn\Delta_Sigma.cyprj|efed5ff7-2324-409f-9d04-9a196c1122f0
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Delta_Sigma_DMA.cydsn\Delta_Sigma_DMA.cyprj|b7969efd-7a61-4884-b94a-1da5c08c3eee
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Delta_Sigma_DMA_Filter_FIR.cydsn\Delta_Sigma_DMA_Filter_FIR.cyprj|50491d0b-09b5-415a-9d18-557998ea8125
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\USB_UART_EEPROM.cydsn\USB_UART_EEPROM.cyprj|f5f622b1-4c73-4fe7-86d9-08da7efe32f0
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\Generation_signal_analogique.cydsn\Generation_signal_analogique.cyprj|d68f9d30-c802-489b-accb-a28e17a8cbbc
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\CapSense_CSD_WithTuner01.cydsn\CapSense_CSD_WithTuner01.cyprj|e931fb56-50f7-455d-b8b7-68fb6dbc8ad9
+C:\Program Files (x86)\Cypress\PSoC Creator\3.3\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|8518067e-cc8b-4f24-a8c4-372b5819a365
+D:\Utilisateurs\user\Documents\PSoC Creator\Workspace02\TP1_MESURE_DE_FREQUENCE.cydsn\TP1_MESURE_DE_FREQUENCE.cyprj|c65412c8-ed1a-437a-8d01-b68dc6383fb7

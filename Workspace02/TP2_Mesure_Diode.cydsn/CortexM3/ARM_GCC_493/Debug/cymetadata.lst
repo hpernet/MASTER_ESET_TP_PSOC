@@ -1,0 +1,732 @@
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"cymetadata.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	cy_metadata
+  19              		.global	cy_meta_flashprotect
+  20              		.global	cy_meta_wonvl
+  21              		.global	cy_meta_custnvl
+  22              		.global	cy_meta_configecc
+  23              		.section	.cyconfigecc,"a",%progbits
+  24              		.align	2
+  25              		.type	cy_meta_configecc, %object
+  26              		.size	cy_meta_configecc, 232
+  27              	cy_meta_configecc:
+  28 0000 01       		.byte	1
+  29 0001 45       		.byte	69
+  30 0002 00       		.byte	0
+  31 0003 40       		.byte	64
+  32 0004 01       		.byte	1
+  33 0005 52       		.byte	82
+  34 0006 00       		.byte	0
+  35 0007 40       		.byte	64
+  36 0008 01       		.byte	1
+  37 0009 09       		.byte	9
+  38 000a 01       		.byte	1
+  39 000b 40       		.byte	64
+  40 000c 04       		.byte	4
+  41 000d 0A       		.byte	10
+  42 000e 01       		.byte	1
+  43 000f 40       		.byte	64
+  44 0010 01       		.byte	1
+  45 0011 0B       		.byte	11
+  46 0012 01       		.byte	1
+  47 0013 40       		.byte	64
+  48 0014 01       		.byte	1
+  49 0015 15       		.byte	21
+  50 0016 01       		.byte	1
+  51 0017 40       		.byte	64
+  52 0018 02       		.byte	2
+  53 0019 17       		.byte	23
+  54 001a 01       		.byte	1
+  55 001b 40       		.byte	64
+  56 001c 02       		.byte	2
+  57 001d 19       		.byte	25
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 2
+
+
+  58 001e 01       		.byte	1
+  59 001f 40       		.byte	64
+  60 0020 01       		.byte	1
+  61 0021 1B       		.byte	27
+  62 0022 01       		.byte	1
+  63 0023 40       		.byte	64
+  64 0024 03       		.byte	3
+  65 0025 40       		.byte	64
+  66 0026 01       		.byte	1
+  67 0027 40       		.byte	64
+  68 0028 03       		.byte	3
+  69 0029 41       		.byte	65
+  70 002a 01       		.byte	1
+  71 002b 40       		.byte	64
+  72 002c 03       		.byte	3
+  73 002d 42       		.byte	66
+  74 002e 01       		.byte	1
+  75 002f 40       		.byte	64
+  76 0030 03       		.byte	3
+  77 0031 43       		.byte	67
+  78 0032 01       		.byte	1
+  79 0033 40       		.byte	64
+  80 0034 02       		.byte	2
+  81 0035 44       		.byte	68
+  82 0036 01       		.byte	1
+  83 0037 40       		.byte	64
+  84 0038 01       		.byte	1
+  85 0039 45       		.byte	69
+  86 003a 01       		.byte	1
+  87 003b 40       		.byte	64
+  88 003c 03       		.byte	3
+  89 003d 46       		.byte	70
+  90 003e 01       		.byte	1
+  91 003f 40       		.byte	64
+  92 0040 07       		.byte	7
+  93 0041 47       		.byte	71
+  94 0042 01       		.byte	1
+  95 0043 40       		.byte	64
+  96 0044 06       		.byte	6
+  97 0045 48       		.byte	72
+  98 0046 01       		.byte	1
+  99 0047 40       		.byte	64
+ 100 0048 01       		.byte	1
+ 101 0049 49       		.byte	73
+ 102 004a 01       		.byte	1
+ 103 004b 40       		.byte	64
+ 104 004c 03       		.byte	3
+ 105 004d 4C       		.byte	76
+ 106 004e 01       		.byte	1
+ 107 004f 40       		.byte	64
+ 108 0050 02       		.byte	2
+ 109 0051 4D       		.byte	77
+ 110 0052 01       		.byte	1
+ 111 0053 40       		.byte	64
+ 112 0054 01       		.byte	1
+ 113 0055 51       		.byte	81
+ 114 0056 01       		.byte	1
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 3
+
+
+ 115 0057 40       		.byte	64
+ 116 0058 7E       		.byte	126
+ 117 0059 02       		.byte	2
+ 118 005a 7C       		.byte	124
+ 119 005b 40       		.byte	64
+ 120 005c B5       		.byte	-75
+ 121 005d 02       		.byte	2
+ 122 005e B8       		.byte	-72
+ 123 005f 02       		.byte	2
+ 124 0060 BE       		.byte	-66
+ 125 0061 01       		.byte	1
+ 126 0062 D8       		.byte	-40
+ 127 0063 04       		.byte	4
+ 128 0064 DF       		.byte	-33
+ 129 0065 01       		.byte	1
+ 130 0066 1D       		.byte	29
+ 131 0067 02       		.byte	2
+ 132 0068 EC       		.byte	-20
+ 133 0069 10       		.byte	16
+ 134 006a EA       		.byte	-22
+ 135 006b 02       		.byte	2
+ 136 006c EE       		.byte	-18
+ 137 006d 0A       		.byte	10
+ 138 006e EA       		.byte	-22
+ 139 006f 02       		.byte	2
+ 140 0070 EE       		.byte	-18
+ 141 0071 0A       		.byte	10
+ 142 0072 EC       		.byte	-20
+ 143 0073 10       		.byte	16
+ 144 0074 33       		.byte	51
+ 145 0075 81       		.byte	-127
+ 146 0076 36       		.byte	54
+ 147 0077 40       		.byte	64
+ 148 0078 CC       		.byte	-52
+ 149 0079 70       		.byte	112
+ 150 007a 9F       		.byte	-97
+ 151 007b 01       		.byte	1
+ 152 007c A6       		.byte	-90
+ 153 007d 40       		.byte	64
+ 154 007e A7       		.byte	-89
+ 155 007f 80       		.byte	-128
+ 156 0080 9F       		.byte	-97
+ 157 0081 01       		.byte	1
+ 158 0082 A6       		.byte	-90
+ 159 0083 40       		.byte	64
+ 160 0084 A7       		.byte	-89
+ 161 0085 80       		.byte	-128
+ 162 0086 9F       		.byte	-97
+ 163 0087 01       		.byte	1
+ 164 0088 A6       		.byte	-90
+ 165 0089 40       		.byte	64
+ 166 008a A7       		.byte	-89
+ 167 008b 80       		.byte	-128
+ 168 008c 7C       		.byte	124
+ 169 008d 01       		.byte	1
+ 170 008e DE       		.byte	-34
+ 171 008f 01       		.byte	1
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 4
+
+
+ 172 0090 94       		.byte	-108
+ 173 0091 01       		.byte	1
+ 174 0092 45       		.byte	69
+ 175 0093 08       		.byte	8
+ 176 0094 94       		.byte	-108
+ 177 0095 01       		.byte	1
+ 178 0096 D0       		.byte	-48
+ 179 0097 01       		.byte	1
+ 180 0098 08       		.byte	8
+ 181 0099 08       		.byte	8
+ 182 009a 0B       		.byte	11
+ 183 009b 04       		.byte	4
+ 184 009c 0F       		.byte	15
+ 185 009d 40       		.byte	64
+ 186 009e A5       		.byte	-91
+ 187 009f 08       		.byte	8
+ 188 00a0 B4       		.byte	-76
+ 189 00a1 01       		.byte	1
+ 190 00a2 C2       		.byte	-62
+ 191 00a3 0E       		.byte	14
+ 192 00a4 EC       		.byte	-20
+ 193 00a5 08       		.byte	8
+ 194 00a6 25       		.byte	37
+ 195 00a7 10       		.byte	16
+ 196 00a8 AE       		.byte	-82
+ 197 00a9 40       		.byte	64
+ 198 00aa AF       		.byte	-81
+ 199 00ab 81       		.byte	-127
+ 200 00ac C8       		.byte	-56
+ 201 00ad 20       		.byte	32
+ 202 00ae EA       		.byte	-22
+ 203 00af 40       		.byte	64
+ 204 00b0 EE       		.byte	-18
+ 205 00b1 50       		.byte	80
+ 206 00b2 B5       		.byte	-75
+ 207 00b3 10       		.byte	16
+ 208 00b4 A5       		.byte	-91
+ 209 00b5 08       		.byte	8
+ 210 00b6 AC       		.byte	-84
+ 211 00b7 08       		.byte	8
+ 212 00b8 AF       		.byte	-81
+ 213 00b9 44       		.byte	68
+ 214 00ba B5       		.byte	-75
+ 215 00bb 08       		.byte	8
+ 216 00bc EC       		.byte	-20
+ 217 00bd 08       		.byte	8
+ 218 00be 00       		.byte	0
+ 219 00bf 2A       		.byte	42
+ 220 00c0 40       		.byte	64
+ 221 00c1 00       		.byte	0
+ 222 00c2 00       		.byte	0
+ 223 00c3 00       		.byte	0
+ 224 00c4 00       		.byte	0
+ 225 00c5 00       		.byte	0
+ 226 00c6 00       		.byte	0
+ 227 00c7 00       		.byte	0
+ 228 00c8 C0       		.byte	-64
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 5
+
+
+ 229 00c9 00       		.byte	0
+ 230 00ca 00       		.byte	0
+ 231 00cb 00       		.byte	0
+ 232 00cc 00       		.byte	0
+ 233 00cd 00       		.byte	0
+ 234 00ce 00       		.byte	0
+ 235 00cf 00       		.byte	0
+ 236 00d0 00       		.byte	0
+ 237 00d1 00       		.byte	0
+ 238 00d2 80       		.byte	-128
+ 239 00d3 00       		.byte	0
+ 240 00d4 00       		.byte	0
+ 241 00d5 00       		.byte	0
+ 242 00d6 00       		.byte	0
+ 243 00d7 00       		.byte	0
+ 244 00d8 00       		.byte	0
+ 245 00d9 00       		.byte	0
+ 246 00da 80       		.byte	-128
+ 247 00db 00       		.byte	0
+ 248 00dc 00       		.byte	0
+ 249 00dd 00       		.byte	0
+ 250 00de 00       		.byte	0
+ 251 00df 00       		.byte	0
+ 252 00e0 00       		.byte	0
+ 253 00e1 00       		.byte	0
+ 254 00e2 42       		.byte	66
+ 255 00e3 00       		.byte	0
+ 256 00e4 07       		.byte	7
+ 257 00e5 00       		.byte	0
+ 258 00e6 18       		.byte	24
+ 259 00e7 01       		.byte	1
+ 260              		.section	.cywolatch,"a",%progbits
+ 261              		.align	2
+ 262              		.type	cy_meta_wonvl, %object
+ 263              		.size	cy_meta_wonvl, 4
+ 264              	cy_meta_wonvl:
+ 265 0000 BC       		.byte	-68
+ 266 0001 90       		.byte	-112
+ 267 0002 AC       		.byte	-84
+ 268 0003 AF       		.byte	-81
+ 269              		.section	.cycustnvl,"a",%progbits
+ 270              		.align	2
+ 271              		.type	cy_meta_custnvl, %object
+ 272              		.size	cy_meta_custnvl, 4
+ 273              	cy_meta_custnvl:
+ 274 0000 00       		.byte	0
+ 275 0001 00       		.byte	0
+ 276 0002 40       		.byte	64
+ 277 0003 05       		.byte	5
+ 278              		.section	.cymeta,"a",%progbits
+ 279              		.align	2
+ 280              		.type	cy_metadata, %object
+ 281              		.size	cy_metadata, 12
+ 282              	cy_metadata:
+ 283 0000 00       		.byte	0
+ 284 0001 01       		.byte	1
+ 285 0002 2E       		.byte	46
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 6
+
+
+ 286 0003 16       		.byte	22
+ 287 0004 10       		.byte	16
+ 288 0005 69       		.byte	105
+ 289 0006 00       		.byte	0
+ 290 0007 01       		.byte	1
+ 291 0008 00       		.byte	0
+ 292 0009 00       		.byte	0
+ 293 000a 00       		.byte	0
+ 294 000b 00       		.byte	0
+ 295              		.section	.cyflashprotect,"a",%progbits
+ 296              		.align	2
+ 297              		.type	cy_meta_flashprotect, %object
+ 298              		.size	cy_meta_flashprotect, 256
+ 299              	cy_meta_flashprotect:
+ 300 0000 00000000 		.space	256
+ 300      00000000 
+ 300      00000000 
+ 300      00000000 
+ 300      00000000 
+ 301              		.text
+ 302              	.Letext0:
+ 303              		.file 1 ".\\Generated_Source\\PSoC5\\cymetadata.c"
+ 304              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 305              		.section	.debug_info,"",%progbits
+ 306              	.Ldebug_info0:
+ 307 0000 36010000 		.4byte	0x136
+ 308 0004 0400     		.2byte	0x4
+ 309 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 310 000a 04       		.byte	0x4
+ 311 000b 01       		.uleb128 0x1
+ 312 000c 94000000 		.4byte	.LASF18
+ 313 0010 01       		.byte	0x1
+ 314 0011 00000000 		.4byte	.LASF19
+ 315 0015 9E010000 		.4byte	.LASF20
+ 316 0019 00000000 		.4byte	.Ldebug_line0
+ 317 001d 02       		.uleb128 0x2
+ 318 001e 01       		.byte	0x1
+ 319 001f 06       		.byte	0x6
+ 320 0020 ED010000 		.4byte	.LASF0
+ 321 0024 02       		.uleb128 0x2
+ 322 0025 01       		.byte	0x1
+ 323 0026 08       		.byte	0x8
+ 324 0027 38000000 		.4byte	.LASF1
+ 325 002b 02       		.uleb128 0x2
+ 326 002c 02       		.byte	0x2
+ 327 002d 05       		.byte	0x5
+ 328 002e 85010000 		.4byte	.LASF2
+ 329 0032 02       		.uleb128 0x2
+ 330 0033 02       		.byte	0x2
+ 331 0034 07       		.byte	0x7
+ 332 0035 58000000 		.4byte	.LASF3
+ 333 0039 02       		.uleb128 0x2
+ 334 003a 04       		.byte	0x4
+ 335 003b 05       		.byte	0x5
+ 336 003c 95010000 		.4byte	.LASF4
+ 337 0040 02       		.uleb128 0x2
+ 338 0041 04       		.byte	0x4
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 7
+
+
+ 339 0042 07       		.byte	0x7
+ 340 0043 46000000 		.4byte	.LASF5
+ 341 0047 02       		.uleb128 0x2
+ 342 0048 08       		.byte	0x8
+ 343 0049 05       		.byte	0x5
+ 344 004a 72010000 		.4byte	.LASF6
+ 345 004e 02       		.uleb128 0x2
+ 346 004f 08       		.byte	0x8
+ 347 0050 07       		.byte	0x7
+ 348 0051 2F010000 		.4byte	.LASF7
+ 349 0055 03       		.uleb128 0x3
+ 350 0056 04       		.byte	0x4
+ 351 0057 05       		.byte	0x5
+ 352 0058 696E7400 		.ascii	"int\000"
+ 353 005c 02       		.uleb128 0x2
+ 354 005d 04       		.byte	0x4
+ 355 005e 07       		.byte	0x7
+ 356 005f 22010000 		.4byte	.LASF8
+ 357 0063 04       		.uleb128 0x4
+ 358 0064 8F010000 		.4byte	.LASF21
+ 359 0068 02       		.byte	0x2
+ 360 0069 3801     		.2byte	0x138
+ 361 006b 24000000 		.4byte	0x24
+ 362 006f 02       		.uleb128 0x2
+ 363 0070 04       		.byte	0x4
+ 364 0071 04       		.byte	0x4
+ 365 0072 32000000 		.4byte	.LASF9
+ 366 0076 02       		.uleb128 0x2
+ 367 0077 08       		.byte	0x8
+ 368 0078 04       		.byte	0x4
+ 369 0079 6B000000 		.4byte	.LASF10
+ 370 007d 02       		.uleb128 0x2
+ 371 007e 01       		.byte	0x1
+ 372 007f 08       		.byte	0x8
+ 373 0080 80010000 		.4byte	.LASF11
+ 374 0084 05       		.uleb128 0x5
+ 375 0085 63000000 		.4byte	0x63
+ 376 0089 94000000 		.4byte	0x94
+ 377 008d 06       		.uleb128 0x6
+ 378 008e 94000000 		.4byte	0x94
+ 379 0092 E7       		.byte	0xe7
+ 380 0093 00       		.byte	0
+ 381 0094 02       		.uleb128 0x2
+ 382 0095 04       		.byte	0x4
+ 383 0096 07       		.byte	0x7
+ 384 0097 69010000 		.4byte	.LASF12
+ 385 009b 07       		.uleb128 0x7
+ 386 009c 82000000 		.4byte	.LASF13
+ 387 00a0 01       		.byte	0x1
+ 388 00a1 1F       		.byte	0x1f
+ 389 00a2 AC000000 		.4byte	0xac
+ 390 00a6 05       		.uleb128 0x5
+ 391 00a7 03       		.byte	0x3
+ 392 00a8 00000000 		.4byte	cy_meta_configecc
+ 393 00ac 08       		.uleb128 0x8
+ 394 00ad 84000000 		.4byte	0x84
+ 395 00b1 05       		.uleb128 0x5
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 8
+
+
+ 396 00b2 63000000 		.4byte	0x63
+ 397 00b6 C1000000 		.4byte	0xc1
+ 398 00ba 06       		.uleb128 0x6
+ 399 00bb 94000000 		.4byte	0x94
+ 400 00bf 03       		.byte	0x3
+ 401 00c0 00       		.byte	0
+ 402 00c1 07       		.uleb128 0x7
+ 403 00c2 72000000 		.4byte	.LASF14
+ 404 00c6 01       		.byte	0x1
+ 405 00c7 49       		.byte	0x49
+ 406 00c8 D2000000 		.4byte	0xd2
+ 407 00cc 05       		.uleb128 0x5
+ 408 00cd 03       		.byte	0x3
+ 409 00ce 00000000 		.4byte	cy_meta_custnvl
+ 410 00d2 08       		.uleb128 0x8
+ 411 00d3 B1000000 		.4byte	0xb1
+ 412 00d7 07       		.uleb128 0x7
+ 413 00d8 5B010000 		.4byte	.LASF15
+ 414 00dc 01       		.byte	0x1
+ 415 00dd 57       		.byte	0x57
+ 416 00de E8000000 		.4byte	0xe8
+ 417 00e2 05       		.uleb128 0x5
+ 418 00e3 03       		.byte	0x3
+ 419 00e4 00000000 		.4byte	cy_meta_wonvl
+ 420 00e8 08       		.uleb128 0x8
+ 421 00e9 B1000000 		.4byte	0xb1
+ 422 00ed 05       		.uleb128 0x5
+ 423 00ee 63000000 		.4byte	0x63
+ 424 00f2 FD000000 		.4byte	0xfd
+ 425 00f6 06       		.uleb128 0x6
+ 426 00f7 94000000 		.4byte	0x94
+ 427 00fb FF       		.byte	0xff
+ 428 00fc 00       		.byte	0
+ 429 00fd 07       		.uleb128 0x7
+ 430 00fe 46010000 		.4byte	.LASF16
+ 431 0102 01       		.byte	0x1
+ 432 0103 65       		.byte	0x65
+ 433 0104 0E010000 		.4byte	0x10e
+ 434 0108 05       		.uleb128 0x5
+ 435 0109 03       		.byte	0x3
+ 436 010a 00000000 		.4byte	cy_meta_flashprotect
+ 437 010e 08       		.uleb128 0x8
+ 438 010f ED000000 		.4byte	0xed
+ 439 0113 05       		.uleb128 0x5
+ 440 0114 63000000 		.4byte	0x63
+ 441 0118 23010000 		.4byte	0x123
+ 442 011c 06       		.uleb128 0x6
+ 443 011d 94000000 		.4byte	0x94
+ 444 0121 0B       		.byte	0xb
+ 445 0122 00       		.byte	0
+ 446 0123 07       		.uleb128 0x7
+ 447 0124 26000000 		.4byte	.LASF17
+ 448 0128 01       		.byte	0x1
+ 449 0129 92       		.byte	0x92
+ 450 012a 34010000 		.4byte	0x134
+ 451 012e 05       		.uleb128 0x5
+ 452 012f 03       		.byte	0x3
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 9
+
+
+ 453 0130 00000000 		.4byte	cy_metadata
+ 454 0134 08       		.uleb128 0x8
+ 455 0135 13010000 		.4byte	0x113
+ 456 0139 00       		.byte	0
+ 457              		.section	.debug_abbrev,"",%progbits
+ 458              	.Ldebug_abbrev0:
+ 459 0000 01       		.uleb128 0x1
+ 460 0001 11       		.uleb128 0x11
+ 461 0002 01       		.byte	0x1
+ 462 0003 25       		.uleb128 0x25
+ 463 0004 0E       		.uleb128 0xe
+ 464 0005 13       		.uleb128 0x13
+ 465 0006 0B       		.uleb128 0xb
+ 466 0007 03       		.uleb128 0x3
+ 467 0008 0E       		.uleb128 0xe
+ 468 0009 1B       		.uleb128 0x1b
+ 469 000a 0E       		.uleb128 0xe
+ 470 000b 10       		.uleb128 0x10
+ 471 000c 17       		.uleb128 0x17
+ 472 000d 00       		.byte	0
+ 473 000e 00       		.byte	0
+ 474 000f 02       		.uleb128 0x2
+ 475 0010 24       		.uleb128 0x24
+ 476 0011 00       		.byte	0
+ 477 0012 0B       		.uleb128 0xb
+ 478 0013 0B       		.uleb128 0xb
+ 479 0014 3E       		.uleb128 0x3e
+ 480 0015 0B       		.uleb128 0xb
+ 481 0016 03       		.uleb128 0x3
+ 482 0017 0E       		.uleb128 0xe
+ 483 0018 00       		.byte	0
+ 484 0019 00       		.byte	0
+ 485 001a 03       		.uleb128 0x3
+ 486 001b 24       		.uleb128 0x24
+ 487 001c 00       		.byte	0
+ 488 001d 0B       		.uleb128 0xb
+ 489 001e 0B       		.uleb128 0xb
+ 490 001f 3E       		.uleb128 0x3e
+ 491 0020 0B       		.uleb128 0xb
+ 492 0021 03       		.uleb128 0x3
+ 493 0022 08       		.uleb128 0x8
+ 494 0023 00       		.byte	0
+ 495 0024 00       		.byte	0
+ 496 0025 04       		.uleb128 0x4
+ 497 0026 16       		.uleb128 0x16
+ 498 0027 00       		.byte	0
+ 499 0028 03       		.uleb128 0x3
+ 500 0029 0E       		.uleb128 0xe
+ 501 002a 3A       		.uleb128 0x3a
+ 502 002b 0B       		.uleb128 0xb
+ 503 002c 3B       		.uleb128 0x3b
+ 504 002d 05       		.uleb128 0x5
+ 505 002e 49       		.uleb128 0x49
+ 506 002f 13       		.uleb128 0x13
+ 507 0030 00       		.byte	0
+ 508 0031 00       		.byte	0
+ 509 0032 05       		.uleb128 0x5
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 10
+
+
+ 510 0033 01       		.uleb128 0x1
+ 511 0034 01       		.byte	0x1
+ 512 0035 49       		.uleb128 0x49
+ 513 0036 13       		.uleb128 0x13
+ 514 0037 01       		.uleb128 0x1
+ 515 0038 13       		.uleb128 0x13
+ 516 0039 00       		.byte	0
+ 517 003a 00       		.byte	0
+ 518 003b 06       		.uleb128 0x6
+ 519 003c 21       		.uleb128 0x21
+ 520 003d 00       		.byte	0
+ 521 003e 49       		.uleb128 0x49
+ 522 003f 13       		.uleb128 0x13
+ 523 0040 2F       		.uleb128 0x2f
+ 524 0041 0B       		.uleb128 0xb
+ 525 0042 00       		.byte	0
+ 526 0043 00       		.byte	0
+ 527 0044 07       		.uleb128 0x7
+ 528 0045 34       		.uleb128 0x34
+ 529 0046 00       		.byte	0
+ 530 0047 03       		.uleb128 0x3
+ 531 0048 0E       		.uleb128 0xe
+ 532 0049 3A       		.uleb128 0x3a
+ 533 004a 0B       		.uleb128 0xb
+ 534 004b 3B       		.uleb128 0x3b
+ 535 004c 0B       		.uleb128 0xb
+ 536 004d 49       		.uleb128 0x49
+ 537 004e 13       		.uleb128 0x13
+ 538 004f 3F       		.uleb128 0x3f
+ 539 0050 19       		.uleb128 0x19
+ 540 0051 02       		.uleb128 0x2
+ 541 0052 18       		.uleb128 0x18
+ 542 0053 00       		.byte	0
+ 543 0054 00       		.byte	0
+ 544 0055 08       		.uleb128 0x8
+ 545 0056 26       		.uleb128 0x26
+ 546 0057 00       		.byte	0
+ 547 0058 49       		.uleb128 0x49
+ 548 0059 13       		.uleb128 0x13
+ 549 005a 00       		.byte	0
+ 550 005b 00       		.byte	0
+ 551 005c 00       		.byte	0
+ 552              		.section	.debug_aranges,"",%progbits
+ 553 0000 14000000 		.4byte	0x14
+ 554 0004 0200     		.2byte	0x2
+ 555 0006 00000000 		.4byte	.Ldebug_info0
+ 556 000a 04       		.byte	0x4
+ 557 000b 00       		.byte	0
+ 558 000c 0000     		.2byte	0
+ 559 000e 0000     		.2byte	0
+ 560 0010 00000000 		.4byte	0
+ 561 0014 00000000 		.4byte	0
+ 562              		.section	.debug_line,"",%progbits
+ 563              	.Ldebug_line0:
+ 564 0000 4F000000 		.section	.debug_str,"MS",%progbits,1
+ 564      02004900 
+ 564      00000201 
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 11
+
+
+ 564      FB0E0D00 
+ 564      01010101 
+ 565              	.LASF19:
+ 566 0000 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\cymetadata.c\000"
+ 566      6E657261 
+ 566      7465645F 
+ 566      536F7572 
+ 566      63655C50 
+ 567              	.LASF17:
+ 568 0026 63795F6D 		.ascii	"cy_metadata\000"
+ 568      65746164 
+ 568      61746100 
+ 569              	.LASF9:
+ 570 0032 666C6F61 		.ascii	"float\000"
+ 570      7400
+ 571              	.LASF1:
+ 572 0038 756E7369 		.ascii	"unsigned char\000"
+ 572      676E6564 
+ 572      20636861 
+ 572      7200
+ 573              	.LASF5:
+ 574 0046 6C6F6E67 		.ascii	"long unsigned int\000"
+ 574      20756E73 
+ 574      69676E65 
+ 574      6420696E 
+ 574      7400
+ 575              	.LASF3:
+ 576 0058 73686F72 		.ascii	"short unsigned int\000"
+ 576      7420756E 
+ 576      7369676E 
+ 576      65642069 
+ 576      6E7400
+ 577              	.LASF10:
+ 578 006b 646F7562 		.ascii	"double\000"
+ 578      6C6500
+ 579              	.LASF14:
+ 580 0072 63795F6D 		.ascii	"cy_meta_custnvl\000"
+ 580      6574615F 
+ 580      63757374 
+ 580      6E766C00 
+ 581              	.LASF13:
+ 582 0082 63795F6D 		.ascii	"cy_meta_configecc\000"
+ 582      6574615F 
+ 582      636F6E66 
+ 582      69676563 
+ 582      6300
+ 583              	.LASF18:
+ 584 0094 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 584      4320342E 
+ 584      392E3320 
+ 584      32303135 
+ 584      30333033 
+ 585 00c7 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 585      20726576 
+ 585      6973696F 
+ 585      6E203232 
+ 585      31323230 
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 12
+
+
+ 586 00fa 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 586      66756E63 
+ 586      74696F6E 
+ 586      2D736563 
+ 586      74696F6E 
+ 587              	.LASF8:
+ 588 0122 756E7369 		.ascii	"unsigned int\000"
+ 588      676E6564 
+ 588      20696E74 
+ 588      00
+ 589              	.LASF7:
+ 590 012f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 590      206C6F6E 
+ 590      6720756E 
+ 590      7369676E 
+ 590      65642069 
+ 591              	.LASF16:
+ 592 0146 63795F6D 		.ascii	"cy_meta_flashprotect\000"
+ 592      6574615F 
+ 592      666C6173 
+ 592      6870726F 
+ 592      74656374 
+ 593              	.LASF15:
+ 594 015b 63795F6D 		.ascii	"cy_meta_wonvl\000"
+ 594      6574615F 
+ 594      776F6E76 
+ 594      6C00
+ 595              	.LASF12:
+ 596 0169 73697A65 		.ascii	"sizetype\000"
+ 596      74797065 
+ 596      00
+ 597              	.LASF6:
+ 598 0172 6C6F6E67 		.ascii	"long long int\000"
+ 598      206C6F6E 
+ 598      6720696E 
+ 598      7400
+ 599              	.LASF11:
+ 600 0180 63686172 		.ascii	"char\000"
+ 600      00
+ 601              	.LASF2:
+ 602 0185 73686F72 		.ascii	"short int\000"
+ 602      7420696E 
+ 602      7400
+ 603              	.LASF21:
+ 604 018f 75696E74 		.ascii	"uint8\000"
+ 604      3800
+ 605              	.LASF4:
+ 606 0195 6C6F6E67 		.ascii	"long int\000"
+ 606      20696E74 
+ 606      00
+ 607              	.LASF20:
+ 608 019e 443A5C55 		.ascii	"D:\\Utilisateurs\\user\\Documents\\PSoC Creator\\Wo"
+ 608      74696C69 
+ 608      73617465 
+ 608      7572735C 
+ 608      75736572 
+ 609 01cc 726B7370 		.ascii	"rkspace02\\TP2_Mesure_Diode.cydsn\000"
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccanKFUt.s 			page 13
+
+
+ 609      61636530 
+ 609      325C5450 
+ 609      325F4D65 
+ 609      73757265 
+ 610              	.LASF0:
+ 611 01ed 7369676E 		.ascii	"signed char\000"
+ 611      65642063 
+ 611      68617200 
+ 612              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

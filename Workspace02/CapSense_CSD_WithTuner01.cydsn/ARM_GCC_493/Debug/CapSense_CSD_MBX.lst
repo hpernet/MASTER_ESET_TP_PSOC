@@ -1,0 +1,1970 @@
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"CapSense_CSD_MBX.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.CapSense_CSD_InitParams,"ax",%progbits
+  19              		.align	2
+  20              		.thumb
+  21              		.thumb_func
+  22              		.type	CapSense_CSD_InitParams, %function
+  23              	CapSense_CSD_InitParams:
+  24              	.LFB0:
+  25              		.file 1 ".\\Generated_Source\\PSoC5\\CapSense_CSD_MBX.c"
+   1:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * File Name: CapSense_CSD_MBX.c
+   3:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Version 3.40
+   4:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+   5:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Description:
+   6:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  This file provides the source code of Tuner communication APIs for the 
+   7:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  CapSense CSD component.
+   8:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+   9:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Note:
+  10:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+  11:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+  18:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** #include "CapSense_CSD_MBX.h"
+  19:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+  20:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** #if (CapSense_CSD_TUNING_METHOD == CapSense_CSD_MANUAL_TUNING)
+  21:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     
+  22:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** CapSense_CSD_NO_STRICT_VOLATILE static void CapSense_CSD_InitParams(volatile const CapSense_CSD_INB
+  23:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                                         ;
+  24:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     
+  25:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                                         
+  26:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /*******************************************************************************
+  27:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Function Name: CapSense_CSD_InitParams
+  28:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     ********************************************************************************
+  29:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+  30:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Summary:
+  31:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  Configures component parameters to match the parameters in the inbox.
+  32:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  Used only in manual tuning mode to apply new scanning parameters from Tuner 
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 2
+
+
+  33:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  GUI.
+  34:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+  35:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Parameters:
+  36:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  inbox:  Pointer to Inbox structure in RAM.
+  37:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+  38:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Return:
+  39:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  None. Contents of the structure are not modified.
+  40:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * 
+  41:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Side Effects: 
+  42:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  Resets baseline values.
+  43:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+  44:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Global Variables:
+  45:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  CapSense_CSD_idacSettings[] - used to store idac value for all sensors.
+  46:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  CapSense_CSD_fingerThreshold[] - used to store finger threshold for all 
+  47:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  widgets.
+  48:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  CapSense_CSD_noiseThreshold[] - used to sotre noise threshold for all 
+  49:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  widgets.
+  50:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  CapSense_CSD_hysteresis[] - used to store finger threshold for all 
+  51:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  widgets.
+  52:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  CapSense_CSD_debounce[] - used to store finger threshold for all 
+  53:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  widgets.
+  54:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  CapSense_CSD_INBOX inbox - structure which is used as input buffer
+  55:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  for parameters from Tuner GUI. Only used in manual tuning mode.
+  56:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+  57:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Reentrant:
+  58:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  No
+  59:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+  60:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *******************************************************************************/
+  61:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     static void CapSense_CSD_InitParams(volatile const CapSense_CSD_INBOX *inbox)
+  62:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 	                                        
+  63:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     {
+  26              		.loc 1 63 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 16
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 80B5     		push	{r7, lr}
+  31              		.cfi_def_cfa_offset 8
+  32              		.cfi_offset 7, -8
+  33              		.cfi_offset 14, -4
+  34 0002 84B0     		sub	sp, sp, #16
+  35              		.cfi_def_cfa_offset 24
+  36 0004 00AF     		add	r7, sp, #0
+  37              		.cfi_def_cfa_register 7
+  38 0006 7860     		str	r0, [r7, #4]
+  64:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Define widget sensor belongs to */
+  65:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         uint8 sensor = inbox->sensorIndex;
+  39              		.loc 1 65 0
+  40 0008 7B68     		ldr	r3, [r7, #4]
+  41 000a 1B78     		ldrb	r3, [r3]
+  42 000c FB73     		strb	r3, [r7, #15]
+  66:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         uint8 widget = CapSense_CSD_widgetNumber[sensor];
+  43              		.loc 1 66 0
+  44 000e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  45 0010 304A     		ldr	r2, .L2
+  46 0012 D35C     		ldrb	r3, [r2, r3]
+  47 0014 BB73     		strb	r3, [r7, #14]
+  67:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         uint16 tmpValue;
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 3
+
+
+  68:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         
+  69:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Scanning parameters */
+  70:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #if (CapSense_CSD_CURRENT_SOURCE)
+  71:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             CapSense_CSD_idacSettings[sensor] = inbox->idacSettings;
+  48              		.loc 1 71 0
+  49 0016 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  50 0018 7A68     		ldr	r2, [r7, #4]
+  51 001a 5278     		ldrb	r2, [r2, #1]
+  52 001c D1B2     		uxtb	r1, r2
+  53 001e 2E4A     		ldr	r2, .L2+4
+  54 0020 D154     		strb	r1, [r2, r3]
+  72:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #endif /* CapSense_CSD_CURRENT_SOURCE */   
+  73:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         CapSense_CSD_widgetResolution[widget] = inbox->resolution;
+  55              		.loc 1 73 0
+  56 0022 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+  57 0024 7A68     		ldr	r2, [r7, #4]
+  58 0026 9278     		ldrb	r2, [r2, #2]
+  59 0028 D1B2     		uxtb	r1, r2
+  60 002a 2C4A     		ldr	r2, .L2+8
+  61 002c D154     		strb	r1, [r2, r3]
+  74:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     
+  75:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #if (CapSense_CSD_TOTAL_GENERICS_COUNT)
+  76:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             /* Exclude generic wiget */
+  77:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             if(widget < CapSense_CSD_END_OF_WIDGETS_INDEX)
+  78:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             {
+  79:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #endif  /* CapSense_CSD_TOTAL_GENERICS_COUNT */
+  80:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         
+  81:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             /* High level parameters */
+  82:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             tmpValue = inbox->fingerThreshold;
+  62              		.loc 1 82 0
+  63 002e 7B68     		ldr	r3, [r7, #4]
+  64 0030 DA78     		ldrb	r2, [r3, #3]
+  65 0032 D2B2     		uxtb	r2, r2
+  66 0034 1B79     		ldrb	r3, [r3, #4]
+  67 0036 DBB2     		uxtb	r3, r3
+  68 0038 1B02     		lsls	r3, r3, #8
+  69 003a 1343     		orrs	r3, r3, r2
+  70 003c BB81     		strh	r3, [r7, #12]	@ movhi
+  83:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             CapSense_CSD_fingerThreshold[widget] = CapSense_CSD_SWAP_ENDIAN16(tmpValue);
+  71              		.loc 1 83 0
+  72 003e BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+  73 0040 BA89     		ldrh	r2, [r7, #12]
+  74 0042 1202     		lsls	r2, r2, #8
+  75 0044 91B2     		uxth	r1, r2
+  76 0046 BA89     		ldrh	r2, [r7, #12]
+  77 0048 120A     		lsrs	r2, r2, #8
+  78 004a 92B2     		uxth	r2, r2
+  79 004c 92B2     		uxth	r2, r2
+  80 004e 0A43     		orrs	r2, r2, r1
+  81 0050 92B2     		uxth	r2, r2
+  82 0052 91B2     		uxth	r1, r2
+  83 0054 224A     		ldr	r2, .L2+12
+  84 0056 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+  84:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             tmpValue = inbox->noiseThreshold;
+  85              		.loc 1 84 0
+  86 005a 7B68     		ldr	r3, [r7, #4]
+  87 005c 5A79     		ldrb	r2, [r3, #5]
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 4
+
+
+  88 005e D2B2     		uxtb	r2, r2
+  89 0060 9B79     		ldrb	r3, [r3, #6]
+  90 0062 DBB2     		uxtb	r3, r3
+  91 0064 1B02     		lsls	r3, r3, #8
+  92 0066 1343     		orrs	r3, r3, r2
+  93 0068 BB81     		strh	r3, [r7, #12]	@ movhi
+  85:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             CapSense_CSD_noiseThreshold[widget]  = CapSense_CSD_SWAP_ENDIAN16(tmpValue);
+  94              		.loc 1 85 0
+  95 006a BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+  96 006c BA89     		ldrh	r2, [r7, #12]
+  97 006e 1202     		lsls	r2, r2, #8
+  98 0070 91B2     		uxth	r1, r2
+  99 0072 BA89     		ldrh	r2, [r7, #12]
+ 100 0074 120A     		lsrs	r2, r2, #8
+ 101 0076 92B2     		uxth	r2, r2
+ 102 0078 92B2     		uxth	r2, r2
+ 103 007a 0A43     		orrs	r2, r2, r1
+ 104 007c 92B2     		uxth	r2, r2
+ 105 007e 91B2     		uxth	r1, r2
+ 106 0080 184A     		ldr	r2, .L2+16
+ 107 0082 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+  86:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             
+  87:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             tmpValue = inbox->hysteresis;
+ 108              		.loc 1 87 0
+ 109 0086 7B68     		ldr	r3, [r7, #4]
+ 110 0088 DA79     		ldrb	r2, [r3, #7]
+ 111 008a D2B2     		uxtb	r2, r2
+ 112 008c 1B7A     		ldrb	r3, [r3, #8]
+ 113 008e DBB2     		uxtb	r3, r3
+ 114 0090 1B02     		lsls	r3, r3, #8
+ 115 0092 1343     		orrs	r3, r3, r2
+ 116 0094 BB81     		strh	r3, [r7, #12]	@ movhi
+  88:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             CapSense_CSD_hysteresis[widget] = CapSense_CSD_SWAP_ENDIAN16(tmpValue);
+ 117              		.loc 1 88 0
+ 118 0096 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 119 0098 BA89     		ldrh	r2, [r7, #12]
+ 120 009a 1202     		lsls	r2, r2, #8
+ 121 009c 91B2     		uxth	r1, r2
+ 122 009e BA89     		ldrh	r2, [r7, #12]
+ 123 00a0 120A     		lsrs	r2, r2, #8
+ 124 00a2 92B2     		uxth	r2, r2
+ 125 00a4 92B2     		uxth	r2, r2
+ 126 00a6 0A43     		orrs	r2, r2, r1
+ 127 00a8 92B2     		uxth	r2, r2
+ 128 00aa 91B2     		uxth	r1, r2
+ 129 00ac 0E4A     		ldr	r2, .L2+20
+ 130 00ae 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+  89:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             CapSense_CSD_debounce[widget]   = inbox->debounce;
+ 131              		.loc 1 89 0
+ 132 00b2 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 133 00b4 7A68     		ldr	r2, [r7, #4]
+ 134 00b6 527A     		ldrb	r2, [r2, #9]
+ 135 00b8 D1B2     		uxtb	r1, r2
+ 136 00ba 0C4A     		ldr	r2, .L2+24
+ 137 00bc D154     		strb	r1, [r2, r3]
+  90:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         
+  91:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #if (CapSense_CSD_TOTAL_GENERICS_COUNT)
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 5
+
+
+  92:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             /* Exclude generic wiget */
+  93:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             }
+  94:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #endif  /* CapSense_CSD_TOTAL_GENERICS_COUNT */
+  95:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+  96:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #if ( CapSense_CSD_MULTIPLE_PRESCALER_ENABLED )
+  97:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             #if (CapSense_CSD_DESIGN_TYPE == CapSense_CSD_TWO_CHANNELS_DESIGN)
+  98:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                 if( sensor > CapSense_CSD_TOTAL_SENSOR_COUNT__CH0 && \
+  99:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                     sensor < CapSense_CSD_TOTAL_SENSOR_COUNT__CH1 )
+ 100:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                 {
+ 101:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                     sensor = sensor - CapSense_CSD_TOTAL_SENSOR_COUNT__CH0;
+ 102:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                 }
+ 103:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             #endif /* (CapSense_CSD_DESIGN_TYPE == CapSense_CSD_TWO_CHANNELS_DESIGN) */
+ 104:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             CapSense_CSD_analogSwitchDivider[sensor] = inbox->analogSwitchDivider;
+ 138              		.loc 1 104 0
+ 139 00be FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 140 00c0 7A68     		ldr	r2, [r7, #4]
+ 141 00c2 927A     		ldrb	r2, [r2, #10]
+ 142 00c4 D1B2     		uxtb	r1, r2
+ 143 00c6 0A4A     		ldr	r2, .L2+28
+ 144 00c8 D154     		strb	r1, [r2, r3]
+ 105:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #else
+ 106:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             CapSense_CSD_analogSwitchDivider = inbox->analogSwitchDivider;
+ 107:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #endif /* ( CapSense_CSD_MULTIPLE_PRESCALER_ENABLED ) */
+ 108:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 109:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Re-Init baselines */
+ 110:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         CapSense_CSD_InitializeAllBaselines();
+ 145              		.loc 1 110 0
+ 146 00ca FFF7FEFF 		bl	CapSense_CSD_InitializeAllBaselines
+ 111:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     }
+ 147              		.loc 1 111 0
+ 148 00ce 1037     		adds	r7, r7, #16
+ 149              		.cfi_def_cfa_offset 8
+ 150 00d0 BD46     		mov	sp, r7
+ 151              		.cfi_def_cfa_register 13
+ 152              		@ sp needed
+ 153 00d2 80BD     		pop	{r7, pc}
+ 154              	.L3:
+ 155              		.align	2
+ 156              	.L2:
+ 157 00d4 00000000 		.word	CapSense_CSD_widgetNumber
+ 158 00d8 00000000 		.word	CapSense_CSD_idacSettings
+ 159 00dc 00000000 		.word	CapSense_CSD_widgetResolution
+ 160 00e0 00000000 		.word	CapSense_CSD_fingerThreshold
+ 161 00e4 00000000 		.word	CapSense_CSD_noiseThreshold
+ 162 00e8 00000000 		.word	CapSense_CSD_hysteresis
+ 163 00ec 00000000 		.word	CapSense_CSD_debounce
+ 164 00f0 00000000 		.word	CapSense_CSD_analogSwitchDivider
+ 165              		.cfi_endproc
+ 166              	.LFE0:
+ 167              		.size	CapSense_CSD_InitParams, .-CapSense_CSD_InitParams
+ 168              		.section	.text.CapSense_CSD_InitMailbox,"ax",%progbits
+ 169              		.align	2
+ 170              		.global	CapSense_CSD_InitMailbox
+ 171              		.thumb
+ 172              		.thumb_func
+ 173              		.type	CapSense_CSD_InitMailbox, %function
+ 174              	CapSense_CSD_InitMailbox:
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 6
+
+
+ 175              	.LFB1:
+ 112:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** #endif  /* (CapSense_CSD_TUNING_METHOD == CapSense_CSD_MANUAL_TUNING) */
+ 113:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 114:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 115:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** /*******************************************************************************
+ 116:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Function Name: CapSense_CSD_InitMailbox
+ 117:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** ********************************************************************************
+ 118:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 119:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Summary:
+ 120:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  Initialize parameters  of mailbox structure.
+ 121:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  Sets type and size of mailbox structure. 
+ 122:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  Sets check sum to check by Tuner GUI and noReadMsg flag to indicate that this 
+ 123:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  is the first communication packet.
+ 124:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 125:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Parameters:
+ 126:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  mbx:  Pointer to Mailbox structure in RAM.
+ 127:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 128:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Return:
+ 129:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  None. Modifies the contents of mbx and mbx->outbox.
+ 130:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 131:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Global Variables:
+ 132:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  CapSense_CSD_MAILBOXES - structure which incorporates two fields: 
+ 133:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - numMailBoxes (number of mailboxes);
+ 134:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - CapSense_CSD_MAILBOX csdMailbox;
+ 135:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  CapSense_CSD_MAILBOX - structure which incorporates status output and
+ 136:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  input buffer fields and CapSense_CSD_OUTBOX and CapSense_CSD_INBOX.
+ 137:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - type (used as outbox read status of Tuner GUI);
+ 138:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - size (used as inbox apply status of component);
+ 139:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - CapSense_CSD_OUTBOX outbox - structure which is used as ouput 
+ 140:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *      buffer for report data to Tuner GUI.
+ 141:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - CapSense_CSD_INBOX inbox - structure which is used as input buffer
+ 142:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *      for paramters from Tuner GUI. Only used in manual tuning mode.
+ 143:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 144:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Reentrant:
+ 145:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  No
+ 146:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 147:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *******************************************************************************/
+ 148:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** void CapSense_CSD_InitMailbox(volatile CapSense_CSD_MAILBOX *mbx)
+ 149:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                                   
+ 150:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** {
+ 176              		.loc 1 150 0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 8
+ 179              		@ frame_needed = 1, uses_anonymous_args = 0
+ 180              		@ link register save eliminated.
+ 181 0000 80B4     		push	{r7}
+ 182              		.cfi_def_cfa_offset 4
+ 183              		.cfi_offset 7, -4
+ 184 0002 83B0     		sub	sp, sp, #12
+ 185              		.cfi_def_cfa_offset 16
+ 186 0004 00AF     		add	r7, sp, #0
+ 187              		.cfi_def_cfa_register 7
+ 188 0006 7860     		str	r0, [r7, #4]
+ 151:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /* Restore TYPE_ID (clear busy flag) to indicate "action complete" */
+ 152:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     mbx->type = CapSense_CSD_TYPE_ID;
+ 189              		.loc 1 152 0
+ 190 0008 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 7
+
+
+ 191 000a 0422     		movs	r2, #4
+ 192 000c 1A70     		strb	r2, [r3]
+ 153:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /* Restore default value - clear "have_msg" */
+ 154:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     mbx->size = CapSense_CSD_SWAP_ENDIAN16(sizeof(CapSense_CSD_MAILBOX));
+ 193              		.loc 1 154 0
+ 194 000e 7B68     		ldr	r3, [r7, #4]
+ 195 0010 5A78     		ldrb	r2, [r3, #1]
+ 196 0012 0022     		movs	r2, #0
+ 197 0014 5A70     		strb	r2, [r3, #1]
+ 198 0016 9A78     		ldrb	r2, [r3, #2]
+ 199 0018 0022     		movs	r2, #0
+ 200 001a 42F01802 		orr	r2, r2, #24
+ 201 001e 9A70     		strb	r2, [r3, #2]
+ 155:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     
+ 156:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /* Addtional fields for async and reset handling */
+ 157:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     #if(CapSense_CSD_TUNING_METHOD == CapSense_CSD_MANUAL_TUNING)
+ 158:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         mbx->outbox.noReadMsg = 1u;
+ 202              		.loc 1 158 0
+ 203 0020 7B68     		ldr	r3, [r7, #4]
+ 204 0022 0122     		movs	r2, #1
+ 205 0024 9A72     		strb	r2, [r3, #10]
+ 159:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     #endif  /* (CapSense_CSD_TUNING_METHOD == CapSense_CSD_MANUAL_TUNING) */
+ 160:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     
+ 161:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     mbx->outbox.checkSum = CapSense_CSD_SWAP_ENDIAN16(CapSense_CSD_CHECK_SUM);
+ 206              		.loc 1 161 0
+ 207 0026 7B68     		ldr	r3, [r7, #4]
+ 208 0028 DA7A     		ldrb	r2, [r3, #11]
+ 209 002a 0022     		movs	r2, #0
+ 210 002c DA72     		strb	r2, [r3, #11]
+ 211 002e 1A7B     		ldrb	r2, [r3, #12]
+ 212 0030 0022     		movs	r2, #0
+ 213 0032 42F01F02 		orr	r2, r2, #31
+ 214 0036 1A73     		strb	r2, [r3, #12]
+ 162:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** }
+ 215              		.loc 1 162 0
+ 216 0038 0C37     		adds	r7, r7, #12
+ 217              		.cfi_def_cfa_offset 4
+ 218 003a BD46     		mov	sp, r7
+ 219              		.cfi_def_cfa_register 13
+ 220              		@ sp needed
+ 221 003c 5DF8047B 		ldr	r7, [sp], #4
+ 222              		.cfi_restore 7
+ 223              		.cfi_def_cfa_offset 0
+ 224 0040 7047     		bx	lr
+ 225              		.cfi_endproc
+ 226              	.LFE1:
+ 227              		.size	CapSense_CSD_InitMailbox, .-CapSense_CSD_InitMailbox
+ 228 0042 00BF     		.section	.text.CapSense_CSD_PostMessage,"ax",%progbits
+ 229              		.align	2
+ 230              		.global	CapSense_CSD_PostMessage
+ 231              		.thumb
+ 232              		.thumb_func
+ 233              		.type	CapSense_CSD_PostMessage, %function
+ 234              	CapSense_CSD_PostMessage:
+ 235              	.LFB2:
+ 163:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 164:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 8
+
+
+ 165:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** /*******************************************************************************
+ 166:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Function Name:  CapSense_CSD_PostMessage
+ 167:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** ********************************************************************************
+ 168:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 169:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Summary:
+ 170:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  This blocking function waits while Tuner GUI reports that content of mailbox 
+ 171:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  could be modified (clears CapSense_CSD_BUSY_FLAG). Then loads the report 
+ 172:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  data to outbox and sets the busy flag.
+ 173:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  In manual tuning mode the report data:
+ 174:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - raw data, baseline, signal;
+ 175:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  In auto tuning mode to report added data:
+ 176:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - fingerThreshold;
+ 177:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - noiseThreshold;
+ 178:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - scanResolution;
+ 179:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - idacValue;
+ 180:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - prescaler.
+ 181:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 182:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Parameters:
+ 183:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  mbx:  Pointer to Mailbox structure in RAM.
+ 184:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 185:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Return:
+ 186:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  None. Modifies the contents of mbx->outbox.
+ 187:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 188:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Global Variables:
+ 189:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  CapSense_CSD_MAILBOXES - structure which incorporates two fields: 
+ 190:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - numMailBoxes (number of mailboxes);
+ 191:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - CapSense_CSD_MAILBOX csdMailbox;
+ 192:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  CapSense_CSD_MAILBOX - structure which incorporates status output and
+ 193:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  input buffer fields and CapSense_CSD_OUTBOX and CapSense_CSD_INBOX.
+ 194:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - type (used as outbox read status of Tuner GUI);
+ 195:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - size (used as inbox apply status of component);
+ 196:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - CapSense_CSD_OUTBOX outbox - structure which is used as ouput 
+ 197:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *      buffer for report data to Tuner GUI.
+ 198:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *    - CapSense_CSD_INBOX inbox - structure which is used as input buffer
+ 199:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *      for parameters from Tuner GUI. Only used in manual tuning mode.
+ 200:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  CapSense_CSD_lowLevelTuningDone - used to notify the Tuner GUI that 
+ 201:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  tuning of scanning parameters are done. The scanning parameters in mailbox
+ 202:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  will not be updated after clear it.
+ 203:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 204:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** * Reentrant:
+ 205:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *  No
+ 206:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *
+ 207:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** *******************************************************************************/
+ 208:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** void CapSense_CSD_PostMessage(volatile CapSense_CSD_MAILBOX *mbx)
+ 209:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                                   
+ 210:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** {
+ 236              		.loc 1 210 0
+ 237              		.cfi_startproc
+ 238              		@ args = 0, pretend = 0, frame = 16
+ 239              		@ frame_needed = 1, uses_anonymous_args = 0
+ 240              		@ link register save eliminated.
+ 241 0000 80B4     		push	{r7}
+ 242              		.cfi_def_cfa_offset 4
+ 243              		.cfi_offset 7, -4
+ 244 0002 85B0     		sub	sp, sp, #20
+ 245              		.cfi_def_cfa_offset 24
+ 246 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 9
+
+
+ 247              		.cfi_def_cfa_register 7
+ 248 0006 7860     		str	r0, [r7, #4]
+ 211:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     uint8 i;
+ 212:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 213:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /* Check busy flag */
+ 214:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     while (mbx->type != CapSense_CSD_TYPE_ID)
+ 249              		.loc 1 214 0
+ 250 0008 00BF     		nop
+ 251              	.L6:
+ 252              		.loc 1 214 0 is_stmt 0 discriminator 1
+ 253 000a 7B68     		ldr	r3, [r7, #4]
+ 254 000c 1B78     		ldrb	r3, [r3]
+ 255 000e DBB2     		uxtb	r3, r3
+ 256 0010 042B     		cmp	r3, #4
+ 257 0012 FAD1     		bne	.L6
+ 215:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     {
+ 216:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Wait while busy flag is set */
+ 217:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     }
+ 218:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     
+ 219:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /* Copy all data - Raw, Base, Signal, OnMask */
+ 220:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     for(i = 0u; i < CapSense_CSD_TOTAL_SENSOR_COUNT; i++)
+ 258              		.loc 1 220 0 is_stmt 1
+ 259 0014 0023     		movs	r3, #0
+ 260 0016 FB73     		strb	r3, [r7, #15]
+ 261 0018 4AE0     		b	.L7
+ 262              	.L8:
+ 221:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     {
+ 222:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         mbx->outbox.rawData[i]  = CapSense_CSD_SWAP_ENDIAN16(CapSense_CSD_sensorRaw[i]);
+ 263              		.loc 1 222 0 discriminator 3
+ 264 001a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 265 001c FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 266 001e 2A49     		ldr	r1, .L9
+ 267 0020 31F81220 		ldrh	r2, [r1, r2, lsl #1]
+ 268 0024 1202     		lsls	r2, r2, #8
+ 269 0026 90B2     		uxth	r0, r2
+ 270 0028 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 271 002a 2749     		ldr	r1, .L9
+ 272 002c 31F81220 		ldrh	r2, [r1, r2, lsl #1]
+ 273 0030 120A     		lsrs	r2, r2, #8
+ 274 0032 92B2     		uxth	r2, r2
+ 275 0034 92B2     		uxth	r2, r2
+ 276 0036 0146     		mov	r1, r0	@ movhi
+ 277 0038 0A43     		orrs	r2, r2, r1
+ 278 003a 92B2     		uxth	r2, r2
+ 279 003c 91B2     		uxth	r1, r2
+ 280 003e 7A68     		ldr	r2, [r7, #4]
+ 281 0040 5B00     		lsls	r3, r3, #1
+ 282 0042 1344     		add	r3, r3, r2
+ 283 0044 0A46     		mov	r2, r1	@ movhi
+ 284 0046 A3F80320 		strh	r2, [r3, #3]	@ unaligned
+ 223:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         mbx->outbox.baseLine[i] = CapSense_CSD_SWAP_ENDIAN16(CapSense_CSD_sensorBaseline[i]);
+ 285              		.loc 1 223 0 discriminator 3
+ 286 004a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 287 004c FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 288 004e 1F49     		ldr	r1, .L9+4
+ 289 0050 31F81220 		ldrh	r2, [r1, r2, lsl #1]
+ 290 0054 1202     		lsls	r2, r2, #8
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 10
+
+
+ 291 0056 90B2     		uxth	r0, r2
+ 292 0058 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 293 005a 1C49     		ldr	r1, .L9+4
+ 294 005c 31F81220 		ldrh	r2, [r1, r2, lsl #1]
+ 295 0060 120A     		lsrs	r2, r2, #8
+ 296 0062 92B2     		uxth	r2, r2
+ 297 0064 92B2     		uxth	r2, r2
+ 298 0066 0146     		mov	r1, r0	@ movhi
+ 299 0068 0A43     		orrs	r2, r2, r1
+ 300 006a 92B2     		uxth	r2, r2
+ 301 006c 91B2     		uxth	r1, r2
+ 302 006e 7A68     		ldr	r2, [r7, #4]
+ 303 0070 5B00     		lsls	r3, r3, #1
+ 304 0072 1344     		add	r3, r3, r2
+ 305 0074 0A46     		mov	r2, r1	@ movhi
+ 306 0076 A3F80520 		strh	r2, [r3, #5]	@ unaligned
+ 224:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #if (CapSense_CSD_SIGNAL_SIZE == CapSense_CSD_SIGNAL_SIZE_UINT8)
+ 225:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             mbx->outbox.signal[i]   = CapSense_CSD_sensorSignal[i];
+ 226:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #else
+ 227:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             mbx->outbox.signal[i]   = CapSense_CSD_SWAP_ENDIAN16(CapSense_CSD_sensorSignal[i]);
+ 307              		.loc 1 227 0 discriminator 3
+ 308 007a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 309 007c FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 310 007e 1449     		ldr	r1, .L9+8
+ 311 0080 31F81220 		ldrh	r2, [r1, r2, lsl #1]
+ 312 0084 1202     		lsls	r2, r2, #8
+ 313 0086 90B2     		uxth	r0, r2
+ 314 0088 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 315 008a 1149     		ldr	r1, .L9+8
+ 316 008c 31F81220 		ldrh	r2, [r1, r2, lsl #1]
+ 317 0090 120A     		lsrs	r2, r2, #8
+ 318 0092 92B2     		uxth	r2, r2
+ 319 0094 92B2     		uxth	r2, r2
+ 320 0096 0146     		mov	r1, r0	@ movhi
+ 321 0098 0A43     		orrs	r2, r2, r1
+ 322 009a 92B2     		uxth	r2, r2
+ 323 009c 91B2     		uxth	r1, r2
+ 324 009e 7A68     		ldr	r2, [r7, #4]
+ 325 00a0 5B00     		lsls	r3, r3, #1
+ 326 00a2 1344     		add	r3, r3, r2
+ 327 00a4 0A46     		mov	r2, r1	@ movhi
+ 328 00a6 A3F80720 		strh	r2, [r3, #7]	@ unaligned
+ 220:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     {
+ 329              		.loc 1 220 0 discriminator 3
+ 330 00aa FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 331 00ac 0133     		adds	r3, r3, #1
+ 332 00ae FB73     		strb	r3, [r7, #15]
+ 333              	.L7:
+ 220:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     {
+ 334              		.loc 1 220 0 is_stmt 0 discriminator 1
+ 335 00b0 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 336 00b2 002B     		cmp	r3, #0
+ 337 00b4 B1D0     		beq	.L8
+ 228:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         #endif  /* (CapSense_CSD_SIGNAL_SIZE == CapSense_CSD_SIGNAL_SIZE_UINT8) */
+ 229:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     }
+ 230:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         
+ 231:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /* AutoTuning - need to copy all High Level parameters */
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 11
+
+
+ 232:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     #if (CapSense_CSD_TUNING_METHOD == CapSense_CSD_AUTO_TUNING)
+ 233:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         
+ 234:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Parameters are changed in run time */
+ 235:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         for(i = 0u; i < CapSense_CSD_WIDGET_CSHL_PARAMETERS_COUNT; i++)
+ 236:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         {
+ 237:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             #if (CapSense_CSD_SIGNAL_SIZE == CapSense_CSD_SIGNAL_SIZE_UINT8)
+ 238:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                 mbx->outbox.fingerThreshold[i] = CapSense_CSD_fingerThreshold[i];
+ 239:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                 mbx->outbox.noiseThreshold[i]  = CapSense_CSD_noiseThreshold[i];
+ 240:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             #else
+ 241:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                 mbx->outbox.fingerThreshold[i] = $INSTANCE_NAME`_SWAP_ENDIAN16(CapSense_CSD_fingerT
+ 242:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****                 mbx->outbox.noiseThreshold[i]  = $INSTANCE_NAME`_SWAP_ENDIAN16(CapSense_CSD_noiseTh
+ 243:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             #endif /* (CapSense_CSD_SIGNAL_SIZE == CapSense_CSD_SIGNAL_SIZE_UINT8) */
+ 244:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         }
+ 245:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         
+ 246:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Widget resolution, take to account TP and MB */
+ 247:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         for(i=0u; i < CapSense_CSD_WIDGET_RESOLUTION_PARAMETERS_COUNT; i++)
+ 248:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         {
+ 249:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             mbx->outbox.scanResolution[i]  = CapSense_CSD_widgetResolution[i];
+ 250:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         }
+ 251:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 252:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Copy tuned idac values */
+ 253:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         for(i=0u; i < CapSense_CSD_TOTAL_SENSOR_COUNT; i++)
+ 254:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         {
+ 255:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             mbx->outbox.idacValue[i] = CapSense_CSD_idacSettings[i];
+ 256:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         }
+ 257:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             
+ 258:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Pass parameters only once */
+ 259:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         CapSense_CSD_lowLevelTuningDone = 0u;
+ 260:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     #endif  /* (CapSense_CSD_TUNING_METHOD == CapSense_CSD_MANUAL_TUNING) */
+ 261:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 262:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /* Copy scan parameters */
+ 263:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     #if ( CapSense_CSD_TUNING_METHOD == CapSense_CSD_AUTO_TUNING )
+ 264:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         for(i = 0u; i < CapSense_CSD_TOTAL_SCANSLOT_COUNT; i++)
+ 265:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         {
+ 266:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             mbx->outbox.analogSwitchDivider[i] = CapSense_CSD_analogSwitchDivider[i];
+ 267:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         }
+ 268:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     #endif /* (CapSense_CSD_TUNING_METHOD == CapSense_CSD_AUTO_TUNING) */
+ 269:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 270:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /* Set busy flag */
+ 271:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     mbx->type = CapSense_CSD_BUSY_FLAG;
+ 338              		.loc 1 271 0 is_stmt 1
+ 339 00b6 7B68     		ldr	r3, [r7, #4]
+ 340 00b8 8422     		movs	r2, #132
+ 341 00ba 1A70     		strb	r2, [r3]
+ 272:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** }
+ 342              		.loc 1 272 0
+ 343 00bc 1437     		adds	r7, r7, #20
+ 344              		.cfi_def_cfa_offset 4
+ 345 00be BD46     		mov	sp, r7
+ 346              		.cfi_def_cfa_register 13
+ 347              		@ sp needed
+ 348 00c0 5DF8047B 		ldr	r7, [sp], #4
+ 349              		.cfi_restore 7
+ 350              		.cfi_def_cfa_offset 0
+ 351 00c4 7047     		bx	lr
+ 352              	.L10:
+ 353 00c6 00BF     		.align	2
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 12
+
+
+ 354              	.L9:
+ 355 00c8 00000000 		.word	CapSense_CSD_sensorRaw
+ 356 00cc 00000000 		.word	CapSense_CSD_sensorBaseline
+ 357 00d0 00000000 		.word	CapSense_CSD_sensorSignal
+ 358              		.cfi_endproc
+ 359              	.LFE2:
+ 360              		.size	CapSense_CSD_PostMessage, .-CapSense_CSD_PostMessage
+ 361              		.section	.text.CapSense_CSD_ReadMessage,"ax",%progbits
+ 362              		.align	2
+ 363              		.global	CapSense_CSD_ReadMessage
+ 364              		.thumb
+ 365              		.thumb_func
+ 366              		.type	CapSense_CSD_ReadMessage, %function
+ 367              	CapSense_CSD_ReadMessage:
+ 368              	.LFB3:
+ 273:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 274:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 
+ 275:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** #if (CapSense_CSD_TUNING_METHOD == CapSense_CSD_MANUAL_TUNING)
+ 276:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     /*******************************************************************************
+ 277:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Function Name: CapSense_CSD_ReadMessage
+ 278:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     ********************************************************************************
+ 279:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+ 280:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Summary:
+ 281:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  If CapSense_CSD_HAVE_MSG is found in the mailbox, initialize component 
+ 282:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  with parameters found in the inbox. Signal DONE by overwriting the
+ 283:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  value in size field in mailbox.
+ 284:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  Only available when manual tuning mode.
+ 285:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+ 286:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Parameters:
+ 287:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  mbx:  Pointer to Mailbox structure in RAM.
+ 288:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+ 289:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Return:
+ 290:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  None. Modifies the contents of mbx.
+ 291:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+ 292:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Side Effects: 
+ 293:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  Initializes component parameters if CapSense_CSD_HAVE_MSG is received.
+ 294:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+ 295:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Global Variables:
+ 296:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  CapSense_CSD_MAILBOXES - structure which incorporates two fields: 
+ 297:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *    - numMailBoxes (number of mailboxes);
+ 298:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *    - CapSense_CSD_MAILBOX csdMailbox;
+ 299:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  CapSense_CSD_MAILBOX - structure which incorporates status output and
+ 300:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  input buffer fields and CapSense_CSD_OUTBOX and CapSense_CSD_INBOX.
+ 301:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *    - type (used as outbox read status of Tuner GUI);
+ 302:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *    - size (used as inbox apply status of component);
+ 303:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *    - CapSense_CSD_OUTBOX outbox - structure which is used as ouput 
+ 304:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *      buffer for report data to Tuner GUI.
+ 305:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *    - CapSense_CSD_INBOX inbox - structure which is used as input buffer
+ 306:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *      for parameters from Tuner GUI. Only used in manual tuning mode.
+ 307:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+ 308:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     * Reentrant:
+ 309:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *  No
+ 310:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *
+ 311:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     *******************************************************************************/
+ 312:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     void CapSense_CSD_ReadMessage(volatile CapSense_CSD_MAILBOX *mbx)
+ 313:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c **** 	                                  
+ 314:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     {
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 13
+
+
+ 369              		.loc 1 314 0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 16
+ 372              		@ frame_needed = 1, uses_anonymous_args = 0
+ 373 0000 80B5     		push	{r7, lr}
+ 374              		.cfi_def_cfa_offset 8
+ 375              		.cfi_offset 7, -8
+ 376              		.cfi_offset 14, -4
+ 377 0002 84B0     		sub	sp, sp, #16
+ 378              		.cfi_def_cfa_offset 24
+ 379 0004 00AF     		add	r7, sp, #0
+ 380              		.cfi_def_cfa_register 7
+ 381 0006 7860     		str	r0, [r7, #4]
+ 315:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         volatile CapSense_CSD_INBOX *tmpInbox;
+ 316:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         uint16 tmpValue;
+ 317:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         
+ 318:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         tmpValue = mbx->size;
+ 382              		.loc 1 318 0
+ 383 0008 7B68     		ldr	r3, [r7, #4]
+ 384 000a 5A78     		ldrb	r2, [r3, #1]
+ 385 000c D2B2     		uxtb	r2, r2
+ 386 000e 9B78     		ldrb	r3, [r3, #2]
+ 387 0010 DBB2     		uxtb	r3, r3
+ 388 0012 1B02     		lsls	r3, r3, #8
+ 389 0014 1343     		orrs	r3, r3, r2
+ 390 0016 FB81     		strh	r3, [r7, #14]	@ movhi
+ 319:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****        
+ 320:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         /* Do we have a message waiting? */
+ 321:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         if (CapSense_CSD_SWAP_ENDIAN16(tmpValue) == CapSense_CSD_HAVE_MSG)
+ 391              		.loc 1 321 0
+ 392 0018 FB89     		ldrh	r3, [r7, #14]
+ 393 001a 1B02     		lsls	r3, r3, #8
+ 394 001c 9AB2     		uxth	r2, r3
+ 395 001e FB89     		ldrh	r3, [r7, #14]
+ 396 0020 1B0A     		lsrs	r3, r3, #8
+ 397 0022 9BB2     		uxth	r3, r3
+ 398 0024 9BB2     		uxth	r3, r3
+ 399 0026 1343     		orrs	r3, r3, r2
+ 400 0028 9BB2     		uxth	r3, r3
+ 401 002a 1BB2     		sxth	r3, r3
+ 402 002c 0B4A     		ldr	r2, .L13
+ 403 002e 9342     		cmp	r3, r2
+ 404 0030 11D1     		bne	.L11
+ 322:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         {
+ 323:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             tmpInbox = &(mbx->inbox);
+ 405              		.loc 1 323 0
+ 406 0032 7B68     		ldr	r3, [r7, #4]
+ 407 0034 0D33     		adds	r3, r3, #13
+ 408 0036 BB60     		str	r3, [r7, #8]
+ 324:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             
+ 325:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             CapSense_CSD_InitParams(tmpInbox);
+ 409              		.loc 1 325 0
+ 410 0038 B868     		ldr	r0, [r7, #8]
+ 411 003a FFF7FEFF 		bl	CapSense_CSD_InitParams
+ 326:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     
+ 327:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             /* Notify host/tuner that we have consumed the message */
+ 328:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             mbx->size = CapSense_CSD_SWAP_ENDIAN16(sizeof(CapSense_CSD_MAILBOX));
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 14
+
+
+ 412              		.loc 1 328 0
+ 413 003e 7B68     		ldr	r3, [r7, #4]
+ 414 0040 5A78     		ldrb	r2, [r3, #1]
+ 415 0042 0022     		movs	r2, #0
+ 416 0044 5A70     		strb	r2, [r3, #1]
+ 417 0046 9A78     		ldrb	r2, [r3, #2]
+ 418 0048 0022     		movs	r2, #0
+ 419 004a 42F01802 		orr	r2, r2, #24
+ 420 004e 9A70     		strb	r2, [r3, #2]
+ 329:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             
+ 330:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             /* Defualt settings where changed */
+ 331:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****             mbx->outbox.noReadMsg = 0u;
+ 421              		.loc 1 331 0
+ 422 0050 7B68     		ldr	r3, [r7, #4]
+ 423 0052 0022     		movs	r2, #0
+ 424 0054 9A72     		strb	r2, [r3, #10]
+ 425              	.L11:
+ 332:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****         }       
+ 333:.\Generated_Source\PSoC5/CapSense_CSD_MBX.c ****     }
+ 426              		.loc 1 333 0
+ 427 0056 1037     		adds	r7, r7, #16
+ 428              		.cfi_def_cfa_offset 8
+ 429 0058 BD46     		mov	sp, r7
+ 430              		.cfi_def_cfa_register 13
+ 431              		@ sp needed
+ 432 005a 80BD     		pop	{r7, pc}
+ 433              	.L14:
+ 434              		.align	2
+ 435              	.L13:
+ 436 005c 1880FFFF 		.word	-32744
+ 437              		.cfi_endproc
+ 438              	.LFE3:
+ 439              		.size	CapSense_CSD_ReadMessage, .-CapSense_CSD_ReadMessage
+ 440              		.text
+ 441              	.Letext0:
+ 442              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 443              		.file 3 ".\\Generated_Source\\PSoC5\\CapSense_CSD_MBX.h"
+ 444              		.file 4 ".\\Generated_Source\\PSoC5\\CapSense_CSD.h"
+ 445              		.file 5 ".\\Generated_Source\\PSoC5\\CapSense_CSD_CSHL.h"
+ 446              		.section	.debug_info,"",%progbits
+ 447              	.Ldebug_info0:
+ 448 0000 59030000 		.4byte	0x359
+ 449 0004 0400     		.2byte	0x4
+ 450 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 451 000a 04       		.byte	0x4
+ 452 000b 01       		.uleb128 0x1
+ 453 000c EE010000 		.4byte	.LASF54
+ 454 0010 01       		.byte	0x1
+ 455 0011 00000000 		.4byte	.LASF55
+ 456 0015 BC000000 		.4byte	.LASF56
+ 457 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 458 001d 00000000 		.4byte	0
+ 459 0021 00000000 		.4byte	.Ldebug_line0
+ 460 0025 02       		.uleb128 0x2
+ 461 0026 01       		.byte	0x1
+ 462 0027 06       		.byte	0x6
+ 463 0028 E7030000 		.4byte	.LASF0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 15
+
+
+ 464 002c 02       		.uleb128 0x2
+ 465 002d 01       		.byte	0x1
+ 466 002e 08       		.byte	0x8
+ 467 002f CB010000 		.4byte	.LASF1
+ 468 0033 02       		.uleb128 0x2
+ 469 0034 02       		.byte	0x2
+ 470 0035 05       		.byte	0x5
+ 471 0036 8D030000 		.4byte	.LASF2
+ 472 003a 02       		.uleb128 0x2
+ 473 003b 02       		.byte	0x2
+ 474 003c 07       		.byte	0x7
+ 475 003d 64000000 		.4byte	.LASF3
+ 476 0041 02       		.uleb128 0x2
+ 477 0042 04       		.byte	0x4
+ 478 0043 05       		.byte	0x5
+ 479 0044 D9030000 		.4byte	.LASF4
+ 480 0048 02       		.uleb128 0x2
+ 481 0049 04       		.byte	0x4
+ 482 004a 07       		.byte	0x7
+ 483 004b 78010000 		.4byte	.LASF5
+ 484 004f 02       		.uleb128 0x2
+ 485 0050 08       		.byte	0x8
+ 486 0051 05       		.byte	0x5
+ 487 0052 41030000 		.4byte	.LASF6
+ 488 0056 02       		.uleb128 0x2
+ 489 0057 08       		.byte	0x8
+ 490 0058 07       		.byte	0x7
+ 491 0059 22010000 		.4byte	.LASF7
+ 492 005d 03       		.uleb128 0x3
+ 493 005e 04       		.byte	0x4
+ 494 005f 05       		.byte	0x5
+ 495 0060 696E7400 		.ascii	"int\000"
+ 496 0064 02       		.uleb128 0x2
+ 497 0065 04       		.byte	0x4
+ 498 0066 07       		.byte	0x7
+ 499 0067 BC020000 		.4byte	.LASF8
+ 500 006b 04       		.uleb128 0x4
+ 501 006c 8A010000 		.4byte	.LASF9
+ 502 0070 02       		.byte	0x2
+ 503 0071 3801     		.2byte	0x138
+ 504 0073 2C000000 		.4byte	0x2c
+ 505 0077 04       		.uleb128 0x4
+ 506 0078 A6020000 		.4byte	.LASF10
+ 507 007c 02       		.byte	0x2
+ 508 007d 3901     		.2byte	0x139
+ 509 007f 3A000000 		.4byte	0x3a
+ 510 0083 02       		.uleb128 0x2
+ 511 0084 04       		.byte	0x4
+ 512 0085 04       		.byte	0x4
+ 513 0086 13010000 		.4byte	.LASF11
+ 514 008a 02       		.uleb128 0x2
+ 515 008b 08       		.byte	0x8
+ 516 008c 04       		.byte	0x4
+ 517 008d 7C020000 		.4byte	.LASF12
+ 518 0091 02       		.uleb128 0x2
+ 519 0092 01       		.byte	0x1
+ 520 0093 08       		.byte	0x8
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 16
+
+
+ 521 0094 E2030000 		.4byte	.LASF13
+ 522 0098 02       		.uleb128 0x2
+ 523 0099 04       		.byte	0x4
+ 524 009a 07       		.byte	0x7
+ 525 009b 38030000 		.4byte	.LASF14
+ 526 009f 05       		.uleb128 0x5
+ 527 00a0 0A       		.byte	0xa
+ 528 00a1 03       		.byte	0x3
+ 529 00a2 3C       		.byte	0x3c
+ 530 00a3 F0000000 		.4byte	0xf0
+ 531 00a7 06       		.uleb128 0x6
+ 532 00a8 D1030000 		.4byte	.LASF15
+ 533 00ac 03       		.byte	0x3
+ 534 00ad 46       		.byte	0x46
+ 535 00ae F0000000 		.4byte	0xf0
+ 536 00b2 00       		.byte	0
+ 537 00b3 06       		.uleb128 0x6
+ 538 00b4 0D040000 		.4byte	.LASF16
+ 539 00b8 03       		.byte	0x3
+ 540 00b9 47       		.byte	0x47
+ 541 00ba F0000000 		.4byte	0xf0
+ 542 00be 02       		.byte	0x2
+ 543 00bf 06       		.uleb128 0x6
+ 544 00c0 49000000 		.4byte	.LASF17
+ 545 00c4 03       		.byte	0x3
+ 546 00c5 48       		.byte	0x48
+ 547 00c6 F0000000 		.4byte	0xf0
+ 548 00ca 04       		.byte	0x4
+ 549 00cb 06       		.uleb128 0x6
+ 550 00cc 9F020000 		.4byte	.LASF18
+ 551 00d0 03       		.byte	0x3
+ 552 00d1 49       		.byte	0x49
+ 553 00d2 00010000 		.4byte	0x100
+ 554 00d6 06       		.byte	0x6
+ 555 00d7 06       		.uleb128 0x6
+ 556 00d8 C9020000 		.4byte	.LASF19
+ 557 00dc 03       		.byte	0x3
+ 558 00dd 54       		.byte	0x54
+ 559 00de 6B000000 		.4byte	0x6b
+ 560 00e2 07       		.byte	0x7
+ 561 00e3 06       		.uleb128 0x6
+ 562 00e4 9A000000 		.4byte	.LASF20
+ 563 00e8 03       		.byte	0x3
+ 564 00e9 56       		.byte	0x56
+ 565 00ea 77000000 		.4byte	0x77
+ 566 00ee 08       		.byte	0x8
+ 567 00ef 00       		.byte	0
+ 568 00f0 07       		.uleb128 0x7
+ 569 00f1 77000000 		.4byte	0x77
+ 570 00f5 00010000 		.4byte	0x100
+ 571 00f9 08       		.uleb128 0x8
+ 572 00fa 98000000 		.4byte	0x98
+ 573 00fe 00       		.byte	0
+ 574 00ff 00       		.byte	0
+ 575 0100 07       		.uleb128 0x7
+ 576 0101 6B000000 		.4byte	0x6b
+ 577 0105 10010000 		.4byte	0x110
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 17
+
+
+ 578 0109 08       		.uleb128 0x8
+ 579 010a 98000000 		.4byte	0x98
+ 580 010e 00       		.byte	0
+ 581 010f 00       		.byte	0
+ 582 0110 09       		.uleb128 0x9
+ 583 0111 50000000 		.4byte	.LASF21
+ 584 0115 03       		.byte	0x3
+ 585 0116 58       		.byte	0x58
+ 586 0117 9F000000 		.4byte	0x9f
+ 587 011b 05       		.uleb128 0x5
+ 588 011c 0B       		.byte	0xb
+ 589 011d 03       		.byte	0x3
+ 590 011e 5C       		.byte	0x5c
+ 591 011f 84010000 		.4byte	0x184
+ 592 0123 06       		.uleb128 0x6
+ 593 0124 EC020000 		.4byte	.LASF22
+ 594 0128 03       		.byte	0x3
+ 595 0129 5E       		.byte	0x5e
+ 596 012a 6B000000 		.4byte	0x6b
+ 597 012e 00       		.byte	0
+ 598 012f 06       		.uleb128 0x6
+ 599 0130 F8020000 		.4byte	.LASF23
+ 600 0134 03       		.byte	0x3
+ 601 0135 60       		.byte	0x60
+ 602 0136 6B000000 		.4byte	0x6b
+ 603 013a 01       		.byte	0x1
+ 604 013b 06       		.uleb128 0x6
+ 605 013c 6D030000 		.4byte	.LASF24
+ 606 0140 03       		.byte	0x3
+ 607 0141 62       		.byte	0x62
+ 608 0142 6B000000 		.4byte	0x6b
+ 609 0146 02       		.byte	0x2
+ 610 0147 06       		.uleb128 0x6
+ 611 0148 78030000 		.4byte	.LASF25
+ 612 014c 03       		.byte	0x3
+ 613 014d 63       		.byte	0x63
+ 614 014e 77000000 		.4byte	0x77
+ 615 0152 03       		.byte	0x3
+ 616 0153 06       		.uleb128 0x6
+ 617 0154 AD020000 		.4byte	.LASF26
+ 618 0158 03       		.byte	0x3
+ 619 0159 64       		.byte	0x64
+ 620 015a 77000000 		.4byte	0x77
+ 621 015e 05       		.byte	0x5
+ 622 015f 06       		.uleb128 0x6
+ 623 0160 15030000 		.4byte	.LASF27
+ 624 0164 03       		.byte	0x3
+ 625 0165 65       		.byte	0x65
+ 626 0166 77000000 		.4byte	0x77
+ 627 016a 07       		.byte	0x7
+ 628 016b 06       		.uleb128 0x6
+ 629 016c 05030000 		.4byte	.LASF28
+ 630 0170 03       		.byte	0x3
+ 631 0171 66       		.byte	0x66
+ 632 0172 6B000000 		.4byte	0x6b
+ 633 0176 09       		.byte	0x9
+ 634 0177 06       		.uleb128 0x6
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 18
+
+
+ 635 0178 57010000 		.4byte	.LASF29
+ 636 017c 03       		.byte	0x3
+ 637 017d 67       		.byte	0x67
+ 638 017e 6B000000 		.4byte	0x6b
+ 639 0182 0A       		.byte	0xa
+ 640 0183 00       		.byte	0
+ 641 0184 09       		.uleb128 0x9
+ 642 0185 2E040000 		.4byte	.LASF30
+ 643 0189 03       		.byte	0x3
+ 644 018a 68       		.byte	0x68
+ 645 018b 1B010000 		.4byte	0x11b
+ 646 018f 05       		.uleb128 0x5
+ 647 0190 18       		.byte	0x18
+ 648 0191 03       		.byte	0x3
+ 649 0192 6D       		.byte	0x6d
+ 650 0193 C8010000 		.4byte	0x1c8
+ 651 0197 06       		.uleb128 0x6
+ 652 0198 88030000 		.4byte	.LASF31
+ 653 019c 03       		.byte	0x3
+ 654 019d 6F       		.byte	0x6f
+ 655 019e 6B000000 		.4byte	0x6b
+ 656 01a2 00       		.byte	0
+ 657 01a3 06       		.uleb128 0x6
+ 658 01a4 39010000 		.4byte	.LASF32
+ 659 01a8 03       		.byte	0x3
+ 660 01a9 70       		.byte	0x70
+ 661 01aa 77000000 		.4byte	0x77
+ 662 01ae 01       		.byte	0x1
+ 663 01af 06       		.uleb128 0x6
+ 664 01b0 AE030000 		.4byte	.LASF33
+ 665 01b4 03       		.byte	0x3
+ 666 01b5 71       		.byte	0x71
+ 667 01b6 10010000 		.4byte	0x110
+ 668 01ba 03       		.byte	0x3
+ 669 01bb 06       		.uleb128 0x6
+ 670 01bc 72010000 		.4byte	.LASF34
+ 671 01c0 03       		.byte	0x3
+ 672 01c1 73       		.byte	0x73
+ 673 01c2 84010000 		.4byte	0x184
+ 674 01c6 0D       		.byte	0xd
+ 675 01c7 00       		.byte	0
+ 676 01c8 09       		.uleb128 0x9
+ 677 01c9 D9010000 		.4byte	.LASF35
+ 678 01cd 03       		.byte	0x3
+ 679 01ce 76       		.byte	0x76
+ 680 01cf 8F010000 		.4byte	0x18f
+ 681 01d3 0A       		.uleb128 0xa
+ 682 01d4 16040000 		.4byte	.LASF57
+ 683 01d8 01       		.byte	0x1
+ 684 01d9 3D       		.byte	0x3d
+ 685 01da 00000000 		.4byte	.LFB0
+ 686 01de F4000000 		.4byte	.LFE0-.LFB0
+ 687 01e2 01       		.uleb128 0x1
+ 688 01e3 9C       		.byte	0x9c
+ 689 01e4 21020000 		.4byte	0x221
+ 690 01e8 0B       		.uleb128 0xb
+ 691 01e9 72010000 		.4byte	.LASF34
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 19
+
+
+ 692 01ed 01       		.byte	0x1
+ 693 01ee 3D       		.byte	0x3d
+ 694 01ef 21020000 		.4byte	0x221
+ 695 01f3 02       		.uleb128 0x2
+ 696 01f4 91       		.byte	0x91
+ 697 01f5 6C       		.sleb128 -20
+ 698 01f6 0C       		.uleb128 0xc
+ 699 01f7 6B010000 		.4byte	.LASF36
+ 700 01fb 01       		.byte	0x1
+ 701 01fc 41       		.byte	0x41
+ 702 01fd 6B000000 		.4byte	0x6b
+ 703 0201 02       		.uleb128 0x2
+ 704 0202 91       		.byte	0x91
+ 705 0203 77       		.sleb128 -9
+ 706 0204 0C       		.uleb128 0xc
+ 707 0205 0E030000 		.4byte	.LASF37
+ 708 0209 01       		.byte	0x1
+ 709 020a 42       		.byte	0x42
+ 710 020b 6B000000 		.4byte	0x6b
+ 711 020f 02       		.uleb128 0x2
+ 712 0210 91       		.byte	0x91
+ 713 0211 76       		.sleb128 -10
+ 714 0212 0C       		.uleb128 0xc
+ 715 0213 77000000 		.4byte	.LASF38
+ 716 0217 01       		.byte	0x1
+ 717 0218 43       		.byte	0x43
+ 718 0219 77000000 		.4byte	0x77
+ 719 021d 02       		.uleb128 0x2
+ 720 021e 91       		.byte	0x91
+ 721 021f 74       		.sleb128 -12
+ 722 0220 00       		.byte	0
+ 723 0221 0D       		.uleb128 0xd
+ 724 0222 04       		.byte	0x4
+ 725 0223 27020000 		.4byte	0x227
+ 726 0227 0E       		.uleb128 0xe
+ 727 0228 2C020000 		.4byte	0x22c
+ 728 022c 0F       		.uleb128 0xf
+ 729 022d 84010000 		.4byte	0x184
+ 730 0231 10       		.uleb128 0x10
+ 731 0232 D3020000 		.4byte	.LASF39
+ 732 0236 01       		.byte	0x1
+ 733 0237 94       		.byte	0x94
+ 734 0238 00000000 		.4byte	.LFB1
+ 735 023c 42000000 		.4byte	.LFE1-.LFB1
+ 736 0240 01       		.uleb128 0x1
+ 737 0241 9C       		.byte	0x9c
+ 738 0242 55020000 		.4byte	0x255
+ 739 0246 11       		.uleb128 0x11
+ 740 0247 6D627800 		.ascii	"mbx\000"
+ 741 024b 01       		.byte	0x1
+ 742 024c 94       		.byte	0x94
+ 743 024d 55020000 		.4byte	0x255
+ 744 0251 02       		.uleb128 0x2
+ 745 0252 91       		.byte	0x91
+ 746 0253 74       		.sleb128 -12
+ 747 0254 00       		.byte	0
+ 748 0255 0D       		.uleb128 0xd
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 20
+
+
+ 749 0256 04       		.byte	0x4
+ 750 0257 5B020000 		.4byte	0x25b
+ 751 025b 0F       		.uleb128 0xf
+ 752 025c C8010000 		.4byte	0x1c8
+ 753 0260 10       		.uleb128 0x10
+ 754 0261 3E010000 		.4byte	.LASF40
+ 755 0265 01       		.byte	0x1
+ 756 0266 D0       		.byte	0xd0
+ 757 0267 00000000 		.4byte	.LFB2
+ 758 026b D4000000 		.4byte	.LFE2-.LFB2
+ 759 026f 01       		.uleb128 0x1
+ 760 0270 9C       		.byte	0x9c
+ 761 0271 90020000 		.4byte	0x290
+ 762 0275 11       		.uleb128 0x11
+ 763 0276 6D627800 		.ascii	"mbx\000"
+ 764 027a 01       		.byte	0x1
+ 765 027b D0       		.byte	0xd0
+ 766 027c 55020000 		.4byte	0x255
+ 767 0280 02       		.uleb128 0x2
+ 768 0281 91       		.byte	0x91
+ 769 0282 6C       		.sleb128 -20
+ 770 0283 12       		.uleb128 0x12
+ 771 0284 6900     		.ascii	"i\000"
+ 772 0286 01       		.byte	0x1
+ 773 0287 D3       		.byte	0xd3
+ 774 0288 6B000000 		.4byte	0x6b
+ 775 028c 02       		.uleb128 0x2
+ 776 028d 91       		.byte	0x91
+ 777 028e 77       		.sleb128 -9
+ 778 028f 00       		.byte	0
+ 779 0290 13       		.uleb128 0x13
+ 780 0291 A3000000 		.4byte	.LASF41
+ 781 0295 01       		.byte	0x1
+ 782 0296 3801     		.2byte	0x138
+ 783 0298 00000000 		.4byte	.LFB3
+ 784 029c 60000000 		.4byte	.LFE3-.LFB3
+ 785 02a0 01       		.uleb128 0x1
+ 786 02a1 9C       		.byte	0x9c
+ 787 02a2 D4020000 		.4byte	0x2d4
+ 788 02a6 14       		.uleb128 0x14
+ 789 02a7 6D627800 		.ascii	"mbx\000"
+ 790 02ab 01       		.byte	0x1
+ 791 02ac 3801     		.2byte	0x138
+ 792 02ae 55020000 		.4byte	0x255
+ 793 02b2 02       		.uleb128 0x2
+ 794 02b3 91       		.byte	0x91
+ 795 02b4 6C       		.sleb128 -20
+ 796 02b5 15       		.uleb128 0x15
+ 797 02b6 19010000 		.4byte	.LASF42
+ 798 02ba 01       		.byte	0x1
+ 799 02bb 3B01     		.2byte	0x13b
+ 800 02bd D4020000 		.4byte	0x2d4
+ 801 02c1 02       		.uleb128 0x2
+ 802 02c2 91       		.byte	0x91
+ 803 02c3 70       		.sleb128 -16
+ 804 02c4 15       		.uleb128 0x15
+ 805 02c5 77000000 		.4byte	.LASF38
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 21
+
+
+ 806 02c9 01       		.byte	0x1
+ 807 02ca 3C01     		.2byte	0x13c
+ 808 02cc 77000000 		.4byte	0x77
+ 809 02d0 02       		.uleb128 0x2
+ 810 02d1 91       		.byte	0x91
+ 811 02d2 76       		.sleb128 -10
+ 812 02d3 00       		.byte	0
+ 813 02d4 0D       		.uleb128 0xd
+ 814 02d5 04       		.byte	0x4
+ 815 02d6 2C020000 		.4byte	0x22c
+ 816 02da 16       		.uleb128 0x16
+ 817 02db 97030000 		.4byte	.LASF43
+ 818 02df 04       		.byte	0x4
+ 819 02e0 B902     		.2byte	0x2b9
+ 820 02e2 F0000000 		.4byte	0xf0
+ 821 02e6 16       		.uleb128 0x16
+ 822 02e7 F3030000 		.4byte	.LASF44
+ 823 02eb 05       		.byte	0x5
+ 824 02ec 0401     		.2byte	0x104
+ 825 02ee F2020000 		.4byte	0x2f2
+ 826 02f2 0E       		.uleb128 0xe
+ 827 02f3 00010000 		.4byte	0x100
+ 828 02f7 16       		.uleb128 0x16
+ 829 02f8 B5030000 		.4byte	.LASF45
+ 830 02fc 05       		.byte	0x5
+ 831 02fd 0601     		.2byte	0x106
+ 832 02ff F0000000 		.4byte	0xf0
+ 833 0303 16       		.uleb128 0x16
+ 834 0304 80000000 		.4byte	.LASF46
+ 835 0308 05       		.byte	0x5
+ 836 0309 0801     		.2byte	0x108
+ 837 030b F0000000 		.4byte	0xf0
+ 838 030f 17       		.uleb128 0x17
+ 839 0310 B1010000 		.4byte	.LASF47
+ 840 0314 03       		.byte	0x3
+ 841 0315 9B       		.byte	0x9b
+ 842 0316 00010000 		.4byte	0x100
+ 843 031a 17       		.uleb128 0x17
+ 844 031b 4F030000 		.4byte	.LASF48
+ 845 031f 03       		.byte	0x3
+ 846 0320 9E       		.byte	0x9e
+ 847 0321 00010000 		.4byte	0x100
+ 848 0325 17       		.uleb128 0x17
+ 849 0326 2C000000 		.4byte	.LASF49
+ 850 032a 03       		.byte	0x3
+ 851 032b A0       		.byte	0xa0
+ 852 032c F0000000 		.4byte	0xf0
+ 853 0330 17       		.uleb128 0x17
+ 854 0331 83020000 		.4byte	.LASF50
+ 855 0335 03       		.byte	0x3
+ 856 0336 A1       		.byte	0xa1
+ 857 0337 F0000000 		.4byte	0xf0
+ 858 033b 17       		.uleb128 0x17
+ 859 033c 20030000 		.4byte	.LASF51
+ 860 0340 03       		.byte	0x3
+ 861 0341 A2       		.byte	0xa2
+ 862 0342 F0000000 		.4byte	0xf0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 22
+
+
+ 863 0346 17       		.uleb128 0x17
+ 864 0347 41040000 		.4byte	.LASF52
+ 865 034b 03       		.byte	0x3
+ 866 034c A3       		.byte	0xa3
+ 867 034d 00010000 		.4byte	0x100
+ 868 0351 17       		.uleb128 0x17
+ 869 0352 90010000 		.4byte	.LASF53
+ 870 0356 03       		.byte	0x3
+ 871 0357 AC       		.byte	0xac
+ 872 0358 00010000 		.4byte	0x100
+ 873 035c 00       		.byte	0
+ 874              		.section	.debug_abbrev,"",%progbits
+ 875              	.Ldebug_abbrev0:
+ 876 0000 01       		.uleb128 0x1
+ 877 0001 11       		.uleb128 0x11
+ 878 0002 01       		.byte	0x1
+ 879 0003 25       		.uleb128 0x25
+ 880 0004 0E       		.uleb128 0xe
+ 881 0005 13       		.uleb128 0x13
+ 882 0006 0B       		.uleb128 0xb
+ 883 0007 03       		.uleb128 0x3
+ 884 0008 0E       		.uleb128 0xe
+ 885 0009 1B       		.uleb128 0x1b
+ 886 000a 0E       		.uleb128 0xe
+ 887 000b 55       		.uleb128 0x55
+ 888 000c 17       		.uleb128 0x17
+ 889 000d 11       		.uleb128 0x11
+ 890 000e 01       		.uleb128 0x1
+ 891 000f 10       		.uleb128 0x10
+ 892 0010 17       		.uleb128 0x17
+ 893 0011 00       		.byte	0
+ 894 0012 00       		.byte	0
+ 895 0013 02       		.uleb128 0x2
+ 896 0014 24       		.uleb128 0x24
+ 897 0015 00       		.byte	0
+ 898 0016 0B       		.uleb128 0xb
+ 899 0017 0B       		.uleb128 0xb
+ 900 0018 3E       		.uleb128 0x3e
+ 901 0019 0B       		.uleb128 0xb
+ 902 001a 03       		.uleb128 0x3
+ 903 001b 0E       		.uleb128 0xe
+ 904 001c 00       		.byte	0
+ 905 001d 00       		.byte	0
+ 906 001e 03       		.uleb128 0x3
+ 907 001f 24       		.uleb128 0x24
+ 908 0020 00       		.byte	0
+ 909 0021 0B       		.uleb128 0xb
+ 910 0022 0B       		.uleb128 0xb
+ 911 0023 3E       		.uleb128 0x3e
+ 912 0024 0B       		.uleb128 0xb
+ 913 0025 03       		.uleb128 0x3
+ 914 0026 08       		.uleb128 0x8
+ 915 0027 00       		.byte	0
+ 916 0028 00       		.byte	0
+ 917 0029 04       		.uleb128 0x4
+ 918 002a 16       		.uleb128 0x16
+ 919 002b 00       		.byte	0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 23
+
+
+ 920 002c 03       		.uleb128 0x3
+ 921 002d 0E       		.uleb128 0xe
+ 922 002e 3A       		.uleb128 0x3a
+ 923 002f 0B       		.uleb128 0xb
+ 924 0030 3B       		.uleb128 0x3b
+ 925 0031 05       		.uleb128 0x5
+ 926 0032 49       		.uleb128 0x49
+ 927 0033 13       		.uleb128 0x13
+ 928 0034 00       		.byte	0
+ 929 0035 00       		.byte	0
+ 930 0036 05       		.uleb128 0x5
+ 931 0037 13       		.uleb128 0x13
+ 932 0038 01       		.byte	0x1
+ 933 0039 0B       		.uleb128 0xb
+ 934 003a 0B       		.uleb128 0xb
+ 935 003b 3A       		.uleb128 0x3a
+ 936 003c 0B       		.uleb128 0xb
+ 937 003d 3B       		.uleb128 0x3b
+ 938 003e 0B       		.uleb128 0xb
+ 939 003f 01       		.uleb128 0x1
+ 940 0040 13       		.uleb128 0x13
+ 941 0041 00       		.byte	0
+ 942 0042 00       		.byte	0
+ 943 0043 06       		.uleb128 0x6
+ 944 0044 0D       		.uleb128 0xd
+ 945 0045 00       		.byte	0
+ 946 0046 03       		.uleb128 0x3
+ 947 0047 0E       		.uleb128 0xe
+ 948 0048 3A       		.uleb128 0x3a
+ 949 0049 0B       		.uleb128 0xb
+ 950 004a 3B       		.uleb128 0x3b
+ 951 004b 0B       		.uleb128 0xb
+ 952 004c 49       		.uleb128 0x49
+ 953 004d 13       		.uleb128 0x13
+ 954 004e 38       		.uleb128 0x38
+ 955 004f 0B       		.uleb128 0xb
+ 956 0050 00       		.byte	0
+ 957 0051 00       		.byte	0
+ 958 0052 07       		.uleb128 0x7
+ 959 0053 01       		.uleb128 0x1
+ 960 0054 01       		.byte	0x1
+ 961 0055 49       		.uleb128 0x49
+ 962 0056 13       		.uleb128 0x13
+ 963 0057 01       		.uleb128 0x1
+ 964 0058 13       		.uleb128 0x13
+ 965 0059 00       		.byte	0
+ 966 005a 00       		.byte	0
+ 967 005b 08       		.uleb128 0x8
+ 968 005c 21       		.uleb128 0x21
+ 969 005d 00       		.byte	0
+ 970 005e 49       		.uleb128 0x49
+ 971 005f 13       		.uleb128 0x13
+ 972 0060 2F       		.uleb128 0x2f
+ 973 0061 0B       		.uleb128 0xb
+ 974 0062 00       		.byte	0
+ 975 0063 00       		.byte	0
+ 976 0064 09       		.uleb128 0x9
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 24
+
+
+ 977 0065 16       		.uleb128 0x16
+ 978 0066 00       		.byte	0
+ 979 0067 03       		.uleb128 0x3
+ 980 0068 0E       		.uleb128 0xe
+ 981 0069 3A       		.uleb128 0x3a
+ 982 006a 0B       		.uleb128 0xb
+ 983 006b 3B       		.uleb128 0x3b
+ 984 006c 0B       		.uleb128 0xb
+ 985 006d 49       		.uleb128 0x49
+ 986 006e 13       		.uleb128 0x13
+ 987 006f 00       		.byte	0
+ 988 0070 00       		.byte	0
+ 989 0071 0A       		.uleb128 0xa
+ 990 0072 2E       		.uleb128 0x2e
+ 991 0073 01       		.byte	0x1
+ 992 0074 03       		.uleb128 0x3
+ 993 0075 0E       		.uleb128 0xe
+ 994 0076 3A       		.uleb128 0x3a
+ 995 0077 0B       		.uleb128 0xb
+ 996 0078 3B       		.uleb128 0x3b
+ 997 0079 0B       		.uleb128 0xb
+ 998 007a 27       		.uleb128 0x27
+ 999 007b 19       		.uleb128 0x19
+ 1000 007c 11       		.uleb128 0x11
+ 1001 007d 01       		.uleb128 0x1
+ 1002 007e 12       		.uleb128 0x12
+ 1003 007f 06       		.uleb128 0x6
+ 1004 0080 40       		.uleb128 0x40
+ 1005 0081 18       		.uleb128 0x18
+ 1006 0082 9642     		.uleb128 0x2116
+ 1007 0084 19       		.uleb128 0x19
+ 1008 0085 01       		.uleb128 0x1
+ 1009 0086 13       		.uleb128 0x13
+ 1010 0087 00       		.byte	0
+ 1011 0088 00       		.byte	0
+ 1012 0089 0B       		.uleb128 0xb
+ 1013 008a 05       		.uleb128 0x5
+ 1014 008b 00       		.byte	0
+ 1015 008c 03       		.uleb128 0x3
+ 1016 008d 0E       		.uleb128 0xe
+ 1017 008e 3A       		.uleb128 0x3a
+ 1018 008f 0B       		.uleb128 0xb
+ 1019 0090 3B       		.uleb128 0x3b
+ 1020 0091 0B       		.uleb128 0xb
+ 1021 0092 49       		.uleb128 0x49
+ 1022 0093 13       		.uleb128 0x13
+ 1023 0094 02       		.uleb128 0x2
+ 1024 0095 18       		.uleb128 0x18
+ 1025 0096 00       		.byte	0
+ 1026 0097 00       		.byte	0
+ 1027 0098 0C       		.uleb128 0xc
+ 1028 0099 34       		.uleb128 0x34
+ 1029 009a 00       		.byte	0
+ 1030 009b 03       		.uleb128 0x3
+ 1031 009c 0E       		.uleb128 0xe
+ 1032 009d 3A       		.uleb128 0x3a
+ 1033 009e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 25
+
+
+ 1034 009f 3B       		.uleb128 0x3b
+ 1035 00a0 0B       		.uleb128 0xb
+ 1036 00a1 49       		.uleb128 0x49
+ 1037 00a2 13       		.uleb128 0x13
+ 1038 00a3 02       		.uleb128 0x2
+ 1039 00a4 18       		.uleb128 0x18
+ 1040 00a5 00       		.byte	0
+ 1041 00a6 00       		.byte	0
+ 1042 00a7 0D       		.uleb128 0xd
+ 1043 00a8 0F       		.uleb128 0xf
+ 1044 00a9 00       		.byte	0
+ 1045 00aa 0B       		.uleb128 0xb
+ 1046 00ab 0B       		.uleb128 0xb
+ 1047 00ac 49       		.uleb128 0x49
+ 1048 00ad 13       		.uleb128 0x13
+ 1049 00ae 00       		.byte	0
+ 1050 00af 00       		.byte	0
+ 1051 00b0 0E       		.uleb128 0xe
+ 1052 00b1 26       		.uleb128 0x26
+ 1053 00b2 00       		.byte	0
+ 1054 00b3 49       		.uleb128 0x49
+ 1055 00b4 13       		.uleb128 0x13
+ 1056 00b5 00       		.byte	0
+ 1057 00b6 00       		.byte	0
+ 1058 00b7 0F       		.uleb128 0xf
+ 1059 00b8 35       		.uleb128 0x35
+ 1060 00b9 00       		.byte	0
+ 1061 00ba 49       		.uleb128 0x49
+ 1062 00bb 13       		.uleb128 0x13
+ 1063 00bc 00       		.byte	0
+ 1064 00bd 00       		.byte	0
+ 1065 00be 10       		.uleb128 0x10
+ 1066 00bf 2E       		.uleb128 0x2e
+ 1067 00c0 01       		.byte	0x1
+ 1068 00c1 3F       		.uleb128 0x3f
+ 1069 00c2 19       		.uleb128 0x19
+ 1070 00c3 03       		.uleb128 0x3
+ 1071 00c4 0E       		.uleb128 0xe
+ 1072 00c5 3A       		.uleb128 0x3a
+ 1073 00c6 0B       		.uleb128 0xb
+ 1074 00c7 3B       		.uleb128 0x3b
+ 1075 00c8 0B       		.uleb128 0xb
+ 1076 00c9 27       		.uleb128 0x27
+ 1077 00ca 19       		.uleb128 0x19
+ 1078 00cb 11       		.uleb128 0x11
+ 1079 00cc 01       		.uleb128 0x1
+ 1080 00cd 12       		.uleb128 0x12
+ 1081 00ce 06       		.uleb128 0x6
+ 1082 00cf 40       		.uleb128 0x40
+ 1083 00d0 18       		.uleb128 0x18
+ 1084 00d1 9742     		.uleb128 0x2117
+ 1085 00d3 19       		.uleb128 0x19
+ 1086 00d4 01       		.uleb128 0x1
+ 1087 00d5 13       		.uleb128 0x13
+ 1088 00d6 00       		.byte	0
+ 1089 00d7 00       		.byte	0
+ 1090 00d8 11       		.uleb128 0x11
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 26
+
+
+ 1091 00d9 05       		.uleb128 0x5
+ 1092 00da 00       		.byte	0
+ 1093 00db 03       		.uleb128 0x3
+ 1094 00dc 08       		.uleb128 0x8
+ 1095 00dd 3A       		.uleb128 0x3a
+ 1096 00de 0B       		.uleb128 0xb
+ 1097 00df 3B       		.uleb128 0x3b
+ 1098 00e0 0B       		.uleb128 0xb
+ 1099 00e1 49       		.uleb128 0x49
+ 1100 00e2 13       		.uleb128 0x13
+ 1101 00e3 02       		.uleb128 0x2
+ 1102 00e4 18       		.uleb128 0x18
+ 1103 00e5 00       		.byte	0
+ 1104 00e6 00       		.byte	0
+ 1105 00e7 12       		.uleb128 0x12
+ 1106 00e8 34       		.uleb128 0x34
+ 1107 00e9 00       		.byte	0
+ 1108 00ea 03       		.uleb128 0x3
+ 1109 00eb 08       		.uleb128 0x8
+ 1110 00ec 3A       		.uleb128 0x3a
+ 1111 00ed 0B       		.uleb128 0xb
+ 1112 00ee 3B       		.uleb128 0x3b
+ 1113 00ef 0B       		.uleb128 0xb
+ 1114 00f0 49       		.uleb128 0x49
+ 1115 00f1 13       		.uleb128 0x13
+ 1116 00f2 02       		.uleb128 0x2
+ 1117 00f3 18       		.uleb128 0x18
+ 1118 00f4 00       		.byte	0
+ 1119 00f5 00       		.byte	0
+ 1120 00f6 13       		.uleb128 0x13
+ 1121 00f7 2E       		.uleb128 0x2e
+ 1122 00f8 01       		.byte	0x1
+ 1123 00f9 3F       		.uleb128 0x3f
+ 1124 00fa 19       		.uleb128 0x19
+ 1125 00fb 03       		.uleb128 0x3
+ 1126 00fc 0E       		.uleb128 0xe
+ 1127 00fd 3A       		.uleb128 0x3a
+ 1128 00fe 0B       		.uleb128 0xb
+ 1129 00ff 3B       		.uleb128 0x3b
+ 1130 0100 05       		.uleb128 0x5
+ 1131 0101 27       		.uleb128 0x27
+ 1132 0102 19       		.uleb128 0x19
+ 1133 0103 11       		.uleb128 0x11
+ 1134 0104 01       		.uleb128 0x1
+ 1135 0105 12       		.uleb128 0x12
+ 1136 0106 06       		.uleb128 0x6
+ 1137 0107 40       		.uleb128 0x40
+ 1138 0108 18       		.uleb128 0x18
+ 1139 0109 9642     		.uleb128 0x2116
+ 1140 010b 19       		.uleb128 0x19
+ 1141 010c 01       		.uleb128 0x1
+ 1142 010d 13       		.uleb128 0x13
+ 1143 010e 00       		.byte	0
+ 1144 010f 00       		.byte	0
+ 1145 0110 14       		.uleb128 0x14
+ 1146 0111 05       		.uleb128 0x5
+ 1147 0112 00       		.byte	0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 27
+
+
+ 1148 0113 03       		.uleb128 0x3
+ 1149 0114 08       		.uleb128 0x8
+ 1150 0115 3A       		.uleb128 0x3a
+ 1151 0116 0B       		.uleb128 0xb
+ 1152 0117 3B       		.uleb128 0x3b
+ 1153 0118 05       		.uleb128 0x5
+ 1154 0119 49       		.uleb128 0x49
+ 1155 011a 13       		.uleb128 0x13
+ 1156 011b 02       		.uleb128 0x2
+ 1157 011c 18       		.uleb128 0x18
+ 1158 011d 00       		.byte	0
+ 1159 011e 00       		.byte	0
+ 1160 011f 15       		.uleb128 0x15
+ 1161 0120 34       		.uleb128 0x34
+ 1162 0121 00       		.byte	0
+ 1163 0122 03       		.uleb128 0x3
+ 1164 0123 0E       		.uleb128 0xe
+ 1165 0124 3A       		.uleb128 0x3a
+ 1166 0125 0B       		.uleb128 0xb
+ 1167 0126 3B       		.uleb128 0x3b
+ 1168 0127 05       		.uleb128 0x5
+ 1169 0128 49       		.uleb128 0x49
+ 1170 0129 13       		.uleb128 0x13
+ 1171 012a 02       		.uleb128 0x2
+ 1172 012b 18       		.uleb128 0x18
+ 1173 012c 00       		.byte	0
+ 1174 012d 00       		.byte	0
+ 1175 012e 16       		.uleb128 0x16
+ 1176 012f 34       		.uleb128 0x34
+ 1177 0130 00       		.byte	0
+ 1178 0131 03       		.uleb128 0x3
+ 1179 0132 0E       		.uleb128 0xe
+ 1180 0133 3A       		.uleb128 0x3a
+ 1181 0134 0B       		.uleb128 0xb
+ 1182 0135 3B       		.uleb128 0x3b
+ 1183 0136 05       		.uleb128 0x5
+ 1184 0137 49       		.uleb128 0x49
+ 1185 0138 13       		.uleb128 0x13
+ 1186 0139 3F       		.uleb128 0x3f
+ 1187 013a 19       		.uleb128 0x19
+ 1188 013b 3C       		.uleb128 0x3c
+ 1189 013c 19       		.uleb128 0x19
+ 1190 013d 00       		.byte	0
+ 1191 013e 00       		.byte	0
+ 1192 013f 17       		.uleb128 0x17
+ 1193 0140 34       		.uleb128 0x34
+ 1194 0141 00       		.byte	0
+ 1195 0142 03       		.uleb128 0x3
+ 1196 0143 0E       		.uleb128 0xe
+ 1197 0144 3A       		.uleb128 0x3a
+ 1198 0145 0B       		.uleb128 0xb
+ 1199 0146 3B       		.uleb128 0x3b
+ 1200 0147 0B       		.uleb128 0xb
+ 1201 0148 49       		.uleb128 0x49
+ 1202 0149 13       		.uleb128 0x13
+ 1203 014a 3F       		.uleb128 0x3f
+ 1204 014b 19       		.uleb128 0x19
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 28
+
+
+ 1205 014c 3C       		.uleb128 0x3c
+ 1206 014d 19       		.uleb128 0x19
+ 1207 014e 00       		.byte	0
+ 1208 014f 00       		.byte	0
+ 1209 0150 00       		.byte	0
+ 1210              		.section	.debug_aranges,"",%progbits
+ 1211 0000 34000000 		.4byte	0x34
+ 1212 0004 0200     		.2byte	0x2
+ 1213 0006 00000000 		.4byte	.Ldebug_info0
+ 1214 000a 04       		.byte	0x4
+ 1215 000b 00       		.byte	0
+ 1216 000c 0000     		.2byte	0
+ 1217 000e 0000     		.2byte	0
+ 1218 0010 00000000 		.4byte	.LFB0
+ 1219 0014 F4000000 		.4byte	.LFE0-.LFB0
+ 1220 0018 00000000 		.4byte	.LFB1
+ 1221 001c 42000000 		.4byte	.LFE1-.LFB1
+ 1222 0020 00000000 		.4byte	.LFB2
+ 1223 0024 D4000000 		.4byte	.LFE2-.LFB2
+ 1224 0028 00000000 		.4byte	.LFB3
+ 1225 002c 60000000 		.4byte	.LFE3-.LFB3
+ 1226 0030 00000000 		.4byte	0
+ 1227 0034 00000000 		.4byte	0
+ 1228              		.section	.debug_ranges,"",%progbits
+ 1229              	.Ldebug_ranges0:
+ 1230 0000 00000000 		.4byte	.LFB0
+ 1231 0004 F4000000 		.4byte	.LFE0
+ 1232 0008 00000000 		.4byte	.LFB1
+ 1233 000c 42000000 		.4byte	.LFE1
+ 1234 0010 00000000 		.4byte	.LFB2
+ 1235 0014 D4000000 		.4byte	.LFE2
+ 1236 0018 00000000 		.4byte	.LFB3
+ 1237 001c 60000000 		.4byte	.LFE3
+ 1238 0020 00000000 		.4byte	0
+ 1239 0024 00000000 		.4byte	0
+ 1240              		.section	.debug_line,"",%progbits
+ 1241              	.Ldebug_line0:
+ 1242 0000 1E010000 		.section	.debug_str,"MS",%progbits,1
+ 1242      02008E00 
+ 1242      00000201 
+ 1242      FB0E0D00 
+ 1242      01010101 
+ 1243              	.LASF55:
+ 1244 0000 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\CapSense_CSD_MBX.c\000"
+ 1244      6E657261 
+ 1244      7465645F 
+ 1244      536F7572 
+ 1244      63655C50 
+ 1245              	.LASF49:
+ 1246 002c 43617053 		.ascii	"CapSense_CSD_fingerThreshold\000"
+ 1246      656E7365 
+ 1246      5F435344 
+ 1246      5F66696E 
+ 1246      67657254 
+ 1247              	.LASF17:
+ 1248 0049 7369676E 		.ascii	"signal\000"
+ 1248      616C00
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 29
+
+
+ 1249              	.LASF21:
+ 1250 0050 43617053 		.ascii	"CapSense_CSD_OUTBOX\000"
+ 1250      656E7365 
+ 1250      5F435344 
+ 1250      5F4F5554 
+ 1250      424F5800 
+ 1251              	.LASF3:
+ 1252 0064 73686F72 		.ascii	"short unsigned int\000"
+ 1252      7420756E 
+ 1252      7369676E 
+ 1252      65642069 
+ 1252      6E7400
+ 1253              	.LASF38:
+ 1254 0077 746D7056 		.ascii	"tmpValue\000"
+ 1254      616C7565 
+ 1254      00
+ 1255              	.LASF46:
+ 1256 0080 43617053 		.ascii	"CapSense_CSD_sensorSignal\000"
+ 1256      656E7365 
+ 1256      5F435344 
+ 1256      5F73656E 
+ 1256      736F7253 
+ 1257              	.LASF20:
+ 1258 009a 63686563 		.ascii	"checkSum\000"
+ 1258      6B53756D 
+ 1258      00
+ 1259              	.LASF41:
+ 1260 00a3 43617053 		.ascii	"CapSense_CSD_ReadMessage\000"
+ 1260      656E7365 
+ 1260      5F435344 
+ 1260      5F526561 
+ 1260      644D6573 
+ 1261              	.LASF56:
+ 1262 00bc 443A5C55 		.ascii	"D:\\Utilisateurs\\user\\Documents\\PSoC Creator\\Wo"
+ 1262      74696C69 
+ 1262      73617465 
+ 1262      7572735C 
+ 1262      75736572 
+ 1263 00ea 726B7370 		.ascii	"rkspace02\\CapSense_CSD_WithTuner01.cydsn\000"
+ 1263      61636530 
+ 1263      325C4361 
+ 1263      7053656E 
+ 1263      73655F43 
+ 1264              	.LASF11:
+ 1265 0113 666C6F61 		.ascii	"float\000"
+ 1265      7400
+ 1266              	.LASF42:
+ 1267 0119 746D7049 		.ascii	"tmpInbox\000"
+ 1267      6E626F78 
+ 1267      00
+ 1268              	.LASF7:
+ 1269 0122 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1269      206C6F6E 
+ 1269      6720756E 
+ 1269      7369676E 
+ 1269      65642069 
+ 1270              	.LASF32:
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 30
+
+
+ 1271 0139 73697A65 		.ascii	"size\000"
+ 1271      00
+ 1272              	.LASF40:
+ 1273 013e 43617053 		.ascii	"CapSense_CSD_PostMessage\000"
+ 1273      656E7365 
+ 1273      5F435344 
+ 1273      5F506F73 
+ 1273      744D6573 
+ 1274              	.LASF29:
+ 1275 0157 616E616C 		.ascii	"analogSwitchDivider\000"
+ 1275      6F675377 
+ 1275      69746368 
+ 1275      44697669 
+ 1275      64657200 
+ 1276              	.LASF36:
+ 1277 016b 73656E73 		.ascii	"sensor\000"
+ 1277      6F7200
+ 1278              	.LASF34:
+ 1279 0172 696E626F 		.ascii	"inbox\000"
+ 1279      7800
+ 1280              	.LASF5:
+ 1281 0178 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1281      20756E73 
+ 1281      69676E65 
+ 1281      6420696E 
+ 1281      7400
+ 1282              	.LASF9:
+ 1283 018a 75696E74 		.ascii	"uint8\000"
+ 1283      3800
+ 1284              	.LASF53:
+ 1285 0190 43617053 		.ascii	"CapSense_CSD_analogSwitchDivider\000"
+ 1285      656E7365 
+ 1285      5F435344 
+ 1285      5F616E61 
+ 1285      6C6F6753 
+ 1286              	.LASF47:
+ 1287 01b1 43617053 		.ascii	"CapSense_CSD_idacSettings\000"
+ 1287      656E7365 
+ 1287      5F435344 
+ 1287      5F696461 
+ 1287      63536574 
+ 1288              	.LASF1:
+ 1289 01cb 756E7369 		.ascii	"unsigned char\000"
+ 1289      676E6564 
+ 1289      20636861 
+ 1289      7200
+ 1290              	.LASF35:
+ 1291 01d9 43617053 		.ascii	"CapSense_CSD_MAILBOX\000"
+ 1291      656E7365 
+ 1291      5F435344 
+ 1291      5F4D4149 
+ 1291      4C424F58 
+ 1292              	.LASF54:
+ 1293 01ee 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1293      4320342E 
+ 1293      392E3320 
+ 1293      32303135 
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 31
+
+
+ 1293      30333033 
+ 1294 0221 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 1294      20726576 
+ 1294      6973696F 
+ 1294      6E203232 
+ 1294      31323230 
+ 1295 0254 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1295      66756E63 
+ 1295      74696F6E 
+ 1295      2D736563 
+ 1295      74696F6E 
+ 1296              	.LASF12:
+ 1297 027c 646F7562 		.ascii	"double\000"
+ 1297      6C6500
+ 1298              	.LASF50:
+ 1299 0283 43617053 		.ascii	"CapSense_CSD_noiseThreshold\000"
+ 1299      656E7365 
+ 1299      5F435344 
+ 1299      5F6E6F69 
+ 1299      73655468 
+ 1300              	.LASF18:
+ 1301 029f 6F6E4D61 		.ascii	"onMask\000"
+ 1301      736B00
+ 1302              	.LASF10:
+ 1303 02a6 75696E74 		.ascii	"uint16\000"
+ 1303      313600
+ 1304              	.LASF26:
+ 1305 02ad 6E6F6973 		.ascii	"noiseThreshold\000"
+ 1305      65546872 
+ 1305      6573686F 
+ 1305      6C6400
+ 1306              	.LASF8:
+ 1307 02bc 756E7369 		.ascii	"unsigned int\000"
+ 1307      676E6564 
+ 1307      20696E74 
+ 1307      00
+ 1308              	.LASF19:
+ 1309 02c9 6E6F5265 		.ascii	"noReadMsg\000"
+ 1309      61644D73 
+ 1309      6700
+ 1310              	.LASF39:
+ 1311 02d3 43617053 		.ascii	"CapSense_CSD_InitMailbox\000"
+ 1311      656E7365 
+ 1311      5F435344 
+ 1311      5F496E69 
+ 1311      744D6169 
+ 1312              	.LASF22:
+ 1313 02ec 73656E73 		.ascii	"sensorIndex\000"
+ 1313      6F72496E 
+ 1313      64657800 
+ 1314              	.LASF23:
+ 1315 02f8 69646163 		.ascii	"idacSettings\000"
+ 1315      53657474 
+ 1315      696E6773 
+ 1315      00
+ 1316              	.LASF28:
+ 1317 0305 6465626F 		.ascii	"debounce\000"
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 32
+
+
+ 1317      756E6365 
+ 1317      00
+ 1318              	.LASF37:
+ 1319 030e 77696467 		.ascii	"widget\000"
+ 1319      657400
+ 1320              	.LASF27:
+ 1321 0315 68797374 		.ascii	"hysteresis\000"
+ 1321      65726573 
+ 1321      697300
+ 1322              	.LASF51:
+ 1323 0320 43617053 		.ascii	"CapSense_CSD_hysteresis\000"
+ 1323      656E7365 
+ 1323      5F435344 
+ 1323      5F687973 
+ 1323      74657265 
+ 1324              	.LASF14:
+ 1325 0338 73697A65 		.ascii	"sizetype\000"
+ 1325      74797065 
+ 1325      00
+ 1326              	.LASF6:
+ 1327 0341 6C6F6E67 		.ascii	"long long int\000"
+ 1327      206C6F6E 
+ 1327      6720696E 
+ 1327      7400
+ 1328              	.LASF48:
+ 1329 034f 43617053 		.ascii	"CapSense_CSD_widgetResolution\000"
+ 1329      656E7365 
+ 1329      5F435344 
+ 1329      5F776964 
+ 1329      67657452 
+ 1330              	.LASF24:
+ 1331 036d 7265736F 		.ascii	"resolution\000"
+ 1331      6C757469 
+ 1331      6F6E00
+ 1332              	.LASF25:
+ 1333 0378 66696E67 		.ascii	"fingerThreshold\000"
+ 1333      65725468 
+ 1333      72657368 
+ 1333      6F6C6400 
+ 1334              	.LASF31:
+ 1335 0388 74797065 		.ascii	"type\000"
+ 1335      00
+ 1336              	.LASF2:
+ 1337 038d 73686F72 		.ascii	"short int\000"
+ 1337      7420696E 
+ 1337      7400
+ 1338              	.LASF43:
+ 1339 0397 43617053 		.ascii	"CapSense_CSD_sensorRaw\000"
+ 1339      656E7365 
+ 1339      5F435344 
+ 1339      5F73656E 
+ 1339      736F7252 
+ 1340              	.LASF33:
+ 1341 03ae 6F757462 		.ascii	"outbox\000"
+ 1341      6F7800
+ 1342              	.LASF45:
+ 1343 03b5 43617053 		.ascii	"CapSense_CSD_sensorBaseline\000"
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccpBp6Ha.s 			page 33
+
+
+ 1343      656E7365 
+ 1343      5F435344 
+ 1343      5F73656E 
+ 1343      736F7242 
+ 1344              	.LASF15:
+ 1345 03d1 72617744 		.ascii	"rawData\000"
+ 1345      61746100 
+ 1346              	.LASF4:
+ 1347 03d9 6C6F6E67 		.ascii	"long int\000"
+ 1347      20696E74 
+ 1347      00
+ 1348              	.LASF13:
+ 1349 03e2 63686172 		.ascii	"char\000"
+ 1349      00
+ 1350              	.LASF0:
+ 1351 03e7 7369676E 		.ascii	"signed char\000"
+ 1351      65642063 
+ 1351      68617200 
+ 1352              	.LASF44:
+ 1353 03f3 43617053 		.ascii	"CapSense_CSD_widgetNumber\000"
+ 1353      656E7365 
+ 1353      5F435344 
+ 1353      5F776964 
+ 1353      6765744E 
+ 1354              	.LASF16:
+ 1355 040d 62617365 		.ascii	"baseLine\000"
+ 1355      4C696E65 
+ 1355      00
+ 1356              	.LASF57:
+ 1357 0416 43617053 		.ascii	"CapSense_CSD_InitParams\000"
+ 1357      656E7365 
+ 1357      5F435344 
+ 1357      5F496E69 
+ 1357      74506172 
+ 1358              	.LASF30:
+ 1359 042e 43617053 		.ascii	"CapSense_CSD_INBOX\000"
+ 1359      656E7365 
+ 1359      5F435344 
+ 1359      5F494E42 
+ 1359      4F5800
+ 1360              	.LASF52:
+ 1361 0441 43617053 		.ascii	"CapSense_CSD_debounce\000"
+ 1361      656E7365 
+ 1361      5F435344 
+ 1361      5F646562 
+ 1361      6F756E63 
+ 1362              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

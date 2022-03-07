@@ -1,0 +1,3459 @@
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"CapSense_CSD_CSHL.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	CapSense_CSD_sensorBaseline,2,4
+  19              		.comm	CapSense_CSD_sensorBaselineLow,1,4
+  20              		.comm	CapSense_CSD_sensorSignal,2,4
+  21              		.comm	CapSense_CSD_sensorOnMask,1,4
+  22              		.comm	CapSense_CSD_lowBaselineResetCnt,1,4
+  23              		.global	CapSense_CSD_fingerThreshold
+  24              		.data
+  25              		.align	2
+  26              		.type	CapSense_CSD_fingerThreshold, %object
+  27              		.size	CapSense_CSD_fingerThreshold, 2
+  28              	CapSense_CSD_fingerThreshold:
+  29 0000 6400     		.short	100
+  30              		.global	CapSense_CSD_noiseThreshold
+  31 0002 0000     		.align	2
+  32              		.type	CapSense_CSD_noiseThreshold, %object
+  33              		.size	CapSense_CSD_noiseThreshold, 2
+  34              	CapSense_CSD_noiseThreshold:
+  35 0004 1400     		.short	20
+  36              		.global	CapSense_CSD_hysteresis
+  37 0006 0000     		.align	2
+  38              		.type	CapSense_CSD_hysteresis, %object
+  39              		.size	CapSense_CSD_hysteresis, 2
+  40              	CapSense_CSD_hysteresis:
+  41 0008 0A00     		.short	10
+  42              		.global	CapSense_CSD_debounce
+  43 000a 0000     		.align	2
+  44              		.type	CapSense_CSD_debounce, %object
+  45              		.size	CapSense_CSD_debounce, 1
+  46              	CapSense_CSD_debounce:
+  47 000c 05       		.byte	5
+  48              		.global	CapSense_CSD_debounceCounter
+  49 000d 000000   		.bss
+  50              		.align	2
+  51              		.type	CapSense_CSD_debounceCounter, %object
+  52              		.size	CapSense_CSD_debounceCounter, 2
+  53              	CapSense_CSD_debounceCounter:
+  54 0000 0000     		.space	2
+  55              		.global	CapSense_CSD_rawDataIndex
+  56 0002 0000     		.section	.rodata
+  57              		.align	2
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 2
+
+
+  58              		.type	CapSense_CSD_rawDataIndex, %object
+  59              		.size	CapSense_CSD_rawDataIndex, 1
+  60              	CapSense_CSD_rawDataIndex:
+  61 0000 00       		.space	1
+  62              		.global	CapSense_CSD_numberOfSensors
+  63 0001 000000   		.align	2
+  64              		.type	CapSense_CSD_numberOfSensors, %object
+  65              		.size	CapSense_CSD_numberOfSensors, 1
+  66              	CapSense_CSD_numberOfSensors:
+  67 0004 01       		.byte	1
+  68 0005 000000   		.section	.text.CapSense_CSD_BaseInit,"ax",%progbits
+  69              		.align	2
+  70              		.global	CapSense_CSD_BaseInit
+  71              		.thumb
+  72              		.thumb_func
+  73              		.type	CapSense_CSD_BaseInit, %function
+  74              	CapSense_CSD_BaseInit:
+  75              	.LFB0:
+  76              		.file 1 ".\\Generated_Source\\PSoC5\\CapSense_CSD_CSHL.c"
+   1:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * File Name: CapSense_CSD_CSHL.c
+   3:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Version 3.40
+   4:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+   5:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Description:
+   6:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  This file provides the source code to the High Level APIs for the CapSesne
+   7:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CSD component.
+   8:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+   9:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Note:
+  10:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+  11:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  18:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** #include "CapSense_CSD_CSHL.h"
+  19:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  20:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /* Storage of filters data */
+  21:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** #if ( (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_MEDIAN_FILTER) | \
+  22:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****       (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_AVERAGING_FILTER) )
+  23:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  24:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint16 CapSense_CSD_rawFilterData1[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  25:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint16 CapSense_CSD_rawFilterData2[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  26:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  27:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** #elif ( (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR2_FILTER)   | \
+  28:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR4_FILTER)   | \
+  29:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_JITTER_FILTER) | \
+  30:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR8_FILTER)   | \
+  31:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR16_FILTER) )
+  32:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+  33:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint16 CapSense_CSD_rawFilterData1[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  34:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  35:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** #else
+  36:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* No Raw filters */
+  37:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** #endif  /* ( (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_MEDIAN_FILTER) || \
+  38:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         *    (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_AVERAGING_FILTER) )
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 3
+
+
+  39:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         */
+  40:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  41:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint16 CapSense_CSD_sensorBaseline[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  42:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint8 CapSense_CSD_sensorBaselineLow[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  43:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint16 CapSense_CSD_sensorSignal[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  44:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint8 CapSense_CSD_sensorOnMask[(((CapSense_CSD_TOTAL_SENSOR_COUNT - 1u) / 8u) + 1u)];
+  45:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  46:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint8 CapSense_CSD_lowBaselineResetCnt[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  47:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  48:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint16 CapSense_CSD_fingerThreshold[] = {
+  49:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     100u, 
+  50:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** };
+  51:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  52:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint16 CapSense_CSD_noiseThreshold[] = {
+  53:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     20u, 
+  54:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** };
+  55:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  56:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint16 CapSense_CSD_hysteresis[] = {
+  57:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     10u, 
+  58:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** };
+  59:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  60:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint8 CapSense_CSD_debounce[] = {
+  61:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     5u, 
+  62:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** };
+  63:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  64:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint8 CapSense_CSD_debounceCounter[] = {
+  65:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     0u, 0u, 
+  66:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** };
+  67:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  68:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** const uint8 CYCODE CapSense_CSD_rawDataIndex[] = {
+  69:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     0u, /* ProximitySensor0__PROX */
+  70:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  71:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** };
+  72:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  73:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** const uint8 CYCODE CapSense_CSD_numberOfSensors[] = {
+  74:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     1u, /* ProximitySensor0__PROX */
+  75:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  76:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** };
+  77:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  78:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  79:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  80:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+  81:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+  82:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_BaseInit
+  83:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+  84:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+  85:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+  86:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Loads the CapSense_CSD_sensorBaseline[sensor] array element with an 
+  87:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  initial value which is equal to raw count value. 
+  88:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Resets to zero CapSense_CSD_sensorBaselineLow[sensor] and 
+  89:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorSignal[sensor] array element.
+  90:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Loads CapSense_CSD_debounceCounter[sensor] array element with initial 
+  91:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  value equal CapSense_CSD_debounce[].
+  92:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Loads the CapSense_CSD_rawFilterData2[sensor] and 
+  93:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_rawFilterData2[sensor] array element with an 
+  94:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  initial value which is equal raw count value if raw data filter is enabled.
+  95:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 4
+
+
+  96:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+  97:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  sensor:  Sensor number.
+  98:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+  99:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 100:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 101:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 102:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Global Variables:
+ 103:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorBaseline[]    - used to store baseline value.
+ 104:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorBaselineLow[] - used to store fraction byte of 
+ 105:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  baseline value.
+ 106:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorSignal[]      - used to store diffence between 
+ 107:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  current value of raw data and previous value of baseline.
+ 108:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_debounceCounter[]   - used to store current debounce 
+ 109:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  counter of sensor. Widget which has this parameter are buttons, matrix 
+ 110:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  buttons, proximity, guard. All other widgets haven't debounce parameter
+ 111:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  and use the last element of this array with value 0 (it means no debounce).
+ 112:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_rawFilterData1[]    - used to store previous sample of 
+ 113:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  any enabled raw data filter.
+ 114:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_rawFilterData2[]    - used to store before previous sample
+ 115:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  of enabled raw data filter. Only required for median or average filters.
+ 116:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 117:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 118:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 119:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 120:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 121:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** void CapSense_CSD_BaseInit(uint8 sensor) 
+ 122:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+  77              		.loc 1 122 0
+  78              		.cfi_startproc
+  79              		@ args = 0, pretend = 0, frame = 16
+  80              		@ frame_needed = 1, uses_anonymous_args = 0
+  81              		@ link register save eliminated.
+  82 0000 80B4     		push	{r7}
+  83              		.cfi_def_cfa_offset 4
+  84              		.cfi_offset 7, -4
+  85 0002 85B0     		sub	sp, sp, #20
+  86              		.cfi_def_cfa_offset 24
+  87 0004 00AF     		add	r7, sp, #0
+  88              		.cfi_def_cfa_register 7
+  89 0006 0346     		mov	r3, r0
+  90 0008 FB71     		strb	r3, [r7, #7]
+ 123:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if ((CapSense_CSD_TOTAL_BUTTONS_COUNT) || (CapSense_CSD_TOTAL_MATRIX_BUTTONS_COUNT) || \
+ 124:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****          (CapSense_CSD_TOTAL_GENERICS_COUNT))
+ 125:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         uint8 widget = CapSense_CSD_widgetNumber[sensor];
+  91              		.loc 1 125 0
+  92 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  93 000c 0F4A     		ldr	r2, .L2
+  94 000e D35C     		ldrb	r3, [r2, r3]
+  95 0010 FB73     		strb	r3, [r7, #15]
+ 126:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif /* ((CapSense_CSD_TOTAL_MATRIX_BUTTONS_COUNT) || (CapSense_CSD_TOTAL_MATRIX_BUTTONS_COUN
+ 127:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 128:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if (CapSense_CSD_TOTAL_MATRIX_BUTTONS_COUNT)
+ 129:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         uint8 debounceIndex;
+ 130:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif  /* (CapSense_CSD_TOTAL_MATRIX_BUTTONS_COUNT) */
+ 131:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 132:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if (CapSense_CSD_TOTAL_GENERICS_COUNT)
+ 133:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Exclude generic widget */
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 5
+
+
+ 134:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if(widget < CapSense_CSD_END_OF_WIDGETS_INDEX)
+ 135:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 136:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif  /* CapSense_CSD_TOTAL_GENERICS_COUNT */
+ 137:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 138:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Initialize Baseline */
+ 139:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     CapSense_CSD_sensorBaseline[sensor] = CapSense_CSD_sensorRaw[sensor];
+  96              		.loc 1 139 0
+  97 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  98 0014 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+  99 0016 0E49     		ldr	r1, .L2+4
+ 100 0018 31F81210 		ldrh	r1, [r1, r2, lsl #1]
+ 101 001c 0D4A     		ldr	r2, .L2+8
+ 102 001e 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+ 140:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     CapSense_CSD_sensorBaselineLow[sensor] = 0u;
+ 103              		.loc 1 140 0
+ 104 0022 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 105 0024 0C4A     		ldr	r2, .L2+12
+ 106 0026 0021     		movs	r1, #0
+ 107 0028 D154     		strb	r1, [r2, r3]
+ 141:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     CapSense_CSD_sensorSignal[sensor] = 0u;
+ 108              		.loc 1 141 0
+ 109 002a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 110 002c 0B4A     		ldr	r2, .L2+16
+ 111 002e 0021     		movs	r1, #0
+ 112 0030 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+ 142:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 143:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     CapSense_CSD_debounceCounter[widget] =  CapSense_CSD_debounce[widget];
+ 113              		.loc 1 143 0
+ 114 0034 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 115 0036 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 116 0038 0949     		ldr	r1, .L2+20
+ 117 003a 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
+ 118 003c 094A     		ldr	r2, .L2+24
+ 119 003e D154     		strb	r1, [r2, r3]
+ 144:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 145:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 146:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if ((CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_MEDIAN_FILTER) |\
+ 147:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****          (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_AVERAGING_FILTER))
+ 148:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 149:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = CapSense_CSD_sensorRaw[sensor];
+ 150:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData2[sensor] = CapSense_CSD_sensorRaw[sensor];
+ 151:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 152:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #elif ((CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR2_FILTER) |\
+ 153:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****            (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR4_FILTER) |\
+ 154:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****            (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_JITTER_FILTER) |\
+ 155:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****            (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR8_FILTER) |\
+ 156:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****            (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR16_FILTER))
+ 157:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             
+ 158:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = CapSense_CSD_sensorRaw[sensor];
+ 159:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 160:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #else
+ 161:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* No Raw filters */
+ 162:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif  /* ((CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_MEDIAN_FILTER) | \
+ 163:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             *   (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_AVERAGING_FILTER))
+ 164:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             */
+ 165:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 166:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if (CapSense_CSD_TOTAL_GENERICS_COUNT)
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 6
+
+
+ 167:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Exclude generic widget */
+ 168:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 169:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif  /* CapSense_CSD_TOTAL_GENERICS_COUNT */
+ 170:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 120              		.loc 1 170 0
+ 121 0040 1437     		adds	r7, r7, #20
+ 122              		.cfi_def_cfa_offset 4
+ 123 0042 BD46     		mov	sp, r7
+ 124              		.cfi_def_cfa_register 13
+ 125              		@ sp needed
+ 126 0044 5DF8047B 		ldr	r7, [sp], #4
+ 127              		.cfi_restore 7
+ 128              		.cfi_def_cfa_offset 0
+ 129 0048 7047     		bx	lr
+ 130              	.L3:
+ 131 004a 00BF     		.align	2
+ 132              	.L2:
+ 133 004c 00000000 		.word	CapSense_CSD_widgetNumber
+ 134 0050 00000000 		.word	CapSense_CSD_sensorRaw
+ 135 0054 00000000 		.word	CapSense_CSD_sensorBaseline
+ 136 0058 00000000 		.word	CapSense_CSD_sensorBaselineLow
+ 137 005c 00000000 		.word	CapSense_CSD_sensorSignal
+ 138 0060 00000000 		.word	CapSense_CSD_debounce
+ 139 0064 00000000 		.word	CapSense_CSD_debounceCounter
+ 140              		.cfi_endproc
+ 141              	.LFE0:
+ 142              		.size	CapSense_CSD_BaseInit, .-CapSense_CSD_BaseInit
+ 143              		.section	.text.CapSense_CSD_InitializeSensorBaseline,"ax",%progbits
+ 144              		.align	2
+ 145              		.global	CapSense_CSD_InitializeSensorBaseline
+ 146              		.thumb
+ 147              		.thumb_func
+ 148              		.type	CapSense_CSD_InitializeSensorBaseline, %function
+ 149              	CapSense_CSD_InitializeSensorBaseline:
+ 150              	.LFB1:
+ 171:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 172:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 173:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 174:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_InitializeSensorBaseline
+ 175:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 176:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 177:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 178:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Loads the CapSense_CSD_sensorBaseline[sensor] array element with an 
+ 179:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  initial value by scanning the selected sensor (one channel design) or pair 
+ 180:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  of sensors (two channels designs). The raw count value is copied into the 
+ 181:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  baseline array for each sensor. The raw data filters are initialized if 
+ 182:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  enabled.
+ 183:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 184:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 185:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  sensor:  Sensor number.
+ 186:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 187:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 188:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 189:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 190:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 191:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 192:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 7
+
+
+ 193:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 194:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** void CapSense_CSD_InitializeSensorBaseline(uint8 sensor)
+ 195:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                           
+ 196:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 151              		.loc 1 196 0
+ 152              		.cfi_startproc
+ 153              		@ args = 0, pretend = 0, frame = 8
+ 154              		@ frame_needed = 1, uses_anonymous_args = 0
+ 155 0000 80B5     		push	{r7, lr}
+ 156              		.cfi_def_cfa_offset 8
+ 157              		.cfi_offset 7, -8
+ 158              		.cfi_offset 14, -4
+ 159 0002 82B0     		sub	sp, sp, #8
+ 160              		.cfi_def_cfa_offset 16
+ 161 0004 00AF     		add	r7, sp, #0
+ 162              		.cfi_def_cfa_register 7
+ 163 0006 0346     		mov	r3, r0
+ 164 0008 FB71     		strb	r3, [r7, #7]
+ 197:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Scan sensor */
+ 198:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     CapSense_CSD_ScanSensor(sensor);
+ 165              		.loc 1 198 0
+ 166 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 167 000c 1846     		mov	r0, r3
+ 168 000e FFF7FEFF 		bl	CapSense_CSD_ScanSensor
+ 199:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     while(CapSense_CSD_IsBusy() != 0u)
+ 169              		.loc 1 199 0
+ 170 0012 00BF     		nop
+ 171              	.L5:
+ 172              		.loc 1 199 0 is_stmt 0 discriminator 1
+ 173 0014 FFF7FEFF 		bl	CapSense_CSD_IsBusy
+ 174 0018 0346     		mov	r3, r0
+ 175 001a 002B     		cmp	r3, #0
+ 176 001c FAD1     		bne	.L5
+ 200:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 201:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Wait while busy */
+ 202:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 203:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 204:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if (CapSense_CSD_DESIGN_TYPE == CapSense_CSD_ONE_CHANNEL_DESIGN)
+ 205:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Initialize Baseline, Signal and debounce counters */       
+ 206:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_BaseInit(sensor);
+ 177              		.loc 1 206 0 is_stmt 1
+ 178 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 179 0020 1846     		mov	r0, r3
+ 180 0022 FFF7FEFF 		bl	CapSense_CSD_BaseInit
+ 207:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 208:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #else
+ 209:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 210:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if(sensor < CapSense_CSD_TOTAL_SENSOR_COUNT__CH0)
+ 211:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 212:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             /* Initialize Baseline, Signal and debounce counters */ 
+ 213:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_BaseInit(sensor);
+ 214:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 215:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 216:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if(sensor < CapSense_CSD_TOTAL_SENSOR_COUNT__CH1)
+ 217:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 218:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             /* Initialize Baseline, Signal and debounce counters */
+ 219:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_BaseInit(sensor + CapSense_CSD_TOTAL_SENSOR_COUNT__CH0);
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 8
+
+
+ 220:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 221:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 222:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif  /* (CapSense_CSD_DESIGN_TYPE == CapSense_CSD_ONE_CHANNEL_DESIGN) */
+ 223:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 181              		.loc 1 223 0
+ 182 0026 0837     		adds	r7, r7, #8
+ 183              		.cfi_def_cfa_offset 8
+ 184 0028 BD46     		mov	sp, r7
+ 185              		.cfi_def_cfa_register 13
+ 186              		@ sp needed
+ 187 002a 80BD     		pop	{r7, pc}
+ 188              		.cfi_endproc
+ 189              	.LFE1:
+ 190              		.size	CapSense_CSD_InitializeSensorBaseline, .-CapSense_CSD_InitializeSensorBaseline
+ 191              		.section	.text.CapSense_CSD_InitializeAllBaselines,"ax",%progbits
+ 192              		.align	2
+ 193              		.global	CapSense_CSD_InitializeAllBaselines
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.type	CapSense_CSD_InitializeAllBaselines, %function
+ 197              	CapSense_CSD_InitializeAllBaselines:
+ 198              	.LFB2:
+ 224:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 225:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 226:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 227:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_InitializeAllBaselines
+ 228:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 229:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 230:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 231:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Uses the CapSense_CSD_InitializeSensorBaseline function to loads the 
+ 232:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorBaseline[] array with an initial values by scanning 
+ 233:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  all sensors. The raw count values are copied into the baseline array for 
+ 234:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  all sensors. The raw data filters are initialized if enabled.
+ 235:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 236:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 237:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 238:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 239:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 240:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 241:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 242:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 243:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 244:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 245:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 246:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** void CapSense_CSD_InitializeAllBaselines(void)
+ 247:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                           
+ 248:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 199              		.loc 1 248 0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 8
+ 202              		@ frame_needed = 1, uses_anonymous_args = 0
+ 203 0000 80B5     		push	{r7, lr}
+ 204              		.cfi_def_cfa_offset 8
+ 205              		.cfi_offset 7, -8
+ 206              		.cfi_offset 14, -4
+ 207 0002 82B0     		sub	sp, sp, #8
+ 208              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 9
+
+
+ 209 0004 00AF     		add	r7, sp, #0
+ 210              		.cfi_def_cfa_register 7
+ 249:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 i;
+ 250:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 251:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* The baseline initialize by sensor of sensor pair */
+ 252:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     for(i = 0u; i < CapSense_CSD_TOTAL_SCANSLOT_COUNT; i++)
+ 211              		.loc 1 252 0
+ 212 0006 0023     		movs	r3, #0
+ 213 0008 FB71     		strb	r3, [r7, #7]
+ 214 000a 06E0     		b	.L7
+ 215              	.L8:
+ 253:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 254:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_InitializeSensorBaseline(i);
+ 216              		.loc 1 254 0 discriminator 3
+ 217 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 218 000e 1846     		mov	r0, r3
+ 219 0010 FFF7FEFF 		bl	CapSense_CSD_InitializeSensorBaseline
+ 252:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 220              		.loc 1 252 0 discriminator 3
+ 221 0014 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 222 0016 0133     		adds	r3, r3, #1
+ 223 0018 FB71     		strb	r3, [r7, #7]
+ 224              	.L7:
+ 252:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 225              		.loc 1 252 0 is_stmt 0 discriminator 1
+ 226 001a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 227 001c 002B     		cmp	r3, #0
+ 228 001e F5D0     		beq	.L8
+ 255:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 256:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 229              		.loc 1 256 0 is_stmt 1
+ 230 0020 0837     		adds	r7, r7, #8
+ 231              		.cfi_def_cfa_offset 8
+ 232 0022 BD46     		mov	sp, r7
+ 233              		.cfi_def_cfa_register 13
+ 234              		@ sp needed
+ 235 0024 80BD     		pop	{r7, pc}
+ 236              		.cfi_endproc
+ 237              	.LFE2:
+ 238              		.size	CapSense_CSD_InitializeAllBaselines, .-CapSense_CSD_InitializeAllBaselines
+ 239 0026 00BF     		.section	.text.CapSense_CSD_InitializeEnabledBaselines,"ax",%progbits
+ 240              		.align	2
+ 241              		.global	CapSense_CSD_InitializeEnabledBaselines
+ 242              		.thumb
+ 243              		.thumb_func
+ 244              		.type	CapSense_CSD_InitializeEnabledBaselines, %function
+ 245              	CapSense_CSD_InitializeEnabledBaselines:
+ 246              	.LFB3:
+ 257:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 258:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 259:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 260:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_InitializeEnabledBaselines
+ 261:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 262:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 263:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 264:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Scans all enabled widgets and the raw count values are copied into the 
+ 265:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  baseline array for all sensors enabled in scanning process. Baselines 
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 10
+
+
+ 266:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  initialize with zero values for sensors disabled from scanning process. 
+ 267:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  The raw data filters are initialized if enabled.
+ 268:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 269:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 270:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 271:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 272:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 273:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 274:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 275:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 276:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 277:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 278:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 279:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** void CapSense_CSD_InitializeEnabledBaselines(void)
+ 280:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                              
+ 281:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 247              		.loc 1 281 0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 8
+ 250              		@ frame_needed = 1, uses_anonymous_args = 0
+ 251 0000 80B5     		push	{r7, lr}
+ 252              		.cfi_def_cfa_offset 8
+ 253              		.cfi_offset 7, -8
+ 254              		.cfi_offset 14, -4
+ 255 0002 82B0     		sub	sp, sp, #8
+ 256              		.cfi_def_cfa_offset 16
+ 257 0004 00AF     		add	r7, sp, #0
+ 258              		.cfi_def_cfa_register 7
+ 282:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 i;
+ 283:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 pos;
+ 284:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 enMask;
+ 285:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 286:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     CapSense_CSD_ScanEnabledWidgets();
+ 259              		.loc 1 286 0
+ 260 0006 FFF7FEFF 		bl	CapSense_CSD_ScanEnabledWidgets
+ 287:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     while(CapSense_CSD_IsBusy() != 0u)
+ 261              		.loc 1 287 0
+ 262 000a 00BF     		nop
+ 263              	.L10:
+ 264              		.loc 1 287 0 is_stmt 0 discriminator 1
+ 265 000c FFF7FEFF 		bl	CapSense_CSD_IsBusy
+ 266 0010 0346     		mov	r3, r0
+ 267 0012 002B     		cmp	r3, #0
+ 268 0014 FAD1     		bne	.L10
+ 288:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 289:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Wait while busy */
+ 290:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 291:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 292:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     for(i = 0u; i < CapSense_CSD_TOTAL_SENSOR_COUNT; i++)
+ 269              		.loc 1 292 0 is_stmt 1
+ 270 0016 0023     		movs	r3, #0
+ 271 0018 FB71     		strb	r3, [r7, #7]
+ 272 001a 1DE0     		b	.L11
+ 273              	.L13:
+ 293:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 294:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         pos = (i >> 3u);
+ 274              		.loc 1 294 0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 11
+
+
+ 275 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 276 001e DB08     		lsrs	r3, r3, #3
+ 277 0020 BB71     		strb	r3, [r7, #6]
+ 295:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         enMask = 0x01u << (i & 0x07u);
+ 278              		.loc 1 295 0
+ 279 0022 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 280 0024 03F00703 		and	r3, r3, #7
+ 281 0028 0122     		movs	r2, #1
+ 282 002a 02FA03F3 		lsl	r3, r2, r3
+ 283 002e 7B71     		strb	r3, [r7, #5]
+ 296:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 297:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Clear raw data if sensor is disabled from scanning process */
+ 298:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if((CapSense_CSD_sensorEnableMask[pos] & enMask) == 0u)
+ 284              		.loc 1 298 0
+ 285 0030 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 286 0032 0C4A     		ldr	r2, .L14
+ 287 0034 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 288 0036 7B79     		ldrb	r3, [r7, #5]
+ 289 0038 1340     		ands	r3, r3, r2
+ 290 003a DBB2     		uxtb	r3, r3
+ 291 003c 002B     		cmp	r3, #0
+ 292 003e 04D1     		bne	.L12
+ 299:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 300:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_sensorRaw[i] = 0u;
+ 293              		.loc 1 300 0
+ 294 0040 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 295 0042 094A     		ldr	r2, .L14+4
+ 296 0044 0021     		movs	r1, #0
+ 297 0046 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+ 298              	.L12:
+ 301:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 302:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 303:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Initialize baselines */
+ 304:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_BaseInit(i);
+ 299              		.loc 1 304 0 discriminator 2
+ 300 004a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 301 004c 1846     		mov	r0, r3
+ 302 004e FFF7FEFF 		bl	CapSense_CSD_BaseInit
+ 292:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 303              		.loc 1 292 0 discriminator 2
+ 304 0052 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 305 0054 0133     		adds	r3, r3, #1
+ 306 0056 FB71     		strb	r3, [r7, #7]
+ 307              	.L11:
+ 292:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 308              		.loc 1 292 0 is_stmt 0 discriminator 1
+ 309 0058 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 310 005a 002B     		cmp	r3, #0
+ 311 005c DED0     		beq	.L13
+ 305:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 306:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }  
+ 312              		.loc 1 306 0 is_stmt 1
+ 313 005e 0837     		adds	r7, r7, #8
+ 314              		.cfi_def_cfa_offset 8
+ 315 0060 BD46     		mov	sp, r7
+ 316              		.cfi_def_cfa_register 13
+ 317              		@ sp needed
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 12
+
+
+ 318 0062 80BD     		pop	{r7, pc}
+ 319              	.L15:
+ 320              		.align	2
+ 321              	.L14:
+ 322 0064 00000000 		.word	CapSense_CSD_sensorEnableMask
+ 323 0068 00000000 		.word	CapSense_CSD_sensorRaw
+ 324              		.cfi_endproc
+ 325              	.LFE3:
+ 326              		.size	CapSense_CSD_InitializeEnabledBaselines, .-CapSense_CSD_InitializeEnabledBaselines
+ 327              		.section	.text.CapSense_CSD_UpdateSensorBaseline,"ax",%progbits
+ 328              		.align	2
+ 329              		.global	CapSense_CSD_UpdateSensorBaseline
+ 330              		.thumb
+ 331              		.thumb_func
+ 332              		.type	CapSense_CSD_UpdateSensorBaseline, %function
+ 333              	CapSense_CSD_UpdateSensorBaseline:
+ 334              	.LFB4:
+ 307:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 308:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 309:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 310:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_UpdateSensorBaseline
+ 311:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 312:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 313:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 314:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Updates the CapSense_CSD_sensorBaseline[sensor] array element using the 
+ 315:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  LP filter with k = 256. The signal calculates the difference of count by 
+ 316:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  subtracting the previous baseline from the current raw count value and stores
+ 317:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  it in CapSense_CSD_SensorSignal[sensor]. 
+ 318:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  If auto reset option is enabled the baseline updated regards noise threshold. 
+ 319:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  If auto reset option is disabled the baseline stops updating if signal is 
+ 320:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  greater that zero and baseline loads with raw count value if signal is less 
+ 321:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  that noise threshold.
+ 322:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Raw data filters are applied to the values if enabled before baseline 
+ 323:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  calculation.
+ 324:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 325:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 326:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  sensor:  Sensor number.
+ 327:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 328:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 329:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 330:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 331:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Global Variables:
+ 332:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorBaseline[]    - used to store baseline value.
+ 333:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorBaselineLow[] - used to store fraction byte of 
+ 334:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  baseline value.
+ 335:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorSignal[]      - used to store diffence between 
+ 336:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  current value of raw data and previous value of baseline.
+ 337:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_rawFilterData1[]    - used to store previous sample of 
+ 338:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  any enabled raw data filter.
+ 339:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_rawFilterData2[]    - used to store before previous sample
+ 340:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  of enabled raw data filter. Only required for median or average filters.
+ 341:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 342:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 343:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 344:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 345:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 346:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****  void CapSense_CSD_UpdateSensorBaseline(uint8 sensor)
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 13
+
+
+ 347:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                  
+ 348:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 335              		.loc 1 348 0
+ 336              		.cfi_startproc
+ 337              		@ args = 0, pretend = 0, frame = 24
+ 338              		@ frame_needed = 1, uses_anonymous_args = 0
+ 339 0000 80B5     		push	{r7, lr}
+ 340              		.cfi_def_cfa_offset 8
+ 341              		.cfi_offset 7, -8
+ 342              		.cfi_offset 14, -4
+ 343 0002 86B0     		sub	sp, sp, #24
+ 344              		.cfi_def_cfa_offset 32
+ 345 0004 00AF     		add	r7, sp, #0
+ 346              		.cfi_def_cfa_register 7
+ 347 0006 0346     		mov	r3, r0
+ 348 0008 FB71     		strb	r3, [r7, #7]
+ 349:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint32 calc;
+ 350:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint16 tempRaw;
+ 351:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint16 filteredRawData;
+ 352:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 widget = CapSense_CSD_widgetNumber[sensor];
+ 349              		.loc 1 352 0
+ 350 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 351 000c 454A     		ldr	r2, .L26
+ 352 000e D35C     		ldrb	r3, [r2, r3]
+ 353 0010 7B75     		strb	r3, [r7, #21]
+ 353:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint16 noiseThreshold = CapSense_CSD_noiseThreshold[widget];
+ 354              		.loc 1 353 0
+ 355 0012 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 356 0014 444A     		ldr	r2, .L26+4
+ 357 0016 32F81330 		ldrh	r3, [r2, r3, lsl #1]	@ movhi
+ 358 001a 7B82     		strh	r3, [r7, #18]	@ movhi
+ 354:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 355:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if (CapSense_CSD_TOTAL_GENERICS_COUNT)
+ 356:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Exclude generic widget */
+ 357:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if(widget < CapSense_CSD_END_OF_WIDGETS_INDEX)
+ 358:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 359:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif  /* CapSense_CSD_TOTAL_GENERICS_COUNT */
+ 360:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 361:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     filteredRawData = CapSense_CSD_sensorRaw[sensor];
+ 359              		.loc 1 361 0
+ 360 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 361 001e 434A     		ldr	r2, .L26+8
+ 362 0020 32F81330 		ldrh	r3, [r2, r3, lsl #1]	@ movhi
+ 363 0024 3B82     		strh	r3, [r7, #16]	@ movhi
+ 362:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 363:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_MEDIAN_FILTER)
+ 364:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         tempRaw = filteredRawData;
+ 365:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         filteredRawData = CapSense_CSD_MedianFilter(filteredRawData, CapSense_CSD_rawFilterData1[se
+ 366:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                                         CapSense_CSD_rawFilterData2[sensor]);
+ 367:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData2[sensor] = CapSense_CSD_rawFilterData1[sensor];
+ 368:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = tempRaw;
+ 369:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 370:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #elif (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_AVERAGING_FILTER)
+ 371:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         tempRaw = filteredRawData;
+ 372:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         filteredRawData = CapSense_CSD_AveragingFilter(filteredRawData, CapSense_CSD_rawFilterData1
+ 373:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                                            CapSense_CSD_rawFilterData2[sensor]);
+ 374:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData2[sensor] = CapSense_CSD_rawFilterData1[sensor];
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 14
+
+
+ 375:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = tempRaw;
+ 376:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 377:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #elif (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR2_FILTER)
+ 378:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         filteredRawData = CapSense_CSD_IIR2Filter(filteredRawData, CapSense_CSD_rawFilterData1[sens
+ 379:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = filteredRawData;
+ 380:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 381:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #elif (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR4_FILTER)
+ 382:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         filteredRawData = CapSense_CSD_IIR4Filter(filteredRawData, CapSense_CSD_rawFilterData1[sens
+ 383:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = filteredRawData;
+ 384:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             
+ 385:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #elif (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_JITTER_FILTER)
+ 386:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         filteredRawData = CapSense_CSD_JitterFilter(filteredRawData, CapSense_CSD_rawFilterData1[se
+ 387:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = filteredRawData;
+ 388:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 389:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #elif (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR8_FILTER)
+ 390:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         filteredRawData = CapSense_CSD_IIR8Filter(filteredRawData, CapSense_CSD_rawFilterData1[sens
+ 391:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = filteredRawData;
+ 392:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 393:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #elif (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_IIR16_FILTER)
+ 394:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         filteredRawData = CapSense_CSD_IIR16Filter(filteredRawData, CapSense_CSD_rawFilterData1[sen
+ 395:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_rawFilterData1[sensor] = filteredRawData;
+ 396:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 397:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #else
+ 398:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* No Raw filters */
+ 399:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif  /* (CapSense_CSD_RAW_FILTER_MASK & CapSense_CSD_MEDIAN_FILTER) */
+ 400:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 401:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if (CapSense_CSD_TUNING_METHOD == CapSense_CSD_AUTO_TUNING)
+ 402:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_CalculateThresholds(sensor);
+ 403:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif /* (CapSense_CSD_TUNING_METHOD == CapSense_CSD_AUTO_TUNING) */
+ 404:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 405:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 406:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Baseline calculation */
+ 407:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Calculate difference RawData[cur] - Baseline[prev] */
+ 408:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     if(filteredRawData >= CapSense_CSD_sensorBaseline[sensor])
+ 364              		.loc 1 408 0
+ 365 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 366 0028 414A     		ldr	r2, .L26+12
+ 367 002a 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 368 002e 3A8A     		ldrh	r2, [r7, #16]
+ 369 0030 9A42     		cmp	r2, r3
+ 370 0032 09D3     		bcc	.L17
+ 409:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 410:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         tempRaw = filteredRawData - CapSense_CSD_sensorBaseline[sensor];
+ 371              		.loc 1 410 0
+ 372 0034 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 373 0036 3E4A     		ldr	r2, .L26+12
+ 374 0038 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 375 003c 3A8A     		ldrh	r2, [r7, #16]	@ movhi
+ 376 003e D31A     		subs	r3, r2, r3
+ 377 0040 FB82     		strh	r3, [r7, #22]	@ movhi
+ 411:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         widget = 1u;    /* Positive difference - Calculate the Signal */
+ 378              		.loc 1 411 0
+ 379 0042 0123     		movs	r3, #1
+ 380 0044 7B75     		strb	r3, [r7, #21]
+ 381 0046 08E0     		b	.L18
+ 382              	.L17:
+ 412:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 15
+
+
+ 413:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     else
+ 414:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 415:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         tempRaw = CapSense_CSD_sensorBaseline[sensor] - filteredRawData;
+ 383              		.loc 1 415 0
+ 384 0048 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 385 004a 394A     		ldr	r2, .L26+12
+ 386 004c 32F81320 		ldrh	r2, [r2, r3, lsl #1]
+ 387 0050 3B8A     		ldrh	r3, [r7, #16]	@ movhi
+ 388 0052 D31A     		subs	r3, r2, r3
+ 389 0054 FB82     		strh	r3, [r7, #22]	@ movhi
+ 416:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         widget = 0u;    /* Negative difference - Do NOT calculate the Signal */
+ 390              		.loc 1 416 0
+ 391 0056 0023     		movs	r3, #0
+ 392 0058 7B75     		strb	r3, [r7, #21]
+ 393              	.L18:
+ 417:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 418:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 419:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     if((widget == 0u) && (tempRaw > (uint16) CapSense_CSD_NEGATIVE_NOISE_THRESHOLD))
+ 394              		.loc 1 419 0
+ 395 005a 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 396 005c 002B     		cmp	r3, #0
+ 397 005e 18D1     		bne	.L19
+ 398              		.loc 1 419 0 is_stmt 0 discriminator 1
+ 399 0060 FB8A     		ldrh	r3, [r7, #22]
+ 400 0062 142B     		cmp	r3, #20
+ 401 0064 15D9     		bls	.L19
+ 420:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 421:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if(CapSense_CSD_lowBaselineResetCnt[sensor] >= CapSense_CSD_LOW_BASELINE_RESET)
+ 402              		.loc 1 421 0 is_stmt 1
+ 403 0066 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 404 0068 324A     		ldr	r2, .L26+16
+ 405 006a D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 406 006c 042B     		cmp	r3, #4
+ 407 006e 08D9     		bls	.L20
+ 422:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 423:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_BaseInit(sensor);
+ 408              		.loc 1 423 0
+ 409 0070 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 410 0072 1846     		mov	r0, r3
+ 411 0074 FFF7FEFF 		bl	CapSense_CSD_BaseInit
+ 424:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_lowBaselineResetCnt[sensor] = 0u;
+ 412              		.loc 1 424 0
+ 413 0078 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 414 007a 2E4A     		ldr	r2, .L26+16
+ 415 007c 0021     		movs	r1, #0
+ 416 007e D154     		strb	r1, [r2, r3]
+ 421:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 417              		.loc 1 421 0
+ 418 0080 3AE0     		b	.L22
+ 419              	.L20:
+ 425:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 426:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         else
+ 427:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 428:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_lowBaselineResetCnt[sensor]++;
+ 420              		.loc 1 428 0
+ 421 0082 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 422 0084 2B4A     		ldr	r2, .L26+16
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 16
+
+
+ 423 0086 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 424 0088 0132     		adds	r2, r2, #1
+ 425 008a D1B2     		uxtb	r1, r2
+ 426 008c 294A     		ldr	r2, .L26+16
+ 427 008e D154     		strb	r1, [r2, r3]
+ 421:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 428              		.loc 1 421 0
+ 429 0090 32E0     		b	.L22
+ 430              	.L19:
+ 429:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 430:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 431:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     else
+ 432:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 433:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         #if (CapSense_CSD_AUTO_RESET == CapSense_CSD_AUTO_RESET_DISABLE)
+ 434:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             /* Update Baseline if lower that noiseThreshold */
+ 435:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             if ( (tempRaw <= (uint16) noiseThreshold) || 
+ 431              		.loc 1 435 0
+ 432 0092 FA8A     		ldrh	r2, [r7, #22]
+ 433 0094 7B8A     		ldrh	r3, [r7, #18]
+ 434 0096 9A42     		cmp	r2, r3
+ 435 0098 05D9     		bls	.L23
+ 436              		.loc 1 435 0 is_stmt 0 discriminator 1
+ 437 009a FB8A     		ldrh	r3, [r7, #22]
+ 438 009c 132B     		cmp	r3, #19
+ 439 009e 2BD8     		bhi	.L22
+ 436:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                  ((tempRaw < (uint16) CapSense_CSD_NEGATIVE_NOISE_THRESHOLD)
+ 437:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                    && (widget == 0u)))
+ 440              		.loc 1 437 0 is_stmt 1
+ 441 00a0 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 442 00a2 002B     		cmp	r3, #0
+ 443 00a4 28D1     		bne	.L22
+ 444              	.L23:
+ 438:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             {
+ 439:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         #endif /* (CapSense_CSD_AUTO_RESET == CapSense_CSD_AUTO_RESET_DISABLE) */
+ 440:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 /* Make full Baseline 23 bits */
+ 441:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 calc = (uint32) CapSense_CSD_sensorBaseline[sensor] << 8u;
+ 445              		.loc 1 441 0
+ 446 00a6 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 447 00a8 214A     		ldr	r2, .L26+12
+ 448 00aa 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 449 00ae 1B02     		lsls	r3, r3, #8
+ 450 00b0 FB60     		str	r3, [r7, #12]
+ 442:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 calc |= (uint32) CapSense_CSD_sensorBaselineLow[sensor];
+ 451              		.loc 1 442 0
+ 452 00b2 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 453 00b4 204A     		ldr	r2, .L26+20
+ 454 00b6 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 455 00b8 1A46     		mov	r2, r3
+ 456 00ba FB68     		ldr	r3, [r7, #12]
+ 457 00bc 1343     		orrs	r3, r3, r2
+ 458 00be FB60     		str	r3, [r7, #12]
+ 443:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 444:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 /* Add Raw Data to Baseline */
+ 445:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 calc += filteredRawData;
+ 459              		.loc 1 445 0
+ 460 00c0 3B8A     		ldrh	r3, [r7, #16]
+ 461 00c2 FA68     		ldr	r2, [r7, #12]
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 17
+
+
+ 462 00c4 1344     		add	r3, r3, r2
+ 463 00c6 FB60     		str	r3, [r7, #12]
+ 446:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 447:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 /* Sub the high Baseline */
+ 448:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 calc -= CapSense_CSD_sensorBaseline[sensor];
+ 464              		.loc 1 448 0
+ 465 00c8 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 466 00ca 194A     		ldr	r2, .L26+12
+ 467 00cc 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 468 00d0 1A46     		mov	r2, r3
+ 469 00d2 FB68     		ldr	r3, [r7, #12]
+ 470 00d4 9B1A     		subs	r3, r3, r2
+ 471 00d6 FB60     		str	r3, [r7, #12]
+ 449:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 450:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 /* Put Baseline and BaselineLow */
+ 451:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 CapSense_CSD_sensorBaseline[sensor] = ((uint16) (calc >> 8u));
+ 472              		.loc 1 451 0
+ 473 00d8 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 474 00da FA68     		ldr	r2, [r7, #12]
+ 475 00dc 120A     		lsrs	r2, r2, #8
+ 476 00de 91B2     		uxth	r1, r2
+ 477 00e0 134A     		ldr	r2, .L26+12
+ 478 00e2 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+ 452:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 CapSense_CSD_sensorBaselineLow[sensor] = ((uint8) calc);
+ 479              		.loc 1 452 0
+ 480 00e6 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 481 00e8 FA68     		ldr	r2, [r7, #12]
+ 482 00ea D1B2     		uxtb	r1, r2
+ 483 00ec 124A     		ldr	r2, .L26+20
+ 484 00ee D154     		strb	r1, [r2, r3]
+ 453:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 454:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 CapSense_CSD_lowBaselineResetCnt[sensor] = 0u;
+ 485              		.loc 1 454 0
+ 486 00f0 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 487 00f2 104A     		ldr	r2, .L26+16
+ 488 00f4 0021     		movs	r1, #0
+ 489 00f6 D154     		strb	r1, [r2, r3]
+ 490              	.L22:
+ 455:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         #if (CapSense_CSD_AUTO_RESET == CapSense_CSD_AUTO_RESET_DISABLE)
+ 456:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             }
+ 457:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         #endif /* (CapSense_CSD_AUTO_RESET == CapSense_CSD_AUTO_RESET_DISABLE) */
+ 458:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 459:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 460:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Calculate Signal if possitive difference > noiseThreshold */
+ 461:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     if((tempRaw > (uint16) noiseThreshold) && (widget != 0u))
+ 491              		.loc 1 461 0
+ 492 00f8 FA8A     		ldrh	r2, [r7, #22]
+ 493 00fa 7B8A     		ldrh	r3, [r7, #18]
+ 494 00fc 9A42     		cmp	r2, r3
+ 495 00fe 08D9     		bls	.L24
+ 496              		.loc 1 461 0 is_stmt 0 discriminator 1
+ 497 0100 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 498 0102 002B     		cmp	r3, #0
+ 499 0104 05D0     		beq	.L24
+ 462:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 463:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         #if (CapSense_CSD_SIGNAL_SIZE == CapSense_CSD_SIGNAL_SIZE_UINT8)
+ 464:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             /* Over flow defence for uint8 */
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 18
+
+
+ 465:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             if (tempRaw > 0xFFu)
+ 466:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             {
+ 467:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 CapSense_CSD_sensorSignal[sensor] = 0xFFu;
+ 468:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             }    
+ 469:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             else 
+ 470:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             {
+ 471:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 CapSense_CSD_sensorSignal[sensor] = ((uint8) tempRaw);
+ 472:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             }
+ 473:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         #else
+ 474:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_sensorSignal[sensor] = ((uint16) tempRaw);
+ 500              		.loc 1 474 0 is_stmt 1
+ 501 0106 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 502 0108 0C49     		ldr	r1, .L26+24
+ 503 010a FA8A     		ldrh	r2, [r7, #22]	@ movhi
+ 504 010c 21F81320 		strh	r2, [r1, r3, lsl #1]	@ movhi
+ 505 0110 04E0     		b	.L16
+ 506              	.L24:
+ 475:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         #endif  /* (CapSense_CSD_SIGNAL_SIZE == CapSense_CSD_SIGNAL_SIZE_UINT8) */
+ 476:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 477:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     else
+ 478:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 479:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Signal is zero */
+ 480:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_sensorSignal[sensor] = 0u;
+ 507              		.loc 1 480 0
+ 508 0112 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 509 0114 094A     		ldr	r2, .L26+24
+ 510 0116 0021     		movs	r1, #0
+ 511 0118 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+ 512              	.L16:
+ 481:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 482:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 483:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #if (CapSense_CSD_TOTAL_GENERICS_COUNT)
+ 484:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Exclude generic widget */
+ 485:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 486:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     #endif  /* CapSense_CSD_TOTAL_GENERICS_COUNT */
+ 487:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 513              		.loc 1 487 0
+ 514 011c 1837     		adds	r7, r7, #24
+ 515              		.cfi_def_cfa_offset 8
+ 516 011e BD46     		mov	sp, r7
+ 517              		.cfi_def_cfa_register 13
+ 518              		@ sp needed
+ 519 0120 80BD     		pop	{r7, pc}
+ 520              	.L27:
+ 521 0122 00BF     		.align	2
+ 522              	.L26:
+ 523 0124 00000000 		.word	CapSense_CSD_widgetNumber
+ 524 0128 00000000 		.word	CapSense_CSD_noiseThreshold
+ 525 012c 00000000 		.word	CapSense_CSD_sensorRaw
+ 526 0130 00000000 		.word	CapSense_CSD_sensorBaseline
+ 527 0134 00000000 		.word	CapSense_CSD_lowBaselineResetCnt
+ 528 0138 00000000 		.word	CapSense_CSD_sensorBaselineLow
+ 529 013c 00000000 		.word	CapSense_CSD_sensorSignal
+ 530              		.cfi_endproc
+ 531              	.LFE4:
+ 532              		.size	CapSense_CSD_UpdateSensorBaseline, .-CapSense_CSD_UpdateSensorBaseline
+ 533              		.section	.text.CapSense_CSD_UpdateEnabledBaselines,"ax",%progbits
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 19
+
+
+ 534              		.align	2
+ 535              		.global	CapSense_CSD_UpdateEnabledBaselines
+ 536              		.thumb
+ 537              		.thumb_func
+ 538              		.type	CapSense_CSD_UpdateEnabledBaselines, %function
+ 539              	CapSense_CSD_UpdateEnabledBaselines:
+ 540              	.LFB5:
+ 488:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 489:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 490:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 491:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_UpdateEnabledBaselines
+ 492:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 493:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 494:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 495:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Checks CapSense_CSD_sensorEnableMask[] array and calls the 
+ 496:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_UpdateSensorBaseline function to update the baselines 
+ 497:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  for enabled sensors.
+ 498:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 499:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 500:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 501:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 502:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 503:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 504:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 505:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Global Variables:
+ 506:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[] - used to store the sensor scanning 
+ 507:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  state.
+ 508:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[0] contains the masked bits for sensors 
+ 509:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *   0 through 7 (sensor 0 is bit 0, sensor 1 is bit 1).
+ 510:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[1] contains the masked bits for 
+ 511:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  sensors 8 through 15 (if needed), and so on.
+ 512:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  0 - sensor doesn't scan by CapSense_CSD_ScanEnabledWidgets().
+ 513:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  1 - sensor scans by CapSense_CSD_ScanEnabledWidgets().
+ 514:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 515:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 516:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 517:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 518:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 519:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****  void CapSense_CSD_UpdateEnabledBaselines(void)
+ 520:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                  
+ 521:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 541              		.loc 1 521 0
+ 542              		.cfi_startproc
+ 543              		@ args = 0, pretend = 0, frame = 8
+ 544              		@ frame_needed = 1, uses_anonymous_args = 0
+ 545 0000 80B5     		push	{r7, lr}
+ 546              		.cfi_def_cfa_offset 8
+ 547              		.cfi_offset 7, -8
+ 548              		.cfi_offset 14, -4
+ 549 0002 82B0     		sub	sp, sp, #8
+ 550              		.cfi_def_cfa_offset 16
+ 551 0004 00AF     		add	r7, sp, #0
+ 552              		.cfi_def_cfa_register 7
+ 522:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 i;
+ 523:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 pos;
+ 524:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 enMask;
+ 525:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 20
+
+
+ 526:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     for(i = 0u; i < CapSense_CSD_TOTAL_SENSOR_COUNT; i++)
+ 553              		.loc 1 526 0
+ 554 0006 0023     		movs	r3, #0
+ 555 0008 FB71     		strb	r3, [r7, #7]
+ 556 000a 18E0     		b	.L29
+ 557              	.L31:
+ 527:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 528:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         pos = (i >> 3u);
+ 558              		.loc 1 528 0
+ 559 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 560 000e DB08     		lsrs	r3, r3, #3
+ 561 0010 BB71     		strb	r3, [r7, #6]
+ 529:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         enMask = (uint8)(0x01u << (i & 0x07u));
+ 562              		.loc 1 529 0
+ 563 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 564 0014 03F00703 		and	r3, r3, #7
+ 565 0018 0122     		movs	r2, #1
+ 566 001a 02FA03F3 		lsl	r3, r2, r3
+ 567 001e 7B71     		strb	r3, [r7, #5]
+ 530:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if((CapSense_CSD_sensorEnableMask[pos] & enMask) != 0u)
+ 568              		.loc 1 530 0
+ 569 0020 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 570 0022 0A4A     		ldr	r2, .L32
+ 571 0024 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 572 0026 7B79     		ldrb	r3, [r7, #5]
+ 573 0028 1340     		ands	r3, r3, r2
+ 574 002a DBB2     		uxtb	r3, r3
+ 575 002c 002B     		cmp	r3, #0
+ 576 002e 03D0     		beq	.L30
+ 531:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 532:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_UpdateSensorBaseline(i);
+ 577              		.loc 1 532 0
+ 578 0030 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 579 0032 1846     		mov	r0, r3
+ 580 0034 FFF7FEFF 		bl	CapSense_CSD_UpdateSensorBaseline
+ 581              	.L30:
+ 526:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 582              		.loc 1 526 0 discriminator 2
+ 583 0038 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 584 003a 0133     		adds	r3, r3, #1
+ 585 003c FB71     		strb	r3, [r7, #7]
+ 586              	.L29:
+ 526:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 587              		.loc 1 526 0 is_stmt 0 discriminator 1
+ 588 003e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 589 0040 002B     		cmp	r3, #0
+ 590 0042 E3D0     		beq	.L31
+ 533:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 534:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 535:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 591              		.loc 1 535 0 is_stmt 1
+ 592 0044 0837     		adds	r7, r7, #8
+ 593              		.cfi_def_cfa_offset 8
+ 594 0046 BD46     		mov	sp, r7
+ 595              		.cfi_def_cfa_register 13
+ 596              		@ sp needed
+ 597 0048 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 21
+
+
+ 598              	.L33:
+ 599 004a 00BF     		.align	2
+ 600              	.L32:
+ 601 004c 00000000 		.word	CapSense_CSD_sensorEnableMask
+ 602              		.cfi_endproc
+ 603              	.LFE5:
+ 604              		.size	CapSense_CSD_UpdateEnabledBaselines, .-CapSense_CSD_UpdateEnabledBaselines
+ 605              		.section	.text.CapSense_CSD_CheckIsSensorActive,"ax",%progbits
+ 606              		.align	2
+ 607              		.global	CapSense_CSD_CheckIsSensorActive
+ 608              		.thumb
+ 609              		.thumb_func
+ 610              		.type	CapSense_CSD_CheckIsSensorActive, %function
+ 611              	CapSense_CSD_CheckIsSensorActive:
+ 612              	.LFB6:
+ 536:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 537:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 538:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 539:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_CheckIsSensorActive
+ 540:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 541:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 542:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 543:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Compares the CapSense_CSD_SensorSignal[sensor] array element to finger
+ 544:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  threshold of widget it belongs to. The hysteresis and debounce are taken into 
+ 545:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  account. The hysteresis is added or subtracted from the finger threshold 
+ 546:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  based on whether the sensor is currently active. 
+ 547:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  If the sensor is active, the threshold is lowered by the hysteresis amount.
+ 548:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  If the sensor is inactive, the threshold is raised by the hysteresis amount.
+ 549:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  The debounce counter added to the sensor active transition.
+ 550:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  This function updates CapSense_CSD_SensorOnMask[] array element.
+ 551:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 552:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 553:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  sensor:  Sensor number.
+ 554:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 555:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 556:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Returns sensor state 1 if active, 0 if not active.
+ 557:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 558:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Global Variables:
+ 559:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorSignal[]      - used to store diffence between 
+ 560:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  current value of raw data and previous value of baseline.
+ 561:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_debounceCounter[]   - used to store current debounce 
+ 562:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  counter of sensor. Widget which has this parameter are buttons, matrix 
+ 563:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  buttons, proximity, guard. All other widgets haven't debounce parameter
+ 564:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  and use the last element of this array with value 0 (it means no debounce).
+ 565:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorOnMask[] - used to store sensors on/off state.
+ 566:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorOnMask[0] contains the masked bits for sensors 
+ 567:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *   0 through 7 (sensor 0 is bit 0, sensor 1 is bit 1).
+ 568:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[1] contains the masked bits for 
+ 569:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  sensors 8 through 15 (if needed), and so on.
+ 570:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  0 - sensor is inactive.
+ 571:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  1 - sensor is active.
+ 572:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 573:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 574:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 575:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 576:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 577:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint8 CapSense_CSD_CheckIsSensorActive(uint8 sensor)
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 22
+
+
+ 578:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                   
+ 579:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 613              		.loc 1 579 0
+ 614              		.cfi_startproc
+ 615              		@ args = 0, pretend = 0, frame = 24
+ 616              		@ frame_needed = 1, uses_anonymous_args = 0
+ 617              		@ link register save eliminated.
+ 618 0000 80B4     		push	{r7}
+ 619              		.cfi_def_cfa_offset 4
+ 620              		.cfi_offset 7, -4
+ 621 0002 87B0     		sub	sp, sp, #28
+ 622              		.cfi_def_cfa_offset 32
+ 623 0004 00AF     		add	r7, sp, #0
+ 624              		.cfi_def_cfa_register 7
+ 625 0006 0346     		mov	r3, r0
+ 626 0008 FB71     		strb	r3, [r7, #7]
+ 580:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 debounceIndex;
+ 581:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Get On/Off mask */
+ 582:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 pos = (sensor >> 3u);
+ 627              		.loc 1 582 0
+ 628 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 629 000c DB08     		lsrs	r3, r3, #3
+ 630 000e FB75     		strb	r3, [r7, #23]
+ 583:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 onMask = 0x01u << (sensor & 0x07u);
+ 631              		.loc 1 583 0
+ 632 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 633 0012 03F00703 		and	r3, r3, #7
+ 634 0016 0122     		movs	r2, #1
+ 635 0018 02FA03F3 		lsl	r3, r2, r3
+ 636 001c BB75     		strb	r3, [r7, #22]
+ 584:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Prepare to find debounce counter index */
+ 585:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 widget = CapSense_CSD_widgetNumber[sensor];
+ 637              		.loc 1 585 0
+ 638 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 639 0020 344A     		ldr	r2, .L43
+ 640 0022 D35C     		ldrb	r3, [r2, r3]
+ 641 0024 7B75     		strb	r3, [r7, #21]
+ 586:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint16 fingerThreshold = CapSense_CSD_fingerThreshold[widget];
+ 642              		.loc 1 586 0
+ 643 0026 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 644 0028 334A     		ldr	r2, .L43+4
+ 645 002a 32F81330 		ldrh	r3, [r2, r3, lsl #1]	@ movhi
+ 646 002e 7B82     		strh	r3, [r7, #18]	@ movhi
+ 587:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint16 hysteresis = CapSense_CSD_hysteresis[widget];
+ 647              		.loc 1 587 0
+ 648 0030 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 649 0032 324A     		ldr	r2, .L43+8
+ 650 0034 32F81330 		ldrh	r3, [r2, r3, lsl #1]	@ movhi
+ 651 0038 3B82     		strh	r3, [r7, #16]	@ movhi
+ 588:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 debounce = CapSense_CSD_debounce[widget];
+ 652              		.loc 1 588 0
+ 653 003a 7B7D     		ldrb	r3, [r7, #21]	@ zero_extendqisi2
+ 654 003c 304A     		ldr	r2, .L43+12
+ 655 003e D35C     		ldrb	r3, [r2, r3]
+ 656 0040 FB73     		strb	r3, [r7, #15]
+ 589:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 590:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     debounceIndex = widget;
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 23
+
+
+ 657              		.loc 1 590 0
+ 658 0042 7B7D     		ldrb	r3, [r7, #21]
+ 659 0044 BB73     		strb	r3, [r7, #14]
+ 591:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 592:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 593:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Was on */
+ 594:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     if (0u != (CapSense_CSD_sensorOnMask[pos] & onMask))
+ 660              		.loc 1 594 0
+ 661 0046 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 662 0048 2E4A     		ldr	r2, .L43+16
+ 663 004a D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 664 004c BB7D     		ldrb	r3, [r7, #22]
+ 665 004e 1340     		ands	r3, r3, r2
+ 666 0050 DBB2     		uxtb	r3, r3
+ 667 0052 002B     		cmp	r3, #0
+ 668 0054 19D0     		beq	.L35
+ 595:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 596:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Hysteresis minus */
+ 597:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if (CapSense_CSD_sensorSignal[sensor] < (fingerThreshold - hysteresis))
+ 669              		.loc 1 597 0
+ 670 0056 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 671 0058 2B4A     		ldr	r2, .L43+20
+ 672 005a 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 673 005e 1946     		mov	r1, r3
+ 674 0060 7A8A     		ldrh	r2, [r7, #18]
+ 675 0062 3B8A     		ldrh	r3, [r7, #16]
+ 676 0064 D31A     		subs	r3, r2, r3
+ 677 0066 9942     		cmp	r1, r3
+ 678 0068 33DA     		bge	.L37
+ 598:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 599:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_sensorOnMask[pos] &= (uint8)~onMask;
+ 679              		.loc 1 599 0
+ 680 006a FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 681 006c FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ 682 006e 2549     		ldr	r1, .L43+16
+ 683 0070 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
+ 684 0072 BA7D     		ldrb	r2, [r7, #22]
+ 685 0074 D243     		mvns	r2, r2
+ 686 0076 D2B2     		uxtb	r2, r2
+ 687 0078 0A40     		ands	r2, r2, r1
+ 688 007a D1B2     		uxtb	r1, r2
+ 689 007c 214A     		ldr	r2, .L43+16
+ 690 007e D154     		strb	r1, [r2, r3]
+ 600:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_debounceCounter[debounceIndex] = debounce; 
+ 691              		.loc 1 600 0
+ 692 0080 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 693 0082 2249     		ldr	r1, .L43+24
+ 694 0084 FA7B     		ldrb	r2, [r7, #15]
+ 695 0086 CA54     		strb	r2, [r1, r3]
+ 696 0088 23E0     		b	.L37
+ 697              	.L35:
+ 601:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 602:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 603:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     else    /* Was off */
+ 604:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 605:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         /* Hysteresis plus */
+ 606:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if (CapSense_CSD_sensorSignal[sensor] > (fingerThreshold + hysteresis))
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 24
+
+
+ 698              		.loc 1 606 0
+ 699 008a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 700 008c 1E4A     		ldr	r2, .L43+20
+ 701 008e 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 702 0092 1946     		mov	r1, r3
+ 703 0094 7A8A     		ldrh	r2, [r7, #18]
+ 704 0096 3B8A     		ldrh	r3, [r7, #16]
+ 705 0098 1344     		add	r3, r3, r2
+ 706 009a 9942     		cmp	r1, r3
+ 707 009c 15DD     		ble	.L38
+ 607:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 608:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             /* Sensor active, decrement debounce counter */
+ 609:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             if (CapSense_CSD_debounceCounter[debounceIndex] <= 1u)
+ 708              		.loc 1 609 0
+ 709 009e BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 710 00a0 1A4A     		ldr	r2, .L43+24
+ 711 00a2 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 712 00a4 012B     		cmp	r3, #1
+ 713 00a6 08D8     		bhi	.L39
+ 610:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             {
+ 611:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                 CapSense_CSD_sensorOnMask[pos] |= onMask; 
+ 714              		.loc 1 611 0
+ 715 00a8 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 716 00aa FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ 717 00ac 1549     		ldr	r1, .L43+16
+ 718 00ae 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
+ 719 00b0 BA7D     		ldrb	r2, [r7, #22]
+ 720 00b2 0A43     		orrs	r2, r2, r1
+ 721 00b4 D1B2     		uxtb	r1, r2
+ 722 00b6 134A     		ldr	r2, .L43+16
+ 723 00b8 D154     		strb	r1, [r2, r3]
+ 724              	.L39:
+ 612:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             }
+ 613:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_debounceCounter[debounceIndex]--;
+ 725              		.loc 1 613 0
+ 726 00ba BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 727 00bc 134A     		ldr	r2, .L43+24
+ 728 00be D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 729 00c0 013A     		subs	r2, r2, #1
+ 730 00c2 D1B2     		uxtb	r1, r2
+ 731 00c4 114A     		ldr	r2, .L43+24
+ 732 00c6 D154     		strb	r1, [r2, r3]
+ 733 00c8 03E0     		b	.L37
+ 734              	.L38:
+ 614:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 615:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         else
+ 616:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 617:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             /* Sensor inactive - reset Debounce counter */
+ 618:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             CapSense_CSD_debounceCounter[debounceIndex] = debounce;
+ 735              		.loc 1 618 0
+ 736 00ca BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 737 00cc 0F49     		ldr	r1, .L43+24
+ 738 00ce FA7B     		ldrb	r2, [r7, #15]
+ 739 00d0 CA54     		strb	r2, [r1, r3]
+ 740              	.L37:
+ 619:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 620:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 25
+
+
+ 621:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 622:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     return (((CapSense_CSD_sensorOnMask[pos] & onMask) != 0u) ? 1u : 0u);
+ 741              		.loc 1 622 0
+ 742 00d2 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 743 00d4 0B4A     		ldr	r2, .L43+16
+ 744 00d6 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 745 00d8 BB7D     		ldrb	r3, [r7, #22]
+ 746 00da 1340     		ands	r3, r3, r2
+ 747 00dc DBB2     		uxtb	r3, r3
+ 748 00de 002B     		cmp	r3, #0
+ 749 00e0 01D0     		beq	.L40
+ 750              		.loc 1 622 0 is_stmt 0 discriminator 1
+ 751 00e2 0123     		movs	r3, #1
+ 752 00e4 00E0     		b	.L41
+ 753              	.L40:
+ 754              		.loc 1 622 0 discriminator 2
+ 755 00e6 0023     		movs	r3, #0
+ 756              	.L41:
+ 623:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 757              		.loc 1 623 0 is_stmt 1 discriminator 4
+ 758 00e8 1846     		mov	r0, r3
+ 759 00ea 1C37     		adds	r7, r7, #28
+ 760              		.cfi_def_cfa_offset 4
+ 761 00ec BD46     		mov	sp, r7
+ 762              		.cfi_def_cfa_register 13
+ 763              		@ sp needed
+ 764 00ee 5DF8047B 		ldr	r7, [sp], #4
+ 765              		.cfi_restore 7
+ 766              		.cfi_def_cfa_offset 0
+ 767 00f2 7047     		bx	lr
+ 768              	.L44:
+ 769              		.align	2
+ 770              	.L43:
+ 771 00f4 00000000 		.word	CapSense_CSD_widgetNumber
+ 772 00f8 00000000 		.word	CapSense_CSD_fingerThreshold
+ 773 00fc 00000000 		.word	CapSense_CSD_hysteresis
+ 774 0100 00000000 		.word	CapSense_CSD_debounce
+ 775 0104 00000000 		.word	CapSense_CSD_sensorOnMask
+ 776 0108 00000000 		.word	CapSense_CSD_sensorSignal
+ 777 010c 00000000 		.word	CapSense_CSD_debounceCounter
+ 778              		.cfi_endproc
+ 779              	.LFE6:
+ 780              		.size	CapSense_CSD_CheckIsSensorActive, .-CapSense_CSD_CheckIsSensorActive
+ 781              		.section	.text.CapSense_CSD_CheckIsWidgetActive,"ax",%progbits
+ 782              		.align	2
+ 783              		.global	CapSense_CSD_CheckIsWidgetActive
+ 784              		.thumb
+ 785              		.thumb_func
+ 786              		.type	CapSense_CSD_CheckIsWidgetActive, %function
+ 787              	CapSense_CSD_CheckIsWidgetActive:
+ 788              	.LFB7:
+ 624:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 625:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 626:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 627:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_CheckIsWidgetActive
+ 628:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 629:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 26
+
+
+ 630:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 631:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Use function CapSense_CSD_CheckIsSensorActive() to update 
+ 632:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorOnMask[] for all sensors within the widget.
+ 633:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  If one of sensors within widget is active the function return that widget is 
+ 634:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  active.
+ 635:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  The touch pad and matrix buttons widgets need to have active sensor within 
+ 636:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  col and row to return widget active status.
+ 637:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 638:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 639:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  widget:  widget number.
+ 640:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 641:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 642:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Returns widget sensor state 1 if one or more sensors within widget is/are 
+ 643:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  active, 0 if all sensors within widget are inactive.
+ 644:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 645:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 646:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 647:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 648:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 649:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint8 CapSense_CSD_CheckIsWidgetActive(uint8 widget)
+ 650:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                  
+ 651:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 789              		.loc 1 651 0
+ 790              		.cfi_startproc
+ 791              		@ args = 0, pretend = 0, frame = 16
+ 792              		@ frame_needed = 1, uses_anonymous_args = 0
+ 793 0000 80B5     		push	{r7, lr}
+ 794              		.cfi_def_cfa_offset 8
+ 795              		.cfi_offset 7, -8
+ 796              		.cfi_offset 14, -4
+ 797 0002 84B0     		sub	sp, sp, #16
+ 798              		.cfi_def_cfa_offset 24
+ 799 0004 00AF     		add	r7, sp, #0
+ 800              		.cfi_def_cfa_register 7
+ 801 0006 0346     		mov	r3, r0
+ 802 0008 FB71     		strb	r3, [r7, #7]
+ 652:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 rawIndex = CapSense_CSD_rawDataIndex[widget];
+ 803              		.loc 1 652 0
+ 804 000a 0023     		movs	r3, #0
+ 805 000c FB73     		strb	r3, [r7, #15]
+ 653:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 numberOfSensors = CapSense_CSD_numberOfSensors[widget] + rawIndex;
+ 806              		.loc 1 653 0
+ 807 000e 0122     		movs	r2, #1
+ 808 0010 FB7B     		ldrb	r3, [r7, #15]
+ 809 0012 1344     		add	r3, r3, r2
+ 810 0014 7B73     		strb	r3, [r7, #13]
+ 654:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 state = 0u;
+ 811              		.loc 1 654 0
+ 812 0016 0023     		movs	r3, #0
+ 813 0018 BB73     		strb	r3, [r7, #14]
+ 814              	.L47:
+ 655:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 656:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Check all sensors of the widget */
+ 657:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     do
+ 658:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 659:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if(CapSense_CSD_CheckIsSensorActive(rawIndex) != 0u)
+ 815              		.loc 1 659 0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 27
+
+
+ 816 001a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 817 001c 1846     		mov	r0, r3
+ 818 001e FFF7FEFF 		bl	CapSense_CSD_CheckIsSensorActive
+ 819 0022 0346     		mov	r3, r0
+ 820 0024 002B     		cmp	r3, #0
+ 821 0026 01D0     		beq	.L46
+ 660:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 661:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             state = CapSense_CSD_SENSOR_1_IS_ACTIVE;
+ 822              		.loc 1 661 0
+ 823 0028 0123     		movs	r3, #1
+ 824 002a BB73     		strb	r3, [r7, #14]
+ 825              	.L46:
+ 662:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 663:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         rawIndex++;
+ 826              		.loc 1 663 0
+ 827 002c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 828 002e 0133     		adds	r3, r3, #1
+ 829 0030 FB73     		strb	r3, [r7, #15]
+ 664:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 665:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     while(rawIndex < numberOfSensors);
+ 830              		.loc 1 665 0
+ 831 0032 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 832 0034 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 833 0036 9A42     		cmp	r2, r3
+ 834 0038 EFD3     		bcc	.L47
+ 666:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 667:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 668:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 669:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     return (state);
+ 835              		.loc 1 669 0
+ 836 003a BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 670:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 837              		.loc 1 670 0
+ 838 003c 1846     		mov	r0, r3
+ 839 003e 1037     		adds	r7, r7, #16
+ 840              		.cfi_def_cfa_offset 8
+ 841 0040 BD46     		mov	sp, r7
+ 842              		.cfi_def_cfa_register 13
+ 843              		@ sp needed
+ 844 0042 80BD     		pop	{r7, pc}
+ 845              		.cfi_endproc
+ 846              	.LFE7:
+ 847              		.size	CapSense_CSD_CheckIsWidgetActive, .-CapSense_CSD_CheckIsWidgetActive
+ 848              		.section	.text.CapSense_CSD_CheckIsAnyWidgetActive,"ax",%progbits
+ 849              		.align	2
+ 850              		.global	CapSense_CSD_CheckIsAnyWidgetActive
+ 851              		.thumb
+ 852              		.thumb_func
+ 853              		.type	CapSense_CSD_CheckIsAnyWidgetActive, %function
+ 854              	CapSense_CSD_CheckIsAnyWidgetActive:
+ 855              	.LFB8:
+ 671:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 672:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 673:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 674:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_CheckIsAnyWidgetActive
+ 675:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 676:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 28
+
+
+ 677:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 678:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Compares all sensors of the CapSense_CSD_signal[] array to their finger 
+ 679:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  threshold. Calls CapSense_CSD_CheckIsWidgetActive() for each widget so 
+ 680:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  the CapSense_CSD_SensorOnMask[] array is up to date after calling this 
+ 681:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  function.
+ 682:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 683:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 684:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  widget:  widget number.
+ 685:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 686:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 687:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Returns 1 if any widget is active, 0 none of widgets are active.
+ 688:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 689:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 690:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 691:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 692:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 693:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** uint8 CapSense_CSD_CheckIsAnyWidgetActive(void)
+ 694:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                  
+ 695:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 856              		.loc 1 695 0
+ 857              		.cfi_startproc
+ 858              		@ args = 0, pretend = 0, frame = 8
+ 859              		@ frame_needed = 1, uses_anonymous_args = 0
+ 860 0000 80B5     		push	{r7, lr}
+ 861              		.cfi_def_cfa_offset 8
+ 862              		.cfi_offset 7, -8
+ 863              		.cfi_offset 14, -4
+ 864 0002 82B0     		sub	sp, sp, #8
+ 865              		.cfi_def_cfa_offset 16
+ 866 0004 00AF     		add	r7, sp, #0
+ 867              		.cfi_def_cfa_register 7
+ 696:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 i;
+ 697:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 state = 0u;
+ 868              		.loc 1 697 0
+ 869 0006 0023     		movs	r3, #0
+ 870 0008 BB71     		strb	r3, [r7, #6]
+ 698:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 699:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     for(i = 0u; i < CapSense_CSD_TOTAL_WIDGET_COUNT; i++)
+ 871              		.loc 1 699 0
+ 872 000a 0023     		movs	r3, #0
+ 873 000c FB71     		strb	r3, [r7, #7]
+ 874 000e 0BE0     		b	.L50
+ 875              	.L52:
+ 700:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 701:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         if (CapSense_CSD_CheckIsWidgetActive(i) != 0u)
+ 876              		.loc 1 701 0
+ 877 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 878 0012 1846     		mov	r0, r3
+ 879 0014 FFF7FEFF 		bl	CapSense_CSD_CheckIsWidgetActive
+ 880 0018 0346     		mov	r3, r0
+ 881 001a 002B     		cmp	r3, #0
+ 882 001c 01D0     		beq	.L51
+ 702:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         {
+ 703:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****             state = CapSense_CSD_WIDGET_IS_ACTIVE;
+ 883              		.loc 1 703 0
+ 884 001e 0123     		movs	r3, #1
+ 885 0020 BB71     		strb	r3, [r7, #6]
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 29
+
+
+ 886              	.L51:
+ 699:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 887              		.loc 1 699 0 discriminator 2
+ 888 0022 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 889 0024 0133     		adds	r3, r3, #1
+ 890 0026 FB71     		strb	r3, [r7, #7]
+ 891              	.L50:
+ 699:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 892              		.loc 1 699 0 is_stmt 0 discriminator 1
+ 893 0028 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 894 002a 002B     		cmp	r3, #0
+ 895 002c F0D0     		beq	.L52
+ 704:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         }
+ 705:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 706:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 707:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 708:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     return (state);
+ 896              		.loc 1 708 0 is_stmt 1
+ 897 002e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 709:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 898              		.loc 1 709 0
+ 899 0030 1846     		mov	r0, r3
+ 900 0032 0837     		adds	r7, r7, #8
+ 901              		.cfi_def_cfa_offset 8
+ 902 0034 BD46     		mov	sp, r7
+ 903              		.cfi_def_cfa_register 13
+ 904              		@ sp needed
+ 905 0036 80BD     		pop	{r7, pc}
+ 906              		.cfi_endproc
+ 907              	.LFE8:
+ 908              		.size	CapSense_CSD_CheckIsAnyWidgetActive, .-CapSense_CSD_CheckIsAnyWidgetActive
+ 909              		.section	.text.CapSense_CSD_EnableWidget,"ax",%progbits
+ 910              		.align	2
+ 911              		.global	CapSense_CSD_EnableWidget
+ 912              		.thumb
+ 913              		.thumb_func
+ 914              		.type	CapSense_CSD_EnableWidget, %function
+ 915              	CapSense_CSD_EnableWidget:
+ 916              	.LFB9:
+ 710:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 711:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 712:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 713:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_EnableWidget
+ 714:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ 715:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 716:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 717:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Enable all widget elements (sensors) to scanning process.
+ 718:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 719:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 720:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  widget:  widget number.
+ 721:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 722:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 723:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 724:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 725:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Global Variables:
+ 726:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[] - used to store the sensor scanning 
+ 727:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  state.
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 30
+
+
+ 728:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[0] contains the masked bits for sensors 
+ 729:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  0 through 7 (sensor 0 is bit 0, sensor 1 is bit 1).
+ 730:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[1] contains the masked bits for 
+ 731:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  sensors 8 through 15 (if needed), and so on.
+ 732:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  0 - sensor doesn't scan by CapSense_CSD_ScanEnabledWidgets().
+ 733:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  1 - sensor scans by CapSense_CSD_ScanEnabledWidgets().
+ 734:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 735:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 736:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 737:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 738:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 739:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** void CapSense_CSD_EnableWidget(uint8 widget)
+ 740:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                    
+ 741:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 917              		.loc 1 741 0
+ 918              		.cfi_startproc
+ 919              		@ args = 0, pretend = 0, frame = 16
+ 920              		@ frame_needed = 1, uses_anonymous_args = 0
+ 921              		@ link register save eliminated.
+ 922 0000 80B4     		push	{r7}
+ 923              		.cfi_def_cfa_offset 4
+ 924              		.cfi_offset 7, -4
+ 925 0002 85B0     		sub	sp, sp, #20
+ 926              		.cfi_def_cfa_offset 24
+ 927 0004 00AF     		add	r7, sp, #0
+ 928              		.cfi_def_cfa_register 7
+ 929 0006 0346     		mov	r3, r0
+ 930 0008 FB71     		strb	r3, [r7, #7]
+ 742:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 pos;
+ 743:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 enMask;
+ 744:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 rawIndex = CapSense_CSD_rawDataIndex[widget];
+ 931              		.loc 1 744 0
+ 932 000a 0023     		movs	r3, #0
+ 933 000c FB73     		strb	r3, [r7, #15]
+ 745:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 numberOfSensors = CapSense_CSD_numberOfSensors[widget] + rawIndex;
+ 934              		.loc 1 745 0
+ 935 000e 0122     		movs	r2, #1
+ 936 0010 FB7B     		ldrb	r3, [r7, #15]
+ 937 0012 1344     		add	r3, r3, r2
+ 938 0014 BB73     		strb	r3, [r7, #14]
+ 939              	.L55:
+ 746:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 747:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Enable all sensors of the widget */
+ 748:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     do
+ 749:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 750:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         pos = (rawIndex >> 3u);
+ 940              		.loc 1 750 0 discriminator 1
+ 941 0016 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 942 0018 DB08     		lsrs	r3, r3, #3
+ 943 001a 7B73     		strb	r3, [r7, #13]
+ 751:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         enMask = 0x01u << (rawIndex & 0x07u);
+ 944              		.loc 1 751 0 discriminator 1
+ 945 001c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 946 001e 03F00703 		and	r3, r3, #7
+ 947 0022 0122     		movs	r2, #1
+ 948 0024 02FA03F3 		lsl	r3, r2, r3
+ 949 0028 3B73     		strb	r3, [r7, #12]
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 31
+
+
+ 752:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 753:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_sensorEnableMask[pos] |= enMask;
+ 950              		.loc 1 753 0 discriminator 1
+ 951 002a 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 952 002c 7A7B     		ldrb	r2, [r7, #13]	@ zero_extendqisi2
+ 953 002e 0949     		ldr	r1, .L56
+ 954 0030 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
+ 955 0032 3A7B     		ldrb	r2, [r7, #12]
+ 956 0034 0A43     		orrs	r2, r2, r1
+ 957 0036 D1B2     		uxtb	r1, r2
+ 958 0038 064A     		ldr	r2, .L56
+ 959 003a D154     		strb	r1, [r2, r3]
+ 754:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         rawIndex++;
+ 960              		.loc 1 754 0 discriminator 1
+ 961 003c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 962 003e 0133     		adds	r3, r3, #1
+ 963 0040 FB73     		strb	r3, [r7, #15]
+ 755:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 756:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     while(rawIndex < numberOfSensors);
+ 964              		.loc 1 756 0 discriminator 1
+ 965 0042 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 966 0044 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 967 0046 9A42     		cmp	r2, r3
+ 968 0048 E5D3     		bcc	.L55
+ 757:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 758:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 759:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 969              		.loc 1 759 0
+ 970 004a 1437     		adds	r7, r7, #20
+ 971              		.cfi_def_cfa_offset 4
+ 972 004c BD46     		mov	sp, r7
+ 973              		.cfi_def_cfa_register 13
+ 974              		@ sp needed
+ 975 004e 5DF8047B 		ldr	r7, [sp], #4
+ 976              		.cfi_restore 7
+ 977              		.cfi_def_cfa_offset 0
+ 978 0052 7047     		bx	lr
+ 979              	.L57:
+ 980              		.align	2
+ 981              	.L56:
+ 982 0054 00000000 		.word	CapSense_CSD_sensorEnableMask
+ 983              		.cfi_endproc
+ 984              	.LFE9:
+ 985              		.size	CapSense_CSD_EnableWidget, .-CapSense_CSD_EnableWidget
+ 986              		.section	.text.CapSense_CSD_DisableWidget,"ax",%progbits
+ 987              		.align	2
+ 988              		.global	CapSense_CSD_DisableWidget
+ 989              		.thumb
+ 990              		.thumb_func
+ 991              		.type	CapSense_CSD_DisableWidget, %function
+ 992              	CapSense_CSD_DisableWidget:
+ 993              	.LFB10:
+ 760:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 761:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 762:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** /*******************************************************************************
+ 763:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Function Name: CapSense_CSD_DisableWidget
+ 764:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** ********************************************************************************
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 32
+
+
+ 765:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 766:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Summary:
+ 767:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  Disable all widget elements (sensors) from scanning process.
+ 768:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 769:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Parameters:
+ 770:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  widget:  widget number.
+ 771:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 772:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Return:
+ 773:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  None
+ 774:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 775:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Global Variables:
+ 776:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[] - used to store the sensor scanning 
+ 777:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  state.
+ 778:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[0] contains the masked bits for sensors 
+ 779:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  0 through 7 (sensor 0 is bit 0, sensor 1 is bit 1).
+ 780:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  CapSense_CSD_sensorEnableMask[1] contains the masked bits for 
+ 781:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  sensors 8 through 15 (if needed), and so on.
+ 782:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  0 - sensor doesn't scan by CapSense_CSD_ScanEnabledWidgets().
+ 783:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  1 - sensor scans by CapSense_CSD_ScanEnabledWidgets().
+ 784:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 785:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** * Reentrant:
+ 786:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *  No
+ 787:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *
+ 788:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** *******************************************************************************/
+ 789:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** void CapSense_CSD_DisableWidget(uint8 widget)
+ 790:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****                                     
+ 791:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** {
+ 994              		.loc 1 791 0
+ 995              		.cfi_startproc
+ 996              		@ args = 0, pretend = 0, frame = 16
+ 997              		@ frame_needed = 1, uses_anonymous_args = 0
+ 998              		@ link register save eliminated.
+ 999 0000 80B4     		push	{r7}
+ 1000              		.cfi_def_cfa_offset 4
+ 1001              		.cfi_offset 7, -4
+ 1002 0002 85B0     		sub	sp, sp, #20
+ 1003              		.cfi_def_cfa_offset 24
+ 1004 0004 00AF     		add	r7, sp, #0
+ 1005              		.cfi_def_cfa_register 7
+ 1006 0006 0346     		mov	r3, r0
+ 1007 0008 FB71     		strb	r3, [r7, #7]
+ 792:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 pos;
+ 793:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 enMask;
+ 794:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 rawIndex = CapSense_CSD_rawDataIndex[widget];
+ 1008              		.loc 1 794 0
+ 1009 000a 0023     		movs	r3, #0
+ 1010 000c FB73     		strb	r3, [r7, #15]
+ 795:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     uint8 numberOfSensors = CapSense_CSD_numberOfSensors[widget] + rawIndex;
+ 1011              		.loc 1 795 0
+ 1012 000e 0122     		movs	r2, #1
+ 1013 0010 FB7B     		ldrb	r3, [r7, #15]
+ 1014 0012 1344     		add	r3, r3, r2
+ 1015 0014 BB73     		strb	r3, [r7, #14]
+ 1016              	.L59:
+ 796:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****    
+ 797:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     /* Disable all sensors of the widget */
+ 798:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     do
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 33
+
+
+ 799:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     {
+ 800:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         pos = (rawIndex >> 3u);
+ 1017              		.loc 1 800 0 discriminator 1
+ 1018 0016 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1019 0018 DB08     		lsrs	r3, r3, #3
+ 1020 001a 7B73     		strb	r3, [r7, #13]
+ 801:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         enMask = 0x01u << (rawIndex & 0x07u);
+ 1021              		.loc 1 801 0 discriminator 1
+ 1022 001c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1023 001e 03F00703 		and	r3, r3, #7
+ 1024 0022 0122     		movs	r2, #1
+ 1025 0024 02FA03F3 		lsl	r3, r2, r3
+ 1026 0028 3B73     		strb	r3, [r7, #12]
+ 802:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         
+ 803:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         CapSense_CSD_sensorEnableMask[pos] &= (uint8)~enMask;
+ 1027              		.loc 1 803 0 discriminator 1
+ 1028 002a 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 1029 002c 7A7B     		ldrb	r2, [r7, #13]	@ zero_extendqisi2
+ 1030 002e 0A49     		ldr	r1, .L60
+ 1031 0030 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
+ 1032 0032 3A7B     		ldrb	r2, [r7, #12]
+ 1033 0034 D243     		mvns	r2, r2
+ 1034 0036 D2B2     		uxtb	r2, r2
+ 1035 0038 0A40     		ands	r2, r2, r1
+ 1036 003a D1B2     		uxtb	r1, r2
+ 1037 003c 064A     		ldr	r2, .L60
+ 1038 003e D154     		strb	r1, [r2, r3]
+ 804:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****         rawIndex++;
+ 1039              		.loc 1 804 0 discriminator 1
+ 1040 0040 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1041 0042 0133     		adds	r3, r3, #1
+ 1042 0044 FB73     		strb	r3, [r7, #15]
+ 805:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     }
+ 806:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     while(rawIndex < numberOfSensors);
+ 1043              		.loc 1 806 0 discriminator 1
+ 1044 0046 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1045 0048 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1046 004a 9A42     		cmp	r2, r3
+ 1047 004c E3D3     		bcc	.L59
+ 807:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c ****     
+ 808:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** 
+ 809:.\Generated_Source\PSoC5/CapSense_CSD_CSHL.c **** }
+ 1048              		.loc 1 809 0
+ 1049 004e 1437     		adds	r7, r7, #20
+ 1050              		.cfi_def_cfa_offset 4
+ 1051 0050 BD46     		mov	sp, r7
+ 1052              		.cfi_def_cfa_register 13
+ 1053              		@ sp needed
+ 1054 0052 5DF8047B 		ldr	r7, [sp], #4
+ 1055              		.cfi_restore 7
+ 1056              		.cfi_def_cfa_offset 0
+ 1057 0056 7047     		bx	lr
+ 1058              	.L61:
+ 1059              		.align	2
+ 1060              	.L60:
+ 1061 0058 00000000 		.word	CapSense_CSD_sensorEnableMask
+ 1062              		.cfi_endproc
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 34
+
+
+ 1063              	.LFE10:
+ 1064              		.size	CapSense_CSD_DisableWidget, .-CapSense_CSD_DisableWidget
+ 1065              		.text
+ 1066              	.Letext0:
+ 1067              		.file 2 ".\\Generated_Source\\PSoC5\\cytypes.h"
+ 1068              		.file 3 ".\\Generated_Source\\PSoC5\\CapSense_CSD.h"
+ 1069              		.file 4 ".\\Generated_Source\\PSoC5\\CapSense_CSD_CSHL.h"
+ 1070              		.section	.debug_info,"",%progbits
+ 1071              	.Ldebug_info0:
+ 1072 0000 29050000 		.4byte	0x529
+ 1073 0004 0400     		.2byte	0x4
+ 1074 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1075 000a 04       		.byte	0x4
+ 1076 000b 01       		.uleb128 0x1
+ 1077 000c EC010000 		.4byte	.LASF57
+ 1078 0010 01       		.byte	0x1
+ 1079 0011 B7030000 		.4byte	.LASF58
+ 1080 0015 81020000 		.4byte	.LASF59
+ 1081 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1082 001d 00000000 		.4byte	0
+ 1083 0021 00000000 		.4byte	.Ldebug_line0
+ 1084 0025 02       		.uleb128 0x2
+ 1085 0026 01       		.byte	0x1
+ 1086 0027 06       		.byte	0x6
+ 1087 0028 E7040000 		.4byte	.LASF0
+ 1088 002c 02       		.uleb128 0x2
+ 1089 002d 01       		.byte	0x1
+ 1090 002e 08       		.byte	0x8
+ 1091 002f 1D010000 		.4byte	.LASF1
+ 1092 0033 02       		.uleb128 0x2
+ 1093 0034 02       		.byte	0x2
+ 1094 0035 05       		.byte	0x5
+ 1095 0036 3C040000 		.4byte	.LASF2
+ 1096 003a 02       		.uleb128 0x2
+ 1097 003b 02       		.byte	0x2
+ 1098 003c 07       		.byte	0x7
+ 1099 003d 93000000 		.4byte	.LASF3
+ 1100 0041 02       		.uleb128 0x2
+ 1101 0042 04       		.byte	0x4
+ 1102 0043 05       		.byte	0x5
+ 1103 0044 C3040000 		.4byte	.LASF4
+ 1104 0048 02       		.uleb128 0x2
+ 1105 0049 04       		.byte	0x4
+ 1106 004a 07       		.byte	0x7
+ 1107 004b 32010000 		.4byte	.LASF5
+ 1108 004f 02       		.uleb128 0x2
+ 1109 0050 08       		.byte	0x8
+ 1110 0051 05       		.byte	0x5
+ 1111 0052 A9030000 		.4byte	.LASF6
+ 1112 0056 02       		.uleb128 0x2
+ 1113 0057 08       		.byte	0x8
+ 1114 0058 07       		.byte	0x7
+ 1115 0059 2E030000 		.4byte	.LASF7
+ 1116 005d 03       		.uleb128 0x3
+ 1117 005e 04       		.byte	0x4
+ 1118 005f 05       		.byte	0x5
+ 1119 0060 696E7400 		.ascii	"int\000"
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 35
+
+
+ 1120 0064 02       		.uleb128 0x2
+ 1121 0065 04       		.byte	0x4
+ 1122 0066 07       		.byte	0x7
+ 1123 0067 21030000 		.4byte	.LASF8
+ 1124 006b 04       		.uleb128 0x4
+ 1125 006c 5E010000 		.4byte	.LASF9
+ 1126 0070 02       		.byte	0x2
+ 1127 0071 3801     		.2byte	0x138
+ 1128 0073 2C000000 		.4byte	0x2c
+ 1129 0077 04       		.uleb128 0x4
+ 1130 0078 DF020000 		.4byte	.LASF10
+ 1131 007c 02       		.byte	0x2
+ 1132 007d 3901     		.2byte	0x139
+ 1133 007f 3A000000 		.4byte	0x3a
+ 1134 0083 04       		.uleb128 0x4
+ 1135 0084 0A030000 		.4byte	.LASF11
+ 1136 0088 02       		.byte	0x2
+ 1137 0089 3A01     		.2byte	0x13a
+ 1138 008b 48000000 		.4byte	0x48
+ 1139 008f 02       		.uleb128 0x2
+ 1140 0090 04       		.byte	0x4
+ 1141 0091 04       		.byte	0x4
+ 1142 0092 FA000000 		.4byte	.LASF12
+ 1143 0096 02       		.uleb128 0x2
+ 1144 0097 08       		.byte	0x8
+ 1145 0098 04       		.byte	0x4
+ 1146 0099 7A020000 		.4byte	.LASF13
+ 1147 009d 02       		.uleb128 0x2
+ 1148 009e 01       		.byte	0x1
+ 1149 009f 08       		.byte	0x8
+ 1150 00a0 CC040000 		.4byte	.LASF14
+ 1151 00a4 02       		.uleb128 0x2
+ 1152 00a5 04       		.byte	0x4
+ 1153 00a6 07       		.byte	0x7
+ 1154 00a7 92030000 		.4byte	.LASF15
+ 1155 00ab 05       		.uleb128 0x5
+ 1156 00ac D1040000 		.4byte	.LASF16
+ 1157 00b0 01       		.byte	0x1
+ 1158 00b1 79       		.byte	0x79
+ 1159 00b2 00000000 		.4byte	.LFB0
+ 1160 00b6 68000000 		.4byte	.LFE0-.LFB0
+ 1161 00ba 01       		.uleb128 0x1
+ 1162 00bb 9C       		.byte	0x9c
+ 1163 00bc DD000000 		.4byte	0xdd
+ 1164 00c0 06       		.uleb128 0x6
+ 1165 00c1 35040000 		.4byte	.LASF18
+ 1166 00c5 01       		.byte	0x1
+ 1167 00c6 79       		.byte	0x79
+ 1168 00c7 6B000000 		.4byte	0x6b
+ 1169 00cb 02       		.uleb128 0x2
+ 1170 00cc 91       		.byte	0x91
+ 1171 00cd 6F       		.sleb128 -17
+ 1172 00ce 07       		.uleb128 0x7
+ 1173 00cf 68030000 		.4byte	.LASF20
+ 1174 00d3 01       		.byte	0x1
+ 1175 00d4 7D       		.byte	0x7d
+ 1176 00d5 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 36
+
+
+ 1177 00d9 02       		.uleb128 0x2
+ 1178 00da 91       		.byte	0x91
+ 1179 00db 77       		.sleb128 -9
+ 1180 00dc 00       		.byte	0
+ 1181 00dd 08       		.uleb128 0x8
+ 1182 00de F4030000 		.4byte	.LASF17
+ 1183 00e2 01       		.byte	0x1
+ 1184 00e3 C2       		.byte	0xc2
+ 1185 00e4 00000000 		.4byte	.LFB1
+ 1186 00e8 2C000000 		.4byte	.LFE1-.LFB1
+ 1187 00ec 01       		.uleb128 0x1
+ 1188 00ed 9C       		.byte	0x9c
+ 1189 00ee 01010000 		.4byte	0x101
+ 1190 00f2 06       		.uleb128 0x6
+ 1191 00f3 35040000 		.4byte	.LASF18
+ 1192 00f7 01       		.byte	0x1
+ 1193 00f8 C2       		.byte	0xc2
+ 1194 00f9 6B000000 		.4byte	0x6b
+ 1195 00fd 02       		.uleb128 0x2
+ 1196 00fe 91       		.byte	0x91
+ 1197 00ff 77       		.sleb128 -9
+ 1198 0100 00       		.byte	0
+ 1199 0101 08       		.uleb128 0x8
+ 1200 0102 E6020000 		.4byte	.LASF19
+ 1201 0106 01       		.byte	0x1
+ 1202 0107 F6       		.byte	0xf6
+ 1203 0108 00000000 		.4byte	.LFB2
+ 1204 010c 26000000 		.4byte	.LFE2-.LFB2
+ 1205 0110 01       		.uleb128 0x1
+ 1206 0111 9C       		.byte	0x9c
+ 1207 0112 23010000 		.4byte	0x123
+ 1208 0116 09       		.uleb128 0x9
+ 1209 0117 6900     		.ascii	"i\000"
+ 1210 0119 01       		.byte	0x1
+ 1211 011a F9       		.byte	0xf9
+ 1212 011b 6B000000 		.4byte	0x6b
+ 1213 011f 02       		.uleb128 0x2
+ 1214 0120 91       		.byte	0x91
+ 1215 0121 77       		.sleb128 -9
+ 1216 0122 00       		.byte	0
+ 1217 0123 0A       		.uleb128 0xa
+ 1218 0124 46040000 		.4byte	.LASF21
+ 1219 0128 01       		.byte	0x1
+ 1220 0129 1701     		.2byte	0x117
+ 1221 012b 00000000 		.4byte	.LFB3
+ 1222 012f 6C000000 		.4byte	.LFE3-.LFB3
+ 1223 0133 01       		.uleb128 0x1
+ 1224 0134 9C       		.byte	0x9c
+ 1225 0135 65010000 		.4byte	0x165
+ 1226 0139 0B       		.uleb128 0xb
+ 1227 013a 6900     		.ascii	"i\000"
+ 1228 013c 01       		.byte	0x1
+ 1229 013d 1A01     		.2byte	0x11a
+ 1230 013f 6B000000 		.4byte	0x6b
+ 1231 0143 02       		.uleb128 0x2
+ 1232 0144 91       		.byte	0x91
+ 1233 0145 77       		.sleb128 -9
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 37
+
+
+ 1234 0146 0B       		.uleb128 0xb
+ 1235 0147 706F7300 		.ascii	"pos\000"
+ 1236 014b 01       		.byte	0x1
+ 1237 014c 1B01     		.2byte	0x11b
+ 1238 014e 6B000000 		.4byte	0x6b
+ 1239 0152 02       		.uleb128 0x2
+ 1240 0153 91       		.byte	0x91
+ 1241 0154 76       		.sleb128 -10
+ 1242 0155 0C       		.uleb128 0xc
+ 1243 0156 2B010000 		.4byte	.LASF22
+ 1244 015a 01       		.byte	0x1
+ 1245 015b 1C01     		.2byte	0x11c
+ 1246 015d 6B000000 		.4byte	0x6b
+ 1247 0161 02       		.uleb128 0x2
+ 1248 0162 91       		.byte	0x91
+ 1249 0163 75       		.sleb128 -11
+ 1250 0164 00       		.byte	0
+ 1251 0165 0A       		.uleb128 0xa
+ 1252 0166 00000000 		.4byte	.LASF23
+ 1253 016a 01       		.byte	0x1
+ 1254 016b 5A01     		.2byte	0x15a
+ 1255 016d 00000000 		.4byte	.LFB4
+ 1256 0171 40010000 		.4byte	.LFE4-.LFB4
+ 1257 0175 01       		.uleb128 0x1
+ 1258 0176 9C       		.byte	0x9c
+ 1259 0177 D6010000 		.4byte	0x1d6
+ 1260 017b 0D       		.uleb128 0xd
+ 1261 017c 35040000 		.4byte	.LASF18
+ 1262 0180 01       		.byte	0x1
+ 1263 0181 5A01     		.2byte	0x15a
+ 1264 0183 6B000000 		.4byte	0x6b
+ 1265 0187 02       		.uleb128 0x2
+ 1266 0188 91       		.byte	0x91
+ 1267 0189 67       		.sleb128 -25
+ 1268 018a 0C       		.uleb128 0xc
+ 1269 018b BE040000 		.4byte	.LASF24
+ 1270 018f 01       		.byte	0x1
+ 1271 0190 5D01     		.2byte	0x15d
+ 1272 0192 83000000 		.4byte	0x83
+ 1273 0196 02       		.uleb128 0x2
+ 1274 0197 91       		.byte	0x91
+ 1275 0198 6C       		.sleb128 -20
+ 1276 0199 0C       		.uleb128 0xc
+ 1277 019a DA000000 		.4byte	.LASF25
+ 1278 019e 01       		.byte	0x1
+ 1279 019f 5E01     		.2byte	0x15e
+ 1280 01a1 77000000 		.4byte	0x77
+ 1281 01a5 02       		.uleb128 0x2
+ 1282 01a6 91       		.byte	0x91
+ 1283 01a7 76       		.sleb128 -10
+ 1284 01a8 0C       		.uleb128 0xc
+ 1285 01a9 46000000 		.4byte	.LASF26
+ 1286 01ad 01       		.byte	0x1
+ 1287 01ae 5F01     		.2byte	0x15f
+ 1288 01b0 77000000 		.4byte	0x77
+ 1289 01b4 02       		.uleb128 0x2
+ 1290 01b5 91       		.byte	0x91
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 38
+
+
+ 1291 01b6 70       		.sleb128 -16
+ 1292 01b7 0C       		.uleb128 0xc
+ 1293 01b8 68030000 		.4byte	.LASF20
+ 1294 01bc 01       		.byte	0x1
+ 1295 01bd 6001     		.2byte	0x160
+ 1296 01bf 6B000000 		.4byte	0x6b
+ 1297 01c3 02       		.uleb128 0x2
+ 1298 01c4 91       		.byte	0x91
+ 1299 01c5 75       		.sleb128 -11
+ 1300 01c6 0C       		.uleb128 0xc
+ 1301 01c7 E2000000 		.4byte	.LASF27
+ 1302 01cb 01       		.byte	0x1
+ 1303 01cc 6101     		.2byte	0x161
+ 1304 01ce 77000000 		.4byte	0x77
+ 1305 01d2 02       		.uleb128 0x2
+ 1306 01d3 91       		.byte	0x91
+ 1307 01d4 72       		.sleb128 -14
+ 1308 01d5 00       		.byte	0
+ 1309 01d6 0A       		.uleb128 0xa
+ 1310 01d7 A4010000 		.4byte	.LASF28
+ 1311 01db 01       		.byte	0x1
+ 1312 01dc 0702     		.2byte	0x207
+ 1313 01de 00000000 		.4byte	.LFB5
+ 1314 01e2 50000000 		.4byte	.LFE5-.LFB5
+ 1315 01e6 01       		.uleb128 0x1
+ 1316 01e7 9C       		.byte	0x9c
+ 1317 01e8 18020000 		.4byte	0x218
+ 1318 01ec 0B       		.uleb128 0xb
+ 1319 01ed 6900     		.ascii	"i\000"
+ 1320 01ef 01       		.byte	0x1
+ 1321 01f0 0A02     		.2byte	0x20a
+ 1322 01f2 6B000000 		.4byte	0x6b
+ 1323 01f6 02       		.uleb128 0x2
+ 1324 01f7 91       		.byte	0x91
+ 1325 01f8 77       		.sleb128 -9
+ 1326 01f9 0B       		.uleb128 0xb
+ 1327 01fa 706F7300 		.ascii	"pos\000"
+ 1328 01fe 01       		.byte	0x1
+ 1329 01ff 0B02     		.2byte	0x20b
+ 1330 0201 6B000000 		.4byte	0x6b
+ 1331 0205 02       		.uleb128 0x2
+ 1332 0206 91       		.byte	0x91
+ 1333 0207 76       		.sleb128 -10
+ 1334 0208 0C       		.uleb128 0xc
+ 1335 0209 2B010000 		.4byte	.LASF22
+ 1336 020d 01       		.byte	0x1
+ 1337 020e 0C02     		.2byte	0x20c
+ 1338 0210 6B000000 		.4byte	0x6b
+ 1339 0214 02       		.uleb128 0x2
+ 1340 0215 91       		.byte	0x91
+ 1341 0216 75       		.sleb128 -11
+ 1342 0217 00       		.byte	0
+ 1343 0218 0E       		.uleb128 0xe
+ 1344 0219 83010000 		.4byte	.LASF34
+ 1345 021d 01       		.byte	0x1
+ 1346 021e 4102     		.2byte	0x241
+ 1347 0220 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 39
+
+
+ 1348 0224 00000000 		.4byte	.LFB6
+ 1349 0228 10010000 		.4byte	.LFE6-.LFB6
+ 1350 022c 01       		.uleb128 0x1
+ 1351 022d 9C       		.byte	0x9c
+ 1352 022e AB020000 		.4byte	0x2ab
+ 1353 0232 0D       		.uleb128 0xd
+ 1354 0233 35040000 		.4byte	.LASF18
+ 1355 0237 01       		.byte	0x1
+ 1356 0238 4102     		.2byte	0x241
+ 1357 023a 6B000000 		.4byte	0x6b
+ 1358 023e 02       		.uleb128 0x2
+ 1359 023f 91       		.byte	0x91
+ 1360 0240 67       		.sleb128 -25
+ 1361 0241 0C       		.uleb128 0xc
+ 1362 0242 9B030000 		.4byte	.LASF29
+ 1363 0246 01       		.byte	0x1
+ 1364 0247 4402     		.2byte	0x244
+ 1365 0249 6B000000 		.4byte	0x6b
+ 1366 024d 02       		.uleb128 0x2
+ 1367 024e 91       		.byte	0x91
+ 1368 024f 6E       		.sleb128 -18
+ 1369 0250 0B       		.uleb128 0xb
+ 1370 0251 706F7300 		.ascii	"pos\000"
+ 1371 0255 01       		.byte	0x1
+ 1372 0256 4602     		.2byte	0x246
+ 1373 0258 6B000000 		.4byte	0x6b
+ 1374 025c 02       		.uleb128 0x2
+ 1375 025d 91       		.byte	0x91
+ 1376 025e 77       		.sleb128 -9
+ 1377 025f 0C       		.uleb128 0xc
+ 1378 0260 D8020000 		.4byte	.LASF30
+ 1379 0264 01       		.byte	0x1
+ 1380 0265 4702     		.2byte	0x247
+ 1381 0267 6B000000 		.4byte	0x6b
+ 1382 026b 02       		.uleb128 0x2
+ 1383 026c 91       		.byte	0x91
+ 1384 026d 76       		.sleb128 -10
+ 1385 026e 0C       		.uleb128 0xc
+ 1386 026f 68030000 		.4byte	.LASF20
+ 1387 0273 01       		.byte	0x1
+ 1388 0274 4902     		.2byte	0x249
+ 1389 0276 6B000000 		.4byte	0x6b
+ 1390 027a 02       		.uleb128 0x2
+ 1391 027b 91       		.byte	0x91
+ 1392 027c 75       		.sleb128 -11
+ 1393 027d 0C       		.uleb128 0xc
+ 1394 027e E4030000 		.4byte	.LASF31
+ 1395 0282 01       		.byte	0x1
+ 1396 0283 4A02     		.2byte	0x24a
+ 1397 0285 77000000 		.4byte	0x77
+ 1398 0289 02       		.uleb128 0x2
+ 1399 028a 91       		.byte	0x91
+ 1400 028b 72       		.sleb128 -14
+ 1401 028c 0C       		.uleb128 0xc
+ 1402 028d 6F030000 		.4byte	.LASF32
+ 1403 0291 01       		.byte	0x1
+ 1404 0292 4B02     		.2byte	0x24b
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 40
+
+
+ 1405 0294 77000000 		.4byte	0x77
+ 1406 0298 02       		.uleb128 0x2
+ 1407 0299 91       		.byte	0x91
+ 1408 029a 70       		.sleb128 -16
+ 1409 029b 0C       		.uleb128 0xc
+ 1410 029c 5F030000 		.4byte	.LASF33
+ 1411 02a0 01       		.byte	0x1
+ 1412 02a1 4C02     		.2byte	0x24c
+ 1413 02a3 6B000000 		.4byte	0x6b
+ 1414 02a7 02       		.uleb128 0x2
+ 1415 02a8 91       		.byte	0x91
+ 1416 02a9 6F       		.sleb128 -17
+ 1417 02aa 00       		.byte	0
+ 1418 02ab 0F       		.uleb128 0xf
+ 1419 02ac 2A050000 		.4byte	.LASF35
+ 1420 02b0 01       		.byte	0x1
+ 1421 02b1 8902     		.2byte	0x289
+ 1422 02b3 6B000000 		.4byte	0x6b
+ 1423 02b7 00000000 		.4byte	.LFB7
+ 1424 02bb 44000000 		.4byte	.LFE7-.LFB7
+ 1425 02bf 01       		.uleb128 0x1
+ 1426 02c0 9C       		.byte	0x9c
+ 1427 02c1 02030000 		.4byte	0x302
+ 1428 02c5 0D       		.uleb128 0xd
+ 1429 02c6 68030000 		.4byte	.LASF20
+ 1430 02ca 01       		.byte	0x1
+ 1431 02cb 8902     		.2byte	0x289
+ 1432 02cd 6B000000 		.4byte	0x6b
+ 1433 02d1 02       		.uleb128 0x2
+ 1434 02d2 91       		.byte	0x91
+ 1435 02d3 6F       		.sleb128 -17
+ 1436 02d4 0C       		.uleb128 0xc
+ 1437 02d5 F1000000 		.4byte	.LASF36
+ 1438 02d9 01       		.byte	0x1
+ 1439 02da 8C02     		.2byte	0x28c
+ 1440 02dc 6B000000 		.4byte	0x6b
+ 1441 02e0 02       		.uleb128 0x2
+ 1442 02e1 91       		.byte	0x91
+ 1443 02e2 77       		.sleb128 -9
+ 1444 02e3 0C       		.uleb128 0xc
+ 1445 02e4 11030000 		.4byte	.LASF37
+ 1446 02e8 01       		.byte	0x1
+ 1447 02e9 8D02     		.2byte	0x28d
+ 1448 02eb 6B000000 		.4byte	0x6b
+ 1449 02ef 02       		.uleb128 0x2
+ 1450 02f0 91       		.byte	0x91
+ 1451 02f1 75       		.sleb128 -11
+ 1452 02f2 0C       		.uleb128 0xc
+ 1453 02f3 40000000 		.4byte	.LASF38
+ 1454 02f7 01       		.byte	0x1
+ 1455 02f8 8E02     		.2byte	0x28e
+ 1456 02fa 6B000000 		.4byte	0x6b
+ 1457 02fe 02       		.uleb128 0x2
+ 1458 02ff 91       		.byte	0x91
+ 1459 0300 76       		.sleb128 -10
+ 1460 0301 00       		.byte	0
+ 1461 0302 0F       		.uleb128 0xf
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 41
+
+
+ 1462 0303 C8010000 		.4byte	.LASF39
+ 1463 0307 01       		.byte	0x1
+ 1464 0308 B502     		.2byte	0x2b5
+ 1465 030a 6B000000 		.4byte	0x6b
+ 1466 030e 00000000 		.4byte	.LFB8
+ 1467 0312 38000000 		.4byte	.LFE8-.LFB8
+ 1468 0316 01       		.uleb128 0x1
+ 1469 0317 9C       		.byte	0x9c
+ 1470 0318 39030000 		.4byte	0x339
+ 1471 031c 0B       		.uleb128 0xb
+ 1472 031d 6900     		.ascii	"i\000"
+ 1473 031f 01       		.byte	0x1
+ 1474 0320 B802     		.2byte	0x2b8
+ 1475 0322 6B000000 		.4byte	0x6b
+ 1476 0326 02       		.uleb128 0x2
+ 1477 0327 91       		.byte	0x91
+ 1478 0328 77       		.sleb128 -9
+ 1479 0329 0C       		.uleb128 0xc
+ 1480 032a 40000000 		.4byte	.LASF38
+ 1481 032e 01       		.byte	0x1
+ 1482 032f B902     		.2byte	0x2b9
+ 1483 0331 6B000000 		.4byte	0x6b
+ 1484 0335 02       		.uleb128 0x2
+ 1485 0336 91       		.byte	0x91
+ 1486 0337 76       		.sleb128 -10
+ 1487 0338 00       		.byte	0
+ 1488 0339 10       		.uleb128 0x10
+ 1489 033a C0000000 		.4byte	.LASF40
+ 1490 033e 01       		.byte	0x1
+ 1491 033f E302     		.2byte	0x2e3
+ 1492 0341 00000000 		.4byte	.LFB9
+ 1493 0345 58000000 		.4byte	.LFE9-.LFB9
+ 1494 0349 01       		.uleb128 0x1
+ 1495 034a 9C       		.byte	0x9c
+ 1496 034b 9B030000 		.4byte	0x39b
+ 1497 034f 0D       		.uleb128 0xd
+ 1498 0350 68030000 		.4byte	.LASF20
+ 1499 0354 01       		.byte	0x1
+ 1500 0355 E302     		.2byte	0x2e3
+ 1501 0357 6B000000 		.4byte	0x6b
+ 1502 035b 02       		.uleb128 0x2
+ 1503 035c 91       		.byte	0x91
+ 1504 035d 6F       		.sleb128 -17
+ 1505 035e 0B       		.uleb128 0xb
+ 1506 035f 706F7300 		.ascii	"pos\000"
+ 1507 0363 01       		.byte	0x1
+ 1508 0364 E602     		.2byte	0x2e6
+ 1509 0366 6B000000 		.4byte	0x6b
+ 1510 036a 02       		.uleb128 0x2
+ 1511 036b 91       		.byte	0x91
+ 1512 036c 75       		.sleb128 -11
+ 1513 036d 0C       		.uleb128 0xc
+ 1514 036e 2B010000 		.4byte	.LASF22
+ 1515 0372 01       		.byte	0x1
+ 1516 0373 E702     		.2byte	0x2e7
+ 1517 0375 6B000000 		.4byte	0x6b
+ 1518 0379 02       		.uleb128 0x2
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 42
+
+
+ 1519 037a 91       		.byte	0x91
+ 1520 037b 74       		.sleb128 -12
+ 1521 037c 0C       		.uleb128 0xc
+ 1522 037d F1000000 		.4byte	.LASF36
+ 1523 0381 01       		.byte	0x1
+ 1524 0382 E802     		.2byte	0x2e8
+ 1525 0384 6B000000 		.4byte	0x6b
+ 1526 0388 02       		.uleb128 0x2
+ 1527 0389 91       		.byte	0x91
+ 1528 038a 77       		.sleb128 -9
+ 1529 038b 0C       		.uleb128 0xc
+ 1530 038c 11030000 		.4byte	.LASF37
+ 1531 0390 01       		.byte	0x1
+ 1532 0391 E902     		.2byte	0x2e9
+ 1533 0393 6B000000 		.4byte	0x6b
+ 1534 0397 02       		.uleb128 0x2
+ 1535 0398 91       		.byte	0x91
+ 1536 0399 76       		.sleb128 -10
+ 1537 039a 00       		.byte	0
+ 1538 039b 10       		.uleb128 0x10
+ 1539 039c 1A040000 		.4byte	.LASF41
+ 1540 03a0 01       		.byte	0x1
+ 1541 03a1 1503     		.2byte	0x315
+ 1542 03a3 00000000 		.4byte	.LFB10
+ 1543 03a7 5C000000 		.4byte	.LFE10-.LFB10
+ 1544 03ab 01       		.uleb128 0x1
+ 1545 03ac 9C       		.byte	0x9c
+ 1546 03ad FD030000 		.4byte	0x3fd
+ 1547 03b1 0D       		.uleb128 0xd
+ 1548 03b2 68030000 		.4byte	.LASF20
+ 1549 03b6 01       		.byte	0x1
+ 1550 03b7 1503     		.2byte	0x315
+ 1551 03b9 6B000000 		.4byte	0x6b
+ 1552 03bd 02       		.uleb128 0x2
+ 1553 03be 91       		.byte	0x91
+ 1554 03bf 6F       		.sleb128 -17
+ 1555 03c0 0B       		.uleb128 0xb
+ 1556 03c1 706F7300 		.ascii	"pos\000"
+ 1557 03c5 01       		.byte	0x1
+ 1558 03c6 1803     		.2byte	0x318
+ 1559 03c8 6B000000 		.4byte	0x6b
+ 1560 03cc 02       		.uleb128 0x2
+ 1561 03cd 91       		.byte	0x91
+ 1562 03ce 75       		.sleb128 -11
+ 1563 03cf 0C       		.uleb128 0xc
+ 1564 03d0 2B010000 		.4byte	.LASF22
+ 1565 03d4 01       		.byte	0x1
+ 1566 03d5 1903     		.2byte	0x319
+ 1567 03d7 6B000000 		.4byte	0x6b
+ 1568 03db 02       		.uleb128 0x2
+ 1569 03dc 91       		.byte	0x91
+ 1570 03dd 74       		.sleb128 -12
+ 1571 03de 0C       		.uleb128 0xc
+ 1572 03df F1000000 		.4byte	.LASF36
+ 1573 03e3 01       		.byte	0x1
+ 1574 03e4 1A03     		.2byte	0x31a
+ 1575 03e6 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 43
+
+
+ 1576 03ea 02       		.uleb128 0x2
+ 1577 03eb 91       		.byte	0x91
+ 1578 03ec 77       		.sleb128 -9
+ 1579 03ed 0C       		.uleb128 0xc
+ 1580 03ee 11030000 		.4byte	.LASF37
+ 1581 03f2 01       		.byte	0x1
+ 1582 03f3 1B03     		.2byte	0x31b
+ 1583 03f5 6B000000 		.4byte	0x6b
+ 1584 03f9 02       		.uleb128 0x2
+ 1585 03fa 91       		.byte	0x91
+ 1586 03fb 76       		.sleb128 -10
+ 1587 03fc 00       		.byte	0
+ 1588 03fd 11       		.uleb128 0x11
+ 1589 03fe 77000000 		.4byte	0x77
+ 1590 0402 0D040000 		.4byte	0x40d
+ 1591 0406 12       		.uleb128 0x12
+ 1592 0407 A4000000 		.4byte	0xa4
+ 1593 040b 00       		.byte	0
+ 1594 040c 00       		.byte	0
+ 1595 040d 13       		.uleb128 0x13
+ 1596 040e 6E040000 		.4byte	.LASF42
+ 1597 0412 03       		.byte	0x3
+ 1598 0413 B902     		.2byte	0x2b9
+ 1599 0415 FD030000 		.4byte	0x3fd
+ 1600 0419 11       		.uleb128 0x11
+ 1601 041a 6B000000 		.4byte	0x6b
+ 1602 041e 29040000 		.4byte	0x429
+ 1603 0422 12       		.uleb128 0x12
+ 1604 0423 A4000000 		.4byte	0xa4
+ 1605 0427 00       		.byte	0
+ 1606 0428 00       		.byte	0
+ 1607 0429 13       		.uleb128 0x13
+ 1608 042a 22000000 		.4byte	.LASF43
+ 1609 042e 04       		.byte	0x4
+ 1610 042f 0301     		.2byte	0x103
+ 1611 0431 19040000 		.4byte	0x419
+ 1612 0435 13       		.uleb128 0x13
+ 1613 0436 F3040000 		.4byte	.LASF44
+ 1614 043a 04       		.byte	0x4
+ 1615 043b 0401     		.2byte	0x104
+ 1616 043d 41040000 		.4byte	0x441
+ 1617 0441 14       		.uleb128 0x14
+ 1618 0442 19040000 		.4byte	0x419
+ 1619 0446 15       		.uleb128 0x15
+ 1620 0447 A2040000 		.4byte	.LASF45
+ 1621 044b 01       		.byte	0x1
+ 1622 044c 29       		.byte	0x29
+ 1623 044d FD030000 		.4byte	0x3fd
+ 1624 0451 05       		.uleb128 0x5
+ 1625 0452 03       		.byte	0x3
+ 1626 0453 00000000 		.4byte	CapSense_CSD_sensorBaseline
+ 1627 0457 15       		.uleb128 0x15
+ 1628 0458 64010000 		.4byte	.LASF46
+ 1629 045c 01       		.byte	0x1
+ 1630 045d 2A       		.byte	0x2a
+ 1631 045e 19040000 		.4byte	0x419
+ 1632 0462 05       		.uleb128 0x5
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 44
+
+
+ 1633 0463 03       		.byte	0x3
+ 1634 0464 00000000 		.4byte	CapSense_CSD_sensorBaselineLow
+ 1635 0468 15       		.uleb128 0x15
+ 1636 0469 A6000000 		.4byte	.LASF47
+ 1637 046d 01       		.byte	0x1
+ 1638 046e 2B       		.byte	0x2b
+ 1639 046f FD030000 		.4byte	0x3fd
+ 1640 0473 05       		.uleb128 0x5
+ 1641 0474 03       		.byte	0x3
+ 1642 0475 00000000 		.4byte	CapSense_CSD_sensorSignal
+ 1643 0479 15       		.uleb128 0x15
+ 1644 047a 44010000 		.4byte	.LASF48
+ 1645 047e 01       		.byte	0x1
+ 1646 047f 2C       		.byte	0x2c
+ 1647 0480 19040000 		.4byte	0x419
+ 1648 0484 05       		.uleb128 0x5
+ 1649 0485 03       		.byte	0x3
+ 1650 0486 00000000 		.4byte	CapSense_CSD_sensorOnMask
+ 1651 048a 15       		.uleb128 0x15
+ 1652 048b 56000000 		.4byte	.LASF49
+ 1653 048f 01       		.byte	0x1
+ 1654 0490 2E       		.byte	0x2e
+ 1655 0491 19040000 		.4byte	0x419
+ 1656 0495 05       		.uleb128 0x5
+ 1657 0496 03       		.byte	0x3
+ 1658 0497 00000000 		.4byte	CapSense_CSD_lowBaselineResetCnt
+ 1659 049b 15       		.uleb128 0x15
+ 1660 049c 0D050000 		.4byte	.LASF50
+ 1661 04a0 01       		.byte	0x1
+ 1662 04a1 30       		.byte	0x30
+ 1663 04a2 FD030000 		.4byte	0x3fd
+ 1664 04a6 05       		.uleb128 0x5
+ 1665 04a7 03       		.byte	0x3
+ 1666 04a8 00000000 		.4byte	CapSense_CSD_fingerThreshold
+ 1667 04ac 15       		.uleb128 0x15
+ 1668 04ad 77000000 		.4byte	.LASF51
+ 1669 04b1 01       		.byte	0x1
+ 1670 04b2 34       		.byte	0x34
+ 1671 04b3 FD030000 		.4byte	0x3fd
+ 1672 04b7 05       		.uleb128 0x5
+ 1673 04b8 03       		.byte	0x3
+ 1674 04b9 00000000 		.4byte	CapSense_CSD_noiseThreshold
+ 1675 04bd 15       		.uleb128 0x15
+ 1676 04be 7A030000 		.4byte	.LASF52
+ 1677 04c2 01       		.byte	0x1
+ 1678 04c3 38       		.byte	0x38
+ 1679 04c4 FD030000 		.4byte	0x3fd
+ 1680 04c8 05       		.uleb128 0x5
+ 1681 04c9 03       		.byte	0x3
+ 1682 04ca 00000000 		.4byte	CapSense_CSD_hysteresis
+ 1683 04ce 15       		.uleb128 0x15
+ 1684 04cf 4B050000 		.4byte	.LASF53
+ 1685 04d3 01       		.byte	0x1
+ 1686 04d4 3C       		.byte	0x3c
+ 1687 04d5 19040000 		.4byte	0x419
+ 1688 04d9 05       		.uleb128 0x5
+ 1689 04da 03       		.byte	0x3
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 45
+
+
+ 1690 04db 00000000 		.4byte	CapSense_CSD_debounce
+ 1691 04df 11       		.uleb128 0x11
+ 1692 04e0 6B000000 		.4byte	0x6b
+ 1693 04e4 EF040000 		.4byte	0x4ef
+ 1694 04e8 12       		.uleb128 0x12
+ 1695 04e9 A4000000 		.4byte	0xa4
+ 1696 04ed 01       		.byte	0x1
+ 1697 04ee 00       		.byte	0
+ 1698 04ef 15       		.uleb128 0x15
+ 1699 04f0 00010000 		.4byte	.LASF54
+ 1700 04f4 01       		.byte	0x1
+ 1701 04f5 40       		.byte	0x40
+ 1702 04f6 DF040000 		.4byte	0x4df
+ 1703 04fa 05       		.uleb128 0x5
+ 1704 04fb 03       		.byte	0x3
+ 1705 04fc 00000000 		.4byte	CapSense_CSD_debounceCounter
+ 1706 0500 15       		.uleb128 0x15
+ 1707 0501 45030000 		.4byte	.LASF55
+ 1708 0505 01       		.byte	0x1
+ 1709 0506 44       		.byte	0x44
+ 1710 0507 11050000 		.4byte	0x511
+ 1711 050b 05       		.uleb128 0x5
+ 1712 050c 03       		.byte	0x3
+ 1713 050d 00000000 		.4byte	CapSense_CSD_rawDataIndex
+ 1714 0511 14       		.uleb128 0x14
+ 1715 0512 19040000 		.4byte	0x419
+ 1716 0516 15       		.uleb128 0x15
+ 1717 0517 85040000 		.4byte	.LASF56
+ 1718 051b 01       		.byte	0x1
+ 1719 051c 49       		.byte	0x49
+ 1720 051d 27050000 		.4byte	0x527
+ 1721 0521 05       		.uleb128 0x5
+ 1722 0522 03       		.byte	0x3
+ 1723 0523 00000000 		.4byte	CapSense_CSD_numberOfSensors
+ 1724 0527 14       		.uleb128 0x14
+ 1725 0528 19040000 		.4byte	0x419
+ 1726 052c 00       		.byte	0
+ 1727              		.section	.debug_abbrev,"",%progbits
+ 1728              	.Ldebug_abbrev0:
+ 1729 0000 01       		.uleb128 0x1
+ 1730 0001 11       		.uleb128 0x11
+ 1731 0002 01       		.byte	0x1
+ 1732 0003 25       		.uleb128 0x25
+ 1733 0004 0E       		.uleb128 0xe
+ 1734 0005 13       		.uleb128 0x13
+ 1735 0006 0B       		.uleb128 0xb
+ 1736 0007 03       		.uleb128 0x3
+ 1737 0008 0E       		.uleb128 0xe
+ 1738 0009 1B       		.uleb128 0x1b
+ 1739 000a 0E       		.uleb128 0xe
+ 1740 000b 55       		.uleb128 0x55
+ 1741 000c 17       		.uleb128 0x17
+ 1742 000d 11       		.uleb128 0x11
+ 1743 000e 01       		.uleb128 0x1
+ 1744 000f 10       		.uleb128 0x10
+ 1745 0010 17       		.uleb128 0x17
+ 1746 0011 00       		.byte	0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 46
+
+
+ 1747 0012 00       		.byte	0
+ 1748 0013 02       		.uleb128 0x2
+ 1749 0014 24       		.uleb128 0x24
+ 1750 0015 00       		.byte	0
+ 1751 0016 0B       		.uleb128 0xb
+ 1752 0017 0B       		.uleb128 0xb
+ 1753 0018 3E       		.uleb128 0x3e
+ 1754 0019 0B       		.uleb128 0xb
+ 1755 001a 03       		.uleb128 0x3
+ 1756 001b 0E       		.uleb128 0xe
+ 1757 001c 00       		.byte	0
+ 1758 001d 00       		.byte	0
+ 1759 001e 03       		.uleb128 0x3
+ 1760 001f 24       		.uleb128 0x24
+ 1761 0020 00       		.byte	0
+ 1762 0021 0B       		.uleb128 0xb
+ 1763 0022 0B       		.uleb128 0xb
+ 1764 0023 3E       		.uleb128 0x3e
+ 1765 0024 0B       		.uleb128 0xb
+ 1766 0025 03       		.uleb128 0x3
+ 1767 0026 08       		.uleb128 0x8
+ 1768 0027 00       		.byte	0
+ 1769 0028 00       		.byte	0
+ 1770 0029 04       		.uleb128 0x4
+ 1771 002a 16       		.uleb128 0x16
+ 1772 002b 00       		.byte	0
+ 1773 002c 03       		.uleb128 0x3
+ 1774 002d 0E       		.uleb128 0xe
+ 1775 002e 3A       		.uleb128 0x3a
+ 1776 002f 0B       		.uleb128 0xb
+ 1777 0030 3B       		.uleb128 0x3b
+ 1778 0031 05       		.uleb128 0x5
+ 1779 0032 49       		.uleb128 0x49
+ 1780 0033 13       		.uleb128 0x13
+ 1781 0034 00       		.byte	0
+ 1782 0035 00       		.byte	0
+ 1783 0036 05       		.uleb128 0x5
+ 1784 0037 2E       		.uleb128 0x2e
+ 1785 0038 01       		.byte	0x1
+ 1786 0039 3F       		.uleb128 0x3f
+ 1787 003a 19       		.uleb128 0x19
+ 1788 003b 03       		.uleb128 0x3
+ 1789 003c 0E       		.uleb128 0xe
+ 1790 003d 3A       		.uleb128 0x3a
+ 1791 003e 0B       		.uleb128 0xb
+ 1792 003f 3B       		.uleb128 0x3b
+ 1793 0040 0B       		.uleb128 0xb
+ 1794 0041 27       		.uleb128 0x27
+ 1795 0042 19       		.uleb128 0x19
+ 1796 0043 11       		.uleb128 0x11
+ 1797 0044 01       		.uleb128 0x1
+ 1798 0045 12       		.uleb128 0x12
+ 1799 0046 06       		.uleb128 0x6
+ 1800 0047 40       		.uleb128 0x40
+ 1801 0048 18       		.uleb128 0x18
+ 1802 0049 9742     		.uleb128 0x2117
+ 1803 004b 19       		.uleb128 0x19
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 47
+
+
+ 1804 004c 01       		.uleb128 0x1
+ 1805 004d 13       		.uleb128 0x13
+ 1806 004e 00       		.byte	0
+ 1807 004f 00       		.byte	0
+ 1808 0050 06       		.uleb128 0x6
+ 1809 0051 05       		.uleb128 0x5
+ 1810 0052 00       		.byte	0
+ 1811 0053 03       		.uleb128 0x3
+ 1812 0054 0E       		.uleb128 0xe
+ 1813 0055 3A       		.uleb128 0x3a
+ 1814 0056 0B       		.uleb128 0xb
+ 1815 0057 3B       		.uleb128 0x3b
+ 1816 0058 0B       		.uleb128 0xb
+ 1817 0059 49       		.uleb128 0x49
+ 1818 005a 13       		.uleb128 0x13
+ 1819 005b 02       		.uleb128 0x2
+ 1820 005c 18       		.uleb128 0x18
+ 1821 005d 00       		.byte	0
+ 1822 005e 00       		.byte	0
+ 1823 005f 07       		.uleb128 0x7
+ 1824 0060 34       		.uleb128 0x34
+ 1825 0061 00       		.byte	0
+ 1826 0062 03       		.uleb128 0x3
+ 1827 0063 0E       		.uleb128 0xe
+ 1828 0064 3A       		.uleb128 0x3a
+ 1829 0065 0B       		.uleb128 0xb
+ 1830 0066 3B       		.uleb128 0x3b
+ 1831 0067 0B       		.uleb128 0xb
+ 1832 0068 49       		.uleb128 0x49
+ 1833 0069 13       		.uleb128 0x13
+ 1834 006a 02       		.uleb128 0x2
+ 1835 006b 18       		.uleb128 0x18
+ 1836 006c 00       		.byte	0
+ 1837 006d 00       		.byte	0
+ 1838 006e 08       		.uleb128 0x8
+ 1839 006f 2E       		.uleb128 0x2e
+ 1840 0070 01       		.byte	0x1
+ 1841 0071 3F       		.uleb128 0x3f
+ 1842 0072 19       		.uleb128 0x19
+ 1843 0073 03       		.uleb128 0x3
+ 1844 0074 0E       		.uleb128 0xe
+ 1845 0075 3A       		.uleb128 0x3a
+ 1846 0076 0B       		.uleb128 0xb
+ 1847 0077 3B       		.uleb128 0x3b
+ 1848 0078 0B       		.uleb128 0xb
+ 1849 0079 27       		.uleb128 0x27
+ 1850 007a 19       		.uleb128 0x19
+ 1851 007b 11       		.uleb128 0x11
+ 1852 007c 01       		.uleb128 0x1
+ 1853 007d 12       		.uleb128 0x12
+ 1854 007e 06       		.uleb128 0x6
+ 1855 007f 40       		.uleb128 0x40
+ 1856 0080 18       		.uleb128 0x18
+ 1857 0081 9642     		.uleb128 0x2116
+ 1858 0083 19       		.uleb128 0x19
+ 1859 0084 01       		.uleb128 0x1
+ 1860 0085 13       		.uleb128 0x13
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 48
+
+
+ 1861 0086 00       		.byte	0
+ 1862 0087 00       		.byte	0
+ 1863 0088 09       		.uleb128 0x9
+ 1864 0089 34       		.uleb128 0x34
+ 1865 008a 00       		.byte	0
+ 1866 008b 03       		.uleb128 0x3
+ 1867 008c 08       		.uleb128 0x8
+ 1868 008d 3A       		.uleb128 0x3a
+ 1869 008e 0B       		.uleb128 0xb
+ 1870 008f 3B       		.uleb128 0x3b
+ 1871 0090 0B       		.uleb128 0xb
+ 1872 0091 49       		.uleb128 0x49
+ 1873 0092 13       		.uleb128 0x13
+ 1874 0093 02       		.uleb128 0x2
+ 1875 0094 18       		.uleb128 0x18
+ 1876 0095 00       		.byte	0
+ 1877 0096 00       		.byte	0
+ 1878 0097 0A       		.uleb128 0xa
+ 1879 0098 2E       		.uleb128 0x2e
+ 1880 0099 01       		.byte	0x1
+ 1881 009a 3F       		.uleb128 0x3f
+ 1882 009b 19       		.uleb128 0x19
+ 1883 009c 03       		.uleb128 0x3
+ 1884 009d 0E       		.uleb128 0xe
+ 1885 009e 3A       		.uleb128 0x3a
+ 1886 009f 0B       		.uleb128 0xb
+ 1887 00a0 3B       		.uleb128 0x3b
+ 1888 00a1 05       		.uleb128 0x5
+ 1889 00a2 27       		.uleb128 0x27
+ 1890 00a3 19       		.uleb128 0x19
+ 1891 00a4 11       		.uleb128 0x11
+ 1892 00a5 01       		.uleb128 0x1
+ 1893 00a6 12       		.uleb128 0x12
+ 1894 00a7 06       		.uleb128 0x6
+ 1895 00a8 40       		.uleb128 0x40
+ 1896 00a9 18       		.uleb128 0x18
+ 1897 00aa 9642     		.uleb128 0x2116
+ 1898 00ac 19       		.uleb128 0x19
+ 1899 00ad 01       		.uleb128 0x1
+ 1900 00ae 13       		.uleb128 0x13
+ 1901 00af 00       		.byte	0
+ 1902 00b0 00       		.byte	0
+ 1903 00b1 0B       		.uleb128 0xb
+ 1904 00b2 34       		.uleb128 0x34
+ 1905 00b3 00       		.byte	0
+ 1906 00b4 03       		.uleb128 0x3
+ 1907 00b5 08       		.uleb128 0x8
+ 1908 00b6 3A       		.uleb128 0x3a
+ 1909 00b7 0B       		.uleb128 0xb
+ 1910 00b8 3B       		.uleb128 0x3b
+ 1911 00b9 05       		.uleb128 0x5
+ 1912 00ba 49       		.uleb128 0x49
+ 1913 00bb 13       		.uleb128 0x13
+ 1914 00bc 02       		.uleb128 0x2
+ 1915 00bd 18       		.uleb128 0x18
+ 1916 00be 00       		.byte	0
+ 1917 00bf 00       		.byte	0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 49
+
+
+ 1918 00c0 0C       		.uleb128 0xc
+ 1919 00c1 34       		.uleb128 0x34
+ 1920 00c2 00       		.byte	0
+ 1921 00c3 03       		.uleb128 0x3
+ 1922 00c4 0E       		.uleb128 0xe
+ 1923 00c5 3A       		.uleb128 0x3a
+ 1924 00c6 0B       		.uleb128 0xb
+ 1925 00c7 3B       		.uleb128 0x3b
+ 1926 00c8 05       		.uleb128 0x5
+ 1927 00c9 49       		.uleb128 0x49
+ 1928 00ca 13       		.uleb128 0x13
+ 1929 00cb 02       		.uleb128 0x2
+ 1930 00cc 18       		.uleb128 0x18
+ 1931 00cd 00       		.byte	0
+ 1932 00ce 00       		.byte	0
+ 1933 00cf 0D       		.uleb128 0xd
+ 1934 00d0 05       		.uleb128 0x5
+ 1935 00d1 00       		.byte	0
+ 1936 00d2 03       		.uleb128 0x3
+ 1937 00d3 0E       		.uleb128 0xe
+ 1938 00d4 3A       		.uleb128 0x3a
+ 1939 00d5 0B       		.uleb128 0xb
+ 1940 00d6 3B       		.uleb128 0x3b
+ 1941 00d7 05       		.uleb128 0x5
+ 1942 00d8 49       		.uleb128 0x49
+ 1943 00d9 13       		.uleb128 0x13
+ 1944 00da 02       		.uleb128 0x2
+ 1945 00db 18       		.uleb128 0x18
+ 1946 00dc 00       		.byte	0
+ 1947 00dd 00       		.byte	0
+ 1948 00de 0E       		.uleb128 0xe
+ 1949 00df 2E       		.uleb128 0x2e
+ 1950 00e0 01       		.byte	0x1
+ 1951 00e1 3F       		.uleb128 0x3f
+ 1952 00e2 19       		.uleb128 0x19
+ 1953 00e3 03       		.uleb128 0x3
+ 1954 00e4 0E       		.uleb128 0xe
+ 1955 00e5 3A       		.uleb128 0x3a
+ 1956 00e6 0B       		.uleb128 0xb
+ 1957 00e7 3B       		.uleb128 0x3b
+ 1958 00e8 05       		.uleb128 0x5
+ 1959 00e9 27       		.uleb128 0x27
+ 1960 00ea 19       		.uleb128 0x19
+ 1961 00eb 49       		.uleb128 0x49
+ 1962 00ec 13       		.uleb128 0x13
+ 1963 00ed 11       		.uleb128 0x11
+ 1964 00ee 01       		.uleb128 0x1
+ 1965 00ef 12       		.uleb128 0x12
+ 1966 00f0 06       		.uleb128 0x6
+ 1967 00f1 40       		.uleb128 0x40
+ 1968 00f2 18       		.uleb128 0x18
+ 1969 00f3 9742     		.uleb128 0x2117
+ 1970 00f5 19       		.uleb128 0x19
+ 1971 00f6 01       		.uleb128 0x1
+ 1972 00f7 13       		.uleb128 0x13
+ 1973 00f8 00       		.byte	0
+ 1974 00f9 00       		.byte	0
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 50
+
+
+ 1975 00fa 0F       		.uleb128 0xf
+ 1976 00fb 2E       		.uleb128 0x2e
+ 1977 00fc 01       		.byte	0x1
+ 1978 00fd 3F       		.uleb128 0x3f
+ 1979 00fe 19       		.uleb128 0x19
+ 1980 00ff 03       		.uleb128 0x3
+ 1981 0100 0E       		.uleb128 0xe
+ 1982 0101 3A       		.uleb128 0x3a
+ 1983 0102 0B       		.uleb128 0xb
+ 1984 0103 3B       		.uleb128 0x3b
+ 1985 0104 05       		.uleb128 0x5
+ 1986 0105 27       		.uleb128 0x27
+ 1987 0106 19       		.uleb128 0x19
+ 1988 0107 49       		.uleb128 0x49
+ 1989 0108 13       		.uleb128 0x13
+ 1990 0109 11       		.uleb128 0x11
+ 1991 010a 01       		.uleb128 0x1
+ 1992 010b 12       		.uleb128 0x12
+ 1993 010c 06       		.uleb128 0x6
+ 1994 010d 40       		.uleb128 0x40
+ 1995 010e 18       		.uleb128 0x18
+ 1996 010f 9642     		.uleb128 0x2116
+ 1997 0111 19       		.uleb128 0x19
+ 1998 0112 01       		.uleb128 0x1
+ 1999 0113 13       		.uleb128 0x13
+ 2000 0114 00       		.byte	0
+ 2001 0115 00       		.byte	0
+ 2002 0116 10       		.uleb128 0x10
+ 2003 0117 2E       		.uleb128 0x2e
+ 2004 0118 01       		.byte	0x1
+ 2005 0119 3F       		.uleb128 0x3f
+ 2006 011a 19       		.uleb128 0x19
+ 2007 011b 03       		.uleb128 0x3
+ 2008 011c 0E       		.uleb128 0xe
+ 2009 011d 3A       		.uleb128 0x3a
+ 2010 011e 0B       		.uleb128 0xb
+ 2011 011f 3B       		.uleb128 0x3b
+ 2012 0120 05       		.uleb128 0x5
+ 2013 0121 27       		.uleb128 0x27
+ 2014 0122 19       		.uleb128 0x19
+ 2015 0123 11       		.uleb128 0x11
+ 2016 0124 01       		.uleb128 0x1
+ 2017 0125 12       		.uleb128 0x12
+ 2018 0126 06       		.uleb128 0x6
+ 2019 0127 40       		.uleb128 0x40
+ 2020 0128 18       		.uleb128 0x18
+ 2021 0129 9742     		.uleb128 0x2117
+ 2022 012b 19       		.uleb128 0x19
+ 2023 012c 01       		.uleb128 0x1
+ 2024 012d 13       		.uleb128 0x13
+ 2025 012e 00       		.byte	0
+ 2026 012f 00       		.byte	0
+ 2027 0130 11       		.uleb128 0x11
+ 2028 0131 01       		.uleb128 0x1
+ 2029 0132 01       		.byte	0x1
+ 2030 0133 49       		.uleb128 0x49
+ 2031 0134 13       		.uleb128 0x13
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 51
+
+
+ 2032 0135 01       		.uleb128 0x1
+ 2033 0136 13       		.uleb128 0x13
+ 2034 0137 00       		.byte	0
+ 2035 0138 00       		.byte	0
+ 2036 0139 12       		.uleb128 0x12
+ 2037 013a 21       		.uleb128 0x21
+ 2038 013b 00       		.byte	0
+ 2039 013c 49       		.uleb128 0x49
+ 2040 013d 13       		.uleb128 0x13
+ 2041 013e 2F       		.uleb128 0x2f
+ 2042 013f 0B       		.uleb128 0xb
+ 2043 0140 00       		.byte	0
+ 2044 0141 00       		.byte	0
+ 2045 0142 13       		.uleb128 0x13
+ 2046 0143 34       		.uleb128 0x34
+ 2047 0144 00       		.byte	0
+ 2048 0145 03       		.uleb128 0x3
+ 2049 0146 0E       		.uleb128 0xe
+ 2050 0147 3A       		.uleb128 0x3a
+ 2051 0148 0B       		.uleb128 0xb
+ 2052 0149 3B       		.uleb128 0x3b
+ 2053 014a 05       		.uleb128 0x5
+ 2054 014b 49       		.uleb128 0x49
+ 2055 014c 13       		.uleb128 0x13
+ 2056 014d 3F       		.uleb128 0x3f
+ 2057 014e 19       		.uleb128 0x19
+ 2058 014f 3C       		.uleb128 0x3c
+ 2059 0150 19       		.uleb128 0x19
+ 2060 0151 00       		.byte	0
+ 2061 0152 00       		.byte	0
+ 2062 0153 14       		.uleb128 0x14
+ 2063 0154 26       		.uleb128 0x26
+ 2064 0155 00       		.byte	0
+ 2065 0156 49       		.uleb128 0x49
+ 2066 0157 13       		.uleb128 0x13
+ 2067 0158 00       		.byte	0
+ 2068 0159 00       		.byte	0
+ 2069 015a 15       		.uleb128 0x15
+ 2070 015b 34       		.uleb128 0x34
+ 2071 015c 00       		.byte	0
+ 2072 015d 03       		.uleb128 0x3
+ 2073 015e 0E       		.uleb128 0xe
+ 2074 015f 3A       		.uleb128 0x3a
+ 2075 0160 0B       		.uleb128 0xb
+ 2076 0161 3B       		.uleb128 0x3b
+ 2077 0162 0B       		.uleb128 0xb
+ 2078 0163 49       		.uleb128 0x49
+ 2079 0164 13       		.uleb128 0x13
+ 2080 0165 3F       		.uleb128 0x3f
+ 2081 0166 19       		.uleb128 0x19
+ 2082 0167 02       		.uleb128 0x2
+ 2083 0168 18       		.uleb128 0x18
+ 2084 0169 00       		.byte	0
+ 2085 016a 00       		.byte	0
+ 2086 016b 00       		.byte	0
+ 2087              		.section	.debug_aranges,"",%progbits
+ 2088 0000 6C000000 		.4byte	0x6c
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 52
+
+
+ 2089 0004 0200     		.2byte	0x2
+ 2090 0006 00000000 		.4byte	.Ldebug_info0
+ 2091 000a 04       		.byte	0x4
+ 2092 000b 00       		.byte	0
+ 2093 000c 0000     		.2byte	0
+ 2094 000e 0000     		.2byte	0
+ 2095 0010 00000000 		.4byte	.LFB0
+ 2096 0014 68000000 		.4byte	.LFE0-.LFB0
+ 2097 0018 00000000 		.4byte	.LFB1
+ 2098 001c 2C000000 		.4byte	.LFE1-.LFB1
+ 2099 0020 00000000 		.4byte	.LFB2
+ 2100 0024 26000000 		.4byte	.LFE2-.LFB2
+ 2101 0028 00000000 		.4byte	.LFB3
+ 2102 002c 6C000000 		.4byte	.LFE3-.LFB3
+ 2103 0030 00000000 		.4byte	.LFB4
+ 2104 0034 40010000 		.4byte	.LFE4-.LFB4
+ 2105 0038 00000000 		.4byte	.LFB5
+ 2106 003c 50000000 		.4byte	.LFE5-.LFB5
+ 2107 0040 00000000 		.4byte	.LFB6
+ 2108 0044 10010000 		.4byte	.LFE6-.LFB6
+ 2109 0048 00000000 		.4byte	.LFB7
+ 2110 004c 44000000 		.4byte	.LFE7-.LFB7
+ 2111 0050 00000000 		.4byte	.LFB8
+ 2112 0054 38000000 		.4byte	.LFE8-.LFB8
+ 2113 0058 00000000 		.4byte	.LFB9
+ 2114 005c 58000000 		.4byte	.LFE9-.LFB9
+ 2115 0060 00000000 		.4byte	.LFB10
+ 2116 0064 5C000000 		.4byte	.LFE10-.LFB10
+ 2117 0068 00000000 		.4byte	0
+ 2118 006c 00000000 		.4byte	0
+ 2119              		.section	.debug_ranges,"",%progbits
+ 2120              	.Ldebug_ranges0:
+ 2121 0000 00000000 		.4byte	.LFB0
+ 2122 0004 68000000 		.4byte	.LFE0
+ 2123 0008 00000000 		.4byte	.LFB1
+ 2124 000c 2C000000 		.4byte	.LFE1
+ 2125 0010 00000000 		.4byte	.LFB2
+ 2126 0014 26000000 		.4byte	.LFE2
+ 2127 0018 00000000 		.4byte	.LFB3
+ 2128 001c 6C000000 		.4byte	.LFE3
+ 2129 0020 00000000 		.4byte	.LFB4
+ 2130 0024 40010000 		.4byte	.LFE4
+ 2131 0028 00000000 		.4byte	.LFB5
+ 2132 002c 50000000 		.4byte	.LFE5
+ 2133 0030 00000000 		.4byte	.LFB6
+ 2134 0034 10010000 		.4byte	.LFE6
+ 2135 0038 00000000 		.4byte	.LFB7
+ 2136 003c 44000000 		.4byte	.LFE7
+ 2137 0040 00000000 		.4byte	.LFB8
+ 2138 0044 38000000 		.4byte	.LFE8
+ 2139 0048 00000000 		.4byte	.LFB9
+ 2140 004c 58000000 		.4byte	.LFE9
+ 2141 0050 00000000 		.4byte	.LFB10
+ 2142 0054 5C000000 		.4byte	.LFE10
+ 2143 0058 00000000 		.4byte	0
+ 2144 005c 00000000 		.4byte	0
+ 2145              		.section	.debug_line,"",%progbits
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 53
+
+
+ 2146              	.Ldebug_line0:
+ 2147 0000 43020000 		.section	.debug_str,"MS",%progbits,1
+ 2147      02007900 
+ 2147      00000201 
+ 2147      FB0E0D00 
+ 2147      01010101 
+ 2148              	.LASF23:
+ 2149 0000 43617053 		.ascii	"CapSense_CSD_UpdateSensorBaseline\000"
+ 2149      656E7365 
+ 2149      5F435344 
+ 2149      5F557064 
+ 2149      61746553 
+ 2150              	.LASF43:
+ 2151 0022 43617053 		.ascii	"CapSense_CSD_sensorEnableMask\000"
+ 2151      656E7365 
+ 2151      5F435344 
+ 2151      5F73656E 
+ 2151      736F7245 
+ 2152              	.LASF38:
+ 2153 0040 73746174 		.ascii	"state\000"
+ 2153      6500
+ 2154              	.LASF26:
+ 2155 0046 66696C74 		.ascii	"filteredRawData\000"
+ 2155      65726564 
+ 2155      52617744 
+ 2155      61746100 
+ 2156              	.LASF49:
+ 2157 0056 43617053 		.ascii	"CapSense_CSD_lowBaselineResetCnt\000"
+ 2157      656E7365 
+ 2157      5F435344 
+ 2157      5F6C6F77 
+ 2157      42617365 
+ 2158              	.LASF51:
+ 2159 0077 43617053 		.ascii	"CapSense_CSD_noiseThreshold\000"
+ 2159      656E7365 
+ 2159      5F435344 
+ 2159      5F6E6F69 
+ 2159      73655468 
+ 2160              	.LASF3:
+ 2161 0093 73686F72 		.ascii	"short unsigned int\000"
+ 2161      7420756E 
+ 2161      7369676E 
+ 2161      65642069 
+ 2161      6E7400
+ 2162              	.LASF47:
+ 2163 00a6 43617053 		.ascii	"CapSense_CSD_sensorSignal\000"
+ 2163      656E7365 
+ 2163      5F435344 
+ 2163      5F73656E 
+ 2163      736F7253 
+ 2164              	.LASF40:
+ 2165 00c0 43617053 		.ascii	"CapSense_CSD_EnableWidget\000"
+ 2165      656E7365 
+ 2165      5F435344 
+ 2165      5F456E61 
+ 2165      626C6557 
+ 2166              	.LASF25:
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 54
+
+
+ 2167 00da 74656D70 		.ascii	"tempRaw\000"
+ 2167      52617700 
+ 2168              	.LASF27:
+ 2169 00e2 6E6F6973 		.ascii	"noiseThreshold\000"
+ 2169      65546872 
+ 2169      6573686F 
+ 2169      6C6400
+ 2170              	.LASF36:
+ 2171 00f1 72617749 		.ascii	"rawIndex\000"
+ 2171      6E646578 
+ 2171      00
+ 2172              	.LASF12:
+ 2173 00fa 666C6F61 		.ascii	"float\000"
+ 2173      7400
+ 2174              	.LASF54:
+ 2175 0100 43617053 		.ascii	"CapSense_CSD_debounceCounter\000"
+ 2175      656E7365 
+ 2175      5F435344 
+ 2175      5F646562 
+ 2175      6F756E63 
+ 2176              	.LASF1:
+ 2177 011d 756E7369 		.ascii	"unsigned char\000"
+ 2177      676E6564 
+ 2177      20636861 
+ 2177      7200
+ 2178              	.LASF22:
+ 2179 012b 656E4D61 		.ascii	"enMask\000"
+ 2179      736B00
+ 2180              	.LASF5:
+ 2181 0132 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2181      20756E73 
+ 2181      69676E65 
+ 2181      6420696E 
+ 2181      7400
+ 2182              	.LASF48:
+ 2183 0144 43617053 		.ascii	"CapSense_CSD_sensorOnMask\000"
+ 2183      656E7365 
+ 2183      5F435344 
+ 2183      5F73656E 
+ 2183      736F724F 
+ 2184              	.LASF9:
+ 2185 015e 75696E74 		.ascii	"uint8\000"
+ 2185      3800
+ 2186              	.LASF46:
+ 2187 0164 43617053 		.ascii	"CapSense_CSD_sensorBaselineLow\000"
+ 2187      656E7365 
+ 2187      5F435344 
+ 2187      5F73656E 
+ 2187      736F7242 
+ 2188              	.LASF34:
+ 2189 0183 43617053 		.ascii	"CapSense_CSD_CheckIsSensorActive\000"
+ 2189      656E7365 
+ 2189      5F435344 
+ 2189      5F436865 
+ 2189      636B4973 
+ 2190              	.LASF28:
+ 2191 01a4 43617053 		.ascii	"CapSense_CSD_UpdateEnabledBaselines\000"
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 55
+
+
+ 2191      656E7365 
+ 2191      5F435344 
+ 2191      5F557064 
+ 2191      61746545 
+ 2192              	.LASF39:
+ 2193 01c8 43617053 		.ascii	"CapSense_CSD_CheckIsAnyWidgetActive\000"
+ 2193      656E7365 
+ 2193      5F435344 
+ 2193      5F436865 
+ 2193      636B4973 
+ 2194              	.LASF57:
+ 2195 01ec 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 2195      4320342E 
+ 2195      392E3320 
+ 2195      32303135 
+ 2195      30333033 
+ 2196 021f 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 2196      20726576 
+ 2196      6973696F 
+ 2196      6E203232 
+ 2196      31323230 
+ 2197 0252 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 2197      66756E63 
+ 2197      74696F6E 
+ 2197      2D736563 
+ 2197      74696F6E 
+ 2198              	.LASF13:
+ 2199 027a 646F7562 		.ascii	"double\000"
+ 2199      6C6500
+ 2200              	.LASF59:
+ 2201 0281 443A5C55 		.ascii	"D:\\Utilisateurs\\user\\Documents\\PSoC Creator\\Wo"
+ 2201      74696C69 
+ 2201      73617465 
+ 2201      7572735C 
+ 2201      75736572 
+ 2202 02af 726B7370 		.ascii	"rkspace02\\CapSense_CSD_WithTuner01.cydsn\000"
+ 2202      61636530 
+ 2202      325C4361 
+ 2202      7053656E 
+ 2202      73655F43 
+ 2203              	.LASF30:
+ 2204 02d8 6F6E4D61 		.ascii	"onMask\000"
+ 2204      736B00
+ 2205              	.LASF10:
+ 2206 02df 75696E74 		.ascii	"uint16\000"
+ 2206      313600
+ 2207              	.LASF19:
+ 2208 02e6 43617053 		.ascii	"CapSense_CSD_InitializeAllBaselines\000"
+ 2208      656E7365 
+ 2208      5F435344 
+ 2208      5F496E69 
+ 2208      7469616C 
+ 2209              	.LASF11:
+ 2210 030a 75696E74 		.ascii	"uint32\000"
+ 2210      333200
+ 2211              	.LASF37:
+ 2212 0311 6E756D62 		.ascii	"numberOfSensors\000"
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 56
+
+
+ 2212      65724F66 
+ 2212      53656E73 
+ 2212      6F727300 
+ 2213              	.LASF8:
+ 2214 0321 756E7369 		.ascii	"unsigned int\000"
+ 2214      676E6564 
+ 2214      20696E74 
+ 2214      00
+ 2215              	.LASF7:
+ 2216 032e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2216      206C6F6E 
+ 2216      6720756E 
+ 2216      7369676E 
+ 2216      65642069 
+ 2217              	.LASF55:
+ 2218 0345 43617053 		.ascii	"CapSense_CSD_rawDataIndex\000"
+ 2218      656E7365 
+ 2218      5F435344 
+ 2218      5F726177 
+ 2218      44617461 
+ 2219              	.LASF33:
+ 2220 035f 6465626F 		.ascii	"debounce\000"
+ 2220      756E6365 
+ 2220      00
+ 2221              	.LASF20:
+ 2222 0368 77696467 		.ascii	"widget\000"
+ 2222      657400
+ 2223              	.LASF32:
+ 2224 036f 68797374 		.ascii	"hysteresis\000"
+ 2224      65726573 
+ 2224      697300
+ 2225              	.LASF52:
+ 2226 037a 43617053 		.ascii	"CapSense_CSD_hysteresis\000"
+ 2226      656E7365 
+ 2226      5F435344 
+ 2226      5F687973 
+ 2226      74657265 
+ 2227              	.LASF15:
+ 2228 0392 73697A65 		.ascii	"sizetype\000"
+ 2228      74797065 
+ 2228      00
+ 2229              	.LASF29:
+ 2230 039b 6465626F 		.ascii	"debounceIndex\000"
+ 2230      756E6365 
+ 2230      496E6465 
+ 2230      7800
+ 2231              	.LASF6:
+ 2232 03a9 6C6F6E67 		.ascii	"long long int\000"
+ 2232      206C6F6E 
+ 2232      6720696E 
+ 2232      7400
+ 2233              	.LASF58:
+ 2234 03b7 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\CapSense_CSD_CSHL.c\000"
+ 2234      6E657261 
+ 2234      7465645F 
+ 2234      536F7572 
+ 2234      63655C50 
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 57
+
+
+ 2235              	.LASF31:
+ 2236 03e4 66696E67 		.ascii	"fingerThreshold\000"
+ 2236      65725468 
+ 2236      72657368 
+ 2236      6F6C6400 
+ 2237              	.LASF17:
+ 2238 03f4 43617053 		.ascii	"CapSense_CSD_InitializeSensorBaseline\000"
+ 2238      656E7365 
+ 2238      5F435344 
+ 2238      5F496E69 
+ 2238      7469616C 
+ 2239              	.LASF41:
+ 2240 041a 43617053 		.ascii	"CapSense_CSD_DisableWidget\000"
+ 2240      656E7365 
+ 2240      5F435344 
+ 2240      5F446973 
+ 2240      61626C65 
+ 2241              	.LASF18:
+ 2242 0435 73656E73 		.ascii	"sensor\000"
+ 2242      6F7200
+ 2243              	.LASF2:
+ 2244 043c 73686F72 		.ascii	"short int\000"
+ 2244      7420696E 
+ 2244      7400
+ 2245              	.LASF21:
+ 2246 0446 43617053 		.ascii	"CapSense_CSD_InitializeEnabledBaselines\000"
+ 2246      656E7365 
+ 2246      5F435344 
+ 2246      5F496E69 
+ 2246      7469616C 
+ 2247              	.LASF42:
+ 2248 046e 43617053 		.ascii	"CapSense_CSD_sensorRaw\000"
+ 2248      656E7365 
+ 2248      5F435344 
+ 2248      5F73656E 
+ 2248      736F7252 
+ 2249              	.LASF56:
+ 2250 0485 43617053 		.ascii	"CapSense_CSD_numberOfSensors\000"
+ 2250      656E7365 
+ 2250      5F435344 
+ 2250      5F6E756D 
+ 2250      6265724F 
+ 2251              	.LASF45:
+ 2252 04a2 43617053 		.ascii	"CapSense_CSD_sensorBaseline\000"
+ 2252      656E7365 
+ 2252      5F435344 
+ 2252      5F73656E 
+ 2252      736F7242 
+ 2253              	.LASF24:
+ 2254 04be 63616C63 		.ascii	"calc\000"
+ 2254      00
+ 2255              	.LASF4:
+ 2256 04c3 6C6F6E67 		.ascii	"long int\000"
+ 2256      20696E74 
+ 2256      00
+ 2257              	.LASF14:
+ 2258 04cc 63686172 		.ascii	"char\000"
+ARM GAS  C:\Users\user\AppData\Local\Temp\ccxtGrYL.s 			page 58
+
+
+ 2258      00
+ 2259              	.LASF16:
+ 2260 04d1 43617053 		.ascii	"CapSense_CSD_BaseInit\000"
+ 2260      656E7365 
+ 2260      5F435344 
+ 2260      5F426173 
+ 2260      65496E69 
+ 2261              	.LASF0:
+ 2262 04e7 7369676E 		.ascii	"signed char\000"
+ 2262      65642063 
+ 2262      68617200 
+ 2263              	.LASF44:
+ 2264 04f3 43617053 		.ascii	"CapSense_CSD_widgetNumber\000"
+ 2264      656E7365 
+ 2264      5F435344 
+ 2264      5F776964 
+ 2264      6765744E 
+ 2265              	.LASF50:
+ 2266 050d 43617053 		.ascii	"CapSense_CSD_fingerThreshold\000"
+ 2266      656E7365 
+ 2266      5F435344 
+ 2266      5F66696E 
+ 2266      67657254 
+ 2267              	.LASF35:
+ 2268 052a 43617053 		.ascii	"CapSense_CSD_CheckIsWidgetActive\000"
+ 2268      656E7365 
+ 2268      5F435344 
+ 2268      5F436865 
+ 2268      636B4973 
+ 2269              	.LASF53:
+ 2270 054b 43617053 		.ascii	"CapSense_CSD_debounce\000"
+ 2270      656E7365 
+ 2270      5F435344 
+ 2270      5F646562 
+ 2270      6F756E63 
+ 2271              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

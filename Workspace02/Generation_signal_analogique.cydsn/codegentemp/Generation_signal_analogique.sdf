@@ -1,0 +1,22 @@
+(DELAYFILE
+ (SDFVERSION "IEEE 1497 4.0")
+ (DATE "2022-02-07T15:38:25Z")
+ (DESIGN "Generation_signal_analogique")
+ (VENDOR "Cypress Semiconductor")
+ (PROGRAM "PSoC Creator")
+ (VERSION " 3.3 CP2")
+ (DIVIDER .)
+ (TIMESCALE 1 ns)
+ (CELL
+  (CELLTYPE "Generation_signal_analogique")
+  (INSTANCE *)
+  (DELAY
+   (ABSOLUTE
+    (INTERCONNECT ClockBlock.clk_bus_glb DMA_1.clock (0.000:0.000:0.000))
+    (INTERCONNECT \\Timer_1\:TimerHW\\.irq DMA_1.dmareq (3.429:3.429:3.429))
+    (INTERCONNECT __ONE__.q \\Timer_1\:TimerHW\\.enable (7.728:7.728:7.728))
+    (INTERCONNECT ClockBlock.clk_bus_glb_ff \\Timer_1\:TimerHW\\.clock (0.000:0.000:0.000))
+   )
+  )
+ )
+)
